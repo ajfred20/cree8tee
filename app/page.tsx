@@ -17,8 +17,6 @@ import {
   Scale,
   Briefcase,
   Trophy,
-  Mail,
-  Send,
   SendIcon,
   Sparkles,
   Instagram,
@@ -53,19 +51,21 @@ export default function Page() {
             className="object-contain"
           />
         </Link>
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="#" className="text-gray-600 hover:text-black">
-            Achievements
-          </Link>
-          <Link href="#" className="text-gray-600 hover:text-black">
-            Our Work
-          </Link>
-          <Link href="#" className="text-gray-600 hover:text-black">
-            Comparision
-          </Link>
-          <Link href="#" className="text-gray-600 hover:text-black">
-            FAQs
-          </Link>
+        <div className="flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-8">
+            <Link href="#" className="text-gray-600 hover:text-black">
+              Achievements
+            </Link>
+            <Link href="#" className="text-gray-600 hover:text-black">
+              Our Work
+            </Link>
+            <Link href="#" className="text-gray-600 hover:text-black">
+              Comparision
+            </Link>
+            <Link href="#" className="text-gray-600 hover:text-black">
+              FAQs
+            </Link>
+          </div>
           <Link
             href="#"
             className="bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800"
@@ -101,7 +101,7 @@ export default function Page() {
       </nav>
 
       {/* Hero Section */}
-      <main className="max-w-7xl mx-auto px-6 pt-20 pb-16 text-center">
+      <main className="w-full pt-20 pb-16 text-center bg-[url('/assets/hero-bg.png')] bg-cover bg-center bg-no-repeat">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8">
           <div className="flex items-center gap-2 bg-green-50 text-green-800 tracking-tight font-medium px-4 py-2 lg:px-6 lg:py-3 rounded-full text-sm lg:text-base">
             <span className="relative flex h-2 w-2">
@@ -116,8 +116,9 @@ export default function Page() {
           That Design Agency for both Founders and Startups
         </h1>
 
-        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-          We don't just design, we solve your brand's biggest challenges
+        <p className="text-xl text-gray-800 mb-8 max-w-2xl mx-auto tracking-tight leading-tight">
+          We don't just design, we solve your brand's <br />
+          biggest challenges
         </p>
 
         <Link
@@ -128,26 +129,30 @@ export default function Page() {
         </Link>
 
         {/* Features */}
-        <div className="grid md:grid-cols-3 gap-8 mt-20">
-          <div className="flex items-center gap-4 justify-center">
-            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-              <Clock4 className="w-6 h-6" />
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 mt-20">
+            <div className="flex items-center gap-4 justify-center">
+              <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                <Clock4 className="w-6 h-6" />
+              </div>
+              <span className="font-medium">48 Hours Delivery</span>
             </div>
-            <span className="font-medium">48 Hours Delivery</span>
-          </div>
 
-          <div className="flex items-center gap-4 justify-center">
-            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-              <Layers className="w-6 h-6" />
+            <div className="flex items-center gap-4 justify-center">
+              <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                <Layers className="w-6 h-6" />
+              </div>
+              <span className="font-medium">
+                Access to Private Design Portal
+              </span>
             </div>
-            <span className="font-medium">Access to Private Design Portal</span>
-          </div>
 
-          <div className="flex items-center gap-4 justify-center">
-            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-              <Plus className="w-6 h-6" />
+            <div className="flex items-center gap-4 justify-center">
+              <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                <Plus className="w-6 h-6" />
+              </div>
+              <span className="font-medium">Unlimited Design Requests</span>
             </div>
-            <span className="font-medium">Unlimited Design Requests</span>
           </div>
         </div>
       </main>
