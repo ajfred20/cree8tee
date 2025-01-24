@@ -867,15 +867,6 @@ export default function Page() {
             </Link>
           </motion.div>
 
-          <motion.div
-            className="text-sm text-gray-400"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            Just click
-          </motion.div>
-
           <motion.p
             className="mt-16 text-lg"
             initial={{ opacity: 0 }}
