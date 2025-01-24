@@ -22,6 +22,7 @@ import { InteractiveSteps } from "@/components/interactive-steps";
 import { ServiceGrid } from "@/components/service-grid";
 import { TimeZoneBar } from "@/components/time-zone-bar";
 import { ProjectDrawer } from "@/components/project-drawer";
+import { ComparisonTable } from "@/components/comparison-table";
 
 export default function Page() {
   return (
@@ -512,6 +513,275 @@ export default function Page() {
 
           {/* Time Zone Bar */}
           <TimeZoneBar />
+        </div>
+      </section>
+
+      {/* Comparison Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Why choose us?</h2>
+            <p className="text-lg text-gray-600">
+              Check out what Cre8tee offers Vs employees and other agencies.
+              It's quite a lot!
+            </p>
+          </div>
+
+          <ComparisonTable />
+
+          <div className="text-center mt-16">
+            <p className="text-xl font-medium">
+              And here comes the <span className="font-bold">Sauce...</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-32 bg-black w-full max-w-screen-2xl mx-auto text-white relative rounded-3xl">
+        {/* Grid Background */}
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Stars */}
+        <div className="absolute inset-0">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 2}s`,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+          <h2 className="text-6xl font-bold mb-6 tracking-tight">
+            Pause or Cancel
+            <br />
+            anytime
+          </h2>
+          <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+            Don't commit to a Designer you've gotta pay even when there's no
+            work to give them. Oh heck no!
+          </p>
+          <Link
+            href="#"
+            className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full hover:bg-gray-100 transition-colors"
+          >
+            <span>View Plans and Pricing</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M3 8H13M13 8L8 3M13 8L8 13"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 tracking-tighter">
+              No Contract, No Surprises
+            </h2>
+            <p className="text-lg text-gray-600">
+              Consistent Pricing and Value Each Month,
+              <br />
+              with the Flexibility to Cancel Anytime
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Retainer Plan */}
+            <div className="bg-black text-white rounded-3xl p-8">
+              <div className="flex flex-col h-full">
+                <div className="mb-8">
+                  <div className="flex items-center gap-2 mb-4">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M3 3v18h18" />
+                      <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" />
+                    </svg>
+                    <h3 className="text-2xl font-bold">Retainer</h3>
+                  </div>
+                  <p className="text-gray-400">
+                    Best suited for growing companies or agencies that require
+                    ongoing and fast design support.
+                  </p>
+                </div>
+
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-center gap-2 text-green-400">
+                    <Plus className="w-4 h-4" />
+                    <span>2 Active request at a time</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-green-400">
+                    <Plus className="w-4 h-4" />
+                    <span>2X Senior designer</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-green-400">
+                    <Plus className="w-4 h-4" />
+                    <span>Weekly progress meetings</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-400">
+                    <CircleDot className="w-4 h-4" />
+                    <span>2 days turnaround</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-400">
+                    <CircleDot className="w-4 h-4" />
+                    <span>Unlimited design requests</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-400">
+                    <CircleDot className="w-4 h-4" />
+                    <span>Up to 120 hours of design work each month</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-400">
+                    <CircleDot className="w-4 h-4" />
+                    <span>Expert project management</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-400">
+                    <CircleDot className="w-4 h-4" />
+                    <span>
+                      Communication through Async, Slack, Zoom & Meetings
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 mb-8">
+                  <div className="flex items-center">
+                    <Plus className="w-4 h-4 text-green-400" />
+                    <span className="text-green-400">
+                      Free Website Development with Framer
+                    </span>
+                  </div>
+                  <div className="relative ml-2 w-12 h-6 bg-gray-800 rounded-full">
+                    <div className="absolute left-1 top-1 w-4 h-4 bg-green-400 rounded-full" />
+                  </div>
+                </div>
+
+                <div className="mt-auto">
+                  <div className="mb-8">
+                    <div className="flex items-baseline">
+                      <span className="text-4xl font-bold">$3499</span>
+                      <span className="text-gray-400 ml-2">/ per month</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <button className="w-full bg-white text-black py-3 rounded-full hover:bg-gray-100 transition-colors">
+                      Get Started Today
+                    </button>
+                    <button className="w-full text-white border border-white/20 py-3 rounded-full hover:bg-white/10 transition-colors">
+                      or Book a Call
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Landing Page Design Plan */}
+            <div className="bg-white border border-gray-200 rounded-3xl p-8">
+              <div className="flex flex-col h-full">
+                <div className="mb-8">
+                  <div className="flex items-center gap-2 mb-4">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 6v6l4 2" />
+                    </svg>
+                    <h3 className="text-2xl font-bold">Landing Page Design</h3>
+                  </div>
+                  <p className="text-gray-600">
+                    Bring your dream website to life in just days, not months.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 rounded-xl p-4 mb-8">
+                  <p className="text-gray-600">
+                    Ideal for a single, high-impact landing page designed to
+                    maximize conversions.
+                  </p>
+                </div>
+
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-center gap-2">
+                    <CircleDot className="w-4 h-4" />
+                    <span>Wireframes</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CircleDot className="w-4 h-4" />
+                    <span>Custom Layout</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CircleDot className="w-4 h-4" />
+                    <span>Desktop, Tablet, Mobile Responsive Design</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CircleDot className="w-4 h-4" />
+                    <span>Brand Consistency</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CircleDot className="w-4 h-4" />
+                    <span>Figma File</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CircleDot className="w-4 h-4" />
+                    <span>3X Revision</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 mb-8">
+                  <div className="flex items-center">
+                    <Plus className="w-4 h-4 text-green-600" />
+                    <span className="text-green-600">
+                      Website development (Framer)
+                    </span>
+                  </div>
+                  <div className="relative ml-2 w-12 h-6 bg-gray-100 rounded-full">
+                    <div className="absolute right-1 top-1 w-4 h-4 bg-gray-400 rounded-full" />
+                  </div>
+                </div>
+
+                <div className="mt-auto">
+                  <div className="mb-8">
+                    <div className="flex items-baseline">
+                      <span className="text-4xl font-bold">$1499</span>
+                      <span className="text-gray-500 ml-2">one time</span>
+                    </div>
+                  </div>
+
+                  <button className="w-full bg-black text-white py-3 rounded-full hover:bg-gray-900 transition-colors">
+                    Book for January
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>

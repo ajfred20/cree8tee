@@ -99,3 +99,17 @@
     font-weight: bold; /* Optional for a stronger effect */
   }
 }
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s infinite;
+}
