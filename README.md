@@ -26,7 +26,7 @@ After cloning the repository, navigate to the `app` folder and edit the `page.ts
 To get started, clone the repository using the following command:
 
 ```bash
-git clone https://github.com/yourusername/cre8tee.git
+git clone https://github.com/ajfred20/cree8tee.git
 cd cre8tee
 ```
 
