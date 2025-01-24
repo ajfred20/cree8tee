@@ -20,6 +20,8 @@ import { AchievementCard } from "@/components/achievement-card";
 import { BenefitCard } from "@/components/benefit-card";
 import { InteractiveSteps } from "@/components/interactive-steps";
 import { ServiceGrid } from "@/components/service-grid";
+import { TimeZoneBar } from "@/components/time-zone-bar";
+import { ProjectDrawer } from "@/components/project-drawer";
 
 export default function Page() {
   return (
@@ -278,6 +280,238 @@ export default function Page() {
               <span className="font-bold">More...</span>
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* See Our Work Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <p className="text-gray-600 mb-2">Still confused about us</p>
+            <h2 className="text-4xl font-bold tracking-tight">See our work</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* First Row */}
+            <div className="relative aspect-square rounded-3xl overflow-hidden group">
+              <Image
+                src="/assets/brand.avif"
+                alt="Glass layers design"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <ProjectDrawer
+                  title="Sprrrint"
+                  description="Sprrrint is a resource website that contains modern design assets like Fonts, Icons, 3D & 2D Illustrations, Courses, Website Templates and Design Systems, and more. It has all the resources that will help young and aspiring designers to start their designer's journey"
+                  status="In progress"
+                  scope={[
+                    "Framer Development",
+                    "Brand Design",
+                    "Social Media Design",
+                    "Webflow Development",
+                  ]}
+                  cost="Time and Efforts"
+                  year="2024"
+                  images={[
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                  ]}
+                >
+                  <div className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full">
+                    <span>View Project</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M3 8H13M13 8L8 3M13 8L8 13"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </ProjectDrawer>
+              </div>
+            </div>
+
+            <div className="relative aspect-square rounded-3xl overflow-hidden group">
+              <Image
+                src="/assets/brand.avif"
+                alt="DJ Setup"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <ProjectDrawer
+                  title="Sprrrint"
+                  description="Sprrrint is a resource website that contains modern design assets like Fonts, Icons, 3D & 2D Illustrations, Courses, Website Templates and Design Systems, and more. It has all the resources that will help young and aspiring designers to start their designer's journey"
+                  status="In progress"
+                  scope={[
+                    "Framer Development",
+                    "Brand Design",
+                    "Social Media Design",
+                    "Webflow Development",
+                  ]}
+                  cost="Time and Efforts"
+                  year="2024"
+                  images={[
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                  ]}
+                >
+                  <div className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full">
+                    <span>View Project</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M3 8H13M13 8L8 3M13 8L8 13"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </ProjectDrawer>
+              </div>
+            </div>
+
+            {/* Second Row */}
+            <div className="relative aspect-square rounded-3xl overflow-hidden group">
+              <Image
+                src="/assets/brand.avif"
+                alt="Container architecture"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <ProjectDrawer
+                  title="Sprrrint"
+                  description="Sprrrint is a resource website that contains modern design assets like Fonts, Icons, 3D & 2D Illustrations, Courses, Website Templates and Design Systems, and more. It has all the resources that will help young and aspiring designers to start their designer's journey"
+                  status="In progress"
+                  scope={[
+                    "Framer Development",
+                    "Brand Design",
+                    "Social Media Design",
+                    "Webflow Development",
+                  ]}
+                  cost="Time and Efforts"
+                  year="2024"
+                  images={[
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                  ]}
+                >
+                  <div className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full">
+                    <span>View Project</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M3 8H13M13 8L8 3M13 8L8 13"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </ProjectDrawer>
+              </div>
+            </div>
+
+            <div className="relative aspect-square rounded-3xl overflow-hidden group">
+              <Image
+                src="/assets/brand.avif"
+                alt="Fashion photography"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <ProjectDrawer
+                  title="Sprrrint"
+                  description="Sprrrint is a resource website that contains modern design assets like Fonts, Icons, 3D & 2D Illustrations, Courses, Website Templates and Design Systems, and more. It has all the resources that will help young and aspiring designers to start their designer's journey"
+                  status="In progress"
+                  scope={[
+                    "Framer Development",
+                    "Brand Design",
+                    "Social Media Design",
+                    "Webflow Development",
+                  ]}
+                  cost="Time and Efforts"
+                  year="2024"
+                  images={[
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                  ]}
+                >
+                  <div className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full">
+                    <span>View Project</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M3 8H13M13 8L8 3M13 8L8 13"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </ProjectDrawer>
+              </div>
+            </div>
+
+            {/* Bottom Banner */}
+            <div className="md:col-span-2 relative aspect-[2.5/1] rounded-3xl overflow-hidden group">
+              <Image
+                src="/assets/brand.avif"
+                alt="Project showcase"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <ProjectDrawer
+                  title="Branding"
+                  description="Brandee is a resource website that contains modern design assets like Fonts, Icons, 3D & 2D Illustrations, Courses, Website Templates and Design Systems, and more. It has all the resources that will help young and aspiring designers to start their designer's journey"
+                  status="In progress"
+                  scope={[
+                    "Brand Design",
+                    "Social Media Design",
+                    "Webflow Development",
+                  ]}
+                  cost="Time and Efforts"
+                  year="2024"
+                  images={[
+                    "/assets/brand.avif",
+                    "/assets/logo.png",
+                    "/assets/brand.avif",
+                    "/assets/brand.avif",
+                  ]}
+                >
+                  <div className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full">
+                    <span>View Project</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M3 8H13M13 8L8 3M13 8L8 13"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </ProjectDrawer>
+              </div>
+            </div>
+          </div>
+
+          {/* Time Zone Bar */}
+          <TimeZoneBar />
         </div>
       </section>
     </div>
