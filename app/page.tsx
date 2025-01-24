@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -15,6 +17,13 @@ import {
   Scale,
   Briefcase,
   Trophy,
+  Mail,
+  Send,
+  SendIcon,
+  Sparkles,
+  Instagram,
+  Twitter,
+  Facebook,
 } from "lucide-react";
 import { AchievementCard } from "@/components/achievement-card";
 import { BenefitCard } from "@/components/benefit-card";
@@ -23,6 +32,13 @@ import { ServiceGrid } from "@/components/service-grid";
 import { TimeZoneBar } from "@/components/time-zone-bar";
 import { ProjectDrawer } from "@/components/project-drawer";
 import { ComparisonTable } from "@/components/comparison-table";
+import { FaqAccordion } from "@/components/faq-accordion";
+import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
+
+const ScrollingTasks = dynamic(() => import("@/components/scrolling-tasks"), {
+  ssr: false,
+});
 
 export default function Page() {
   return (
@@ -784,6 +800,158 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-lg text-gray-600">
+              We Get It—Curiosity Leads to Success!
+              <br />
+              Got questions? That's a great sign. Here are some
+            </p>
+          </div>
+
+          <FaqAccordion />
+
+          <div className="text-center mt-12">
+            <p className="text-xl mb-6">Can't find your answer?</p>
+            <Link
+              href="#"
+              className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-full hover:bg-gray-900 transition-colors"
+            >
+              <span>Send us a Mail</span>
+              <SendIcon className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-32 bg-black text-white relative overflow-hidden">
+        {/* Grid Background */}
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+
+        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+          <motion.h2
+            className="text-4xl font-bold mb-8 tracking-tighter leading-tight"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            If you scrolled this far,
+            <br />
+            It's time to STEP UP
+          </motion.h2>
+
+          <motion.div
+            className="flex justify-center mb-4"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <Link
+              href="#"
+              className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full hover:bg-gray-100 transition-colors"
+            >
+              <span>Join the Elite Club</span>
+              <Sparkles className="w-4 h-4" />
+            </Link>
+          </motion.div>
+
+          <motion.div
+            className="text-sm text-gray-400"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            Just click
+          </motion.div>
+
+          <motion.p
+            className="mt-16 text-lg"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            Trust me we are good at this :)
+          </motion.p>
+
+          {/* Scrolling Task List */}
+          <div className="mt-16">
+            <ScrollingTasks
+              pendingTasks={[
+                "Landing Page",
+                "Contact Page need to update",
+                "Pitch deck urgent",
+                "Branding",
+                "Landing Page",
+                "Contact Page need to update",
+              ]}
+              completedTasks={[
+                "Landing Page",
+                "Contact Page need to update",
+                "Pitch deck urgent",
+                "Branding",
+                "Logo",
+                "Landing Page",
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 border-t mb-12 md:mb-3">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-gray-600">
+              © {new Date().getFullYear()} Cre8tee. All rights reserved.
+            </div>
+
+            <div className="flex items-center gap-6">
+              <Link
+                href="#"
+                className="text-gray-600 hover:text-black transition-colors"
+              >
+                <Facebook className="w-5 h-5" />
+              </Link>
+              <Link
+                href="#"
+                className="text-gray-600 hover:text-black transition-colors"
+              >
+                <Twitter className="w-5 h-5" />
+              </Link>
+              <Link
+                href="#"
+                className="text-gray-600 hover:text-black transition-colors"
+              >
+                <Instagram className="w-5 h-5" />
+              </Link>
+            </div>
+
+            <div className="flex items-center gap-1 text-gray-600">
+              Built with 🫶🏽🩷 by{" "}
+              <Link
+                href="https://x.com/iamajfred_"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-black hover:text-gray-600 transition-colors"
+              >
+                Aj Fred
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
