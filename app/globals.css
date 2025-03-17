@@ -86,30 +86,32 @@
   }
 
   .text-gradient {
-    background: linear-gradient(
-      to right,
-      #ff6ec7,
-      /* Soft pink */ #ff9a9e,
-      /* Peach */ #fbc8d4,
-      /* Light coral */ #7eadf8,
-      /* Sky blue */ #61b9e2 /* Soft cyan */
-    );
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: bold; /* Optional for a stronger effect */
+    background-clip: text;
+    color: transparent;
   }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+.animate-ping {
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 @keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0;
-  }
-  50% {
+  0%, 100% {
     opacity: 1;
   }
+  50% {
+    opacity: 0.3;
+  }
 }
-
 .animate-twinkle {
-  animation: twinkle 3s infinite;
+  animation: twinkle 3s ease-in-out infinite;
 }
