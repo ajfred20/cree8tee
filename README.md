@@ -1,9 +1,5 @@
 # Cre8tee - Your Design Partner 🎨
 
-![Cre8tee Preview](https://raw.githubusercontent.com/ajfred20/cree8tee/main/public/assets/preview.png)
-
-> 🌟 A modern design agency website built with Next.js 15, Tailwind CSS, and Framer Motion
-
 ## 🔴 Live Preview
 
 Check out the live site at [Cre8tee](https://cre8tee.vercel.app
