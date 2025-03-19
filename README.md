@@ -6,16 +6,7 @@
 
 ## 🔴 Live Preview
 
-Check out the live site at [Cre8tee](https://cre8tee.vercel.app)
-
-## ✨ Features
-
-- ⚡️ Next.js 15 with App Router
-- 🎨 Tailwind CSS for styling
-- 🎬 Framer Motion animations
-- 📱 Fully responsive design
-- 🌙 Modern UI components
-- 🚀 Fast performance
+Check out the live site at [Cre8tee](https://cre8tee.vercel.app
 
 ## 🚀 Getting Started
 
