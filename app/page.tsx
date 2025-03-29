@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Instagram, Twitter, Facebook, ArrowRight } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { Instagram, Twitter, Facebook, ArrowRight, Menu } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Page() {
   const logoTickerRef = useRef<HTMLDivElement>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Animation for logo ticker
   useEffect(() => {
@@ -32,19 +33,30 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation - Styled like Essos with purple accent */}
-      <div className="max-w-7xl mx-auto px-6 py-4">
+      {/* Navigation - Responsive */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
         <nav className="flex items-center justify-between">
-          <Link href="/" className="font-bold text-2xl text-black">
+          <Link href="/" className="font-bold text-2xl text-black z-10">
             <Image
               src="/assets/logo.svg"
               alt="Web3Hustle Logo"
-              width={150}
-              height={150}
+              width={120}
+              height={40}
+              className="h-10 w-auto"
             />
           </Link>
-          <div className="flex items-center gap-8">
-            <div className="hidden md:flex items-center gap-8">
+
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden z-20 p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <Menu className="h-6 w-6 text-black" />
+          </button>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-4 lg:gap-8">
+            <div className="flex items-center gap-4 lg:gap-8">
               <Link
                 href="#"
                 className="text-black hover:text-purple-600 font-medium text-sm uppercase"
@@ -79,34 +91,86 @@ export default function Page() {
               </Link>
               <Link
                 href="#"
-                className="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 font-medium text-sm uppercase"
+                className="bg-purple-600 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-full hover:bg-purple-700 font-medium text-sm uppercase"
               >
                 Get Started
               </Link>
             </div>
           </div>
+
+          {/* Mobile Navigation Overlay */}
+          {mobileMenuOpen && (
+            <div className="fixed inset-0 bg-white z-10 flex flex-col items-center justify-center md:hidden">
+              <div className="flex flex-col items-center gap-8">
+                <Link
+                  href="#"
+                  className="text-black hover:text-purple-600 font-medium text-lg uppercase"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  About
+                </Link>
+                <Link
+                  href="#"
+                  className="text-black hover:text-purple-600 font-medium text-lg uppercase"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Products
+                </Link>
+                <Link
+                  href="#"
+                  className="text-black hover:text-purple-600 font-medium text-lg uppercase"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Testimonial
+                </Link>
+                <Link
+                  href="#"
+                  className="text-black hover:text-purple-600 font-medium text-lg uppercase"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Blog
+                </Link>
+                <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
+                  <Link
+                    href="#"
+                    className="text-black hover:text-purple-600 font-medium text-lg uppercase flex items-center"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Login <ArrowRight className="w-5 h-5 ml-1" />
+                  </Link>
+                  <Link
+                    href="#"
+                    className="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 font-medium text-lg uppercase mt-4 sm:mt-0"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </nav>
       </div>
 
-      {/* Hero Section - Styled like Essos with purple accent */}
-      <div className="max-w-7xl mx-auto px-6 pt-16 pb-24">
-        <div className="flex flex-col items-center text-center mb-12">
-          <div className="inline-flex items-center bg-gray-100 rounded-full px-4 py-2 mb-8">
+      {/* Hero Section - Responsive */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 md:pt-16 pb-12 md:pb-24">
+        <div className="flex flex-col items-center text-center mb-8 md:mb-12">
+          <div className="inline-flex items-center bg-gray-100 rounded-full px-4 py-2 mb-6 md:mb-8">
             <div className="w-2 h-2 bg-purple-600 rounded-full mr-2 animate-pulse"></div>
-            <span className="text-sm text-gray-800 font-normal tracking-tight">
+            <span className="text-xs sm:text-sm text-gray-800 font-normal tracking-tight">
               Unlock the power of Web3 Freelancing.
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-semibold tracking-tighter text-black max-w-4xl leading-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-black max-w-4xl leading-tight mb-4 md:mb-6">
             Discover the Future of
-            <br />
+            <br className="hidden sm:block" />
             Freelancing: Web3
-            <br />
+            <br className="hidden sm:block" />
             Talent at your fingertips.
           </h1>
 
-          <p className="text-gray-600 max-w-2xl mb-8 text-lg font-normal tracking-tight">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mb-6 md:mb-8 font-normal tracking-tight px-4 sm:px-0">
             Experience the power of blockchain-based freelancing and discover a
             new world of opportunities. Get instant access to a network of
             talented freelancers who will help you stay ahead of the curve.
@@ -114,14 +178,14 @@ export default function Page() {
 
           <Link
             href="#"
-            className="bg-purple-600 text-white px-8 py-4 rounded-full hover:bg-purple-700 font-medium"
+            className="bg-purple-600 text-white px-6 py-3 md:px-8 md:py-4 rounded-full hover:bg-purple-700 font-medium text-sm md:text-base"
           >
             GET STARTED
           </Link>
         </div>
 
-        {/* Hero Image - Desert landscape like in Essos */}
-        <div className="relative w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden">
+        {/* Hero Image - Responsive */}
+        <div className="relative w-full h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] rounded-lg overflow-hidden">
           <Image
             src="/assets/web3-banner.jpg"
             alt="Web3 landscape"
@@ -130,13 +194,14 @@ export default function Page() {
             priority
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <button className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+            <button className="w-12 h-12 md:w-16 md:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
               <svg
-                width="24"
-                height="24"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="white"
                 xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5 md:w-6 md:h-6"
               >
                 <path d="M8 5v14l11-7z" />
               </svg>
@@ -145,11 +210,11 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Logo Ticker Section */}
-      <div className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-semibold text-gray-800">
+      {/* Logo Ticker Section - Responsive */}
+      <div className="py-8 md:py-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-6 md:mb-8">
+            <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
               Unlock opportunities to work in
             </h2>
           </div>
@@ -157,11 +222,11 @@ export default function Page() {
           <div className="overflow-hidden">
             <div
               ref={logoTickerRef}
-              className="flex space-x-12 py-4 whitespace-nowrap overflow-x-scroll scrollbar-hide"
+              className="flex space-x-8 md:space-x-12 py-4 whitespace-nowrap overflow-x-scroll scrollbar-hide"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               {/* Web3 Company Logos */}
-              <div className="flex-shrink-0 h-12 w-32 relative">
+              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
                 <Image
                   src="/assets/logos/coinbase.svg"
                   alt="Coinbase"
@@ -169,7 +234,7 @@ export default function Page() {
                   className="object-contain"
                 />
               </div>
-              <div className="flex-shrink-0 h-12 w-32 relative">
+              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
                 <Image
                   src="/assets/logos/metamask.svg"
                   alt="MetaMask"
@@ -177,7 +242,7 @@ export default function Page() {
                   className="object-contain"
                 />
               </div>
-              <div className="flex-shrink-0 h-12 w-32 relative">
+              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
                 <Image
                   src="/assets/logos/ethereum.svg"
                   alt="Ethereum"
@@ -185,7 +250,7 @@ export default function Page() {
                   className="object-contain"
                 />
               </div>
-              <div className="flex-shrink-0 h-12 w-32 relative">
+              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
                 <Image
                   src="/assets/logos/opensea.svg"
                   alt="OpenSea"
@@ -193,7 +258,7 @@ export default function Page() {
                   className="object-contain"
                 />
               </div>
-              <div className="flex-shrink-0 h-12 w-32 relative">
+              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
                 <Image
                   src="/assets/logos/uniswap.svg"
                   alt="Uniswap"
@@ -201,7 +266,7 @@ export default function Page() {
                   className="object-contain"
                 />
               </div>
-              <div className="flex-shrink-0 h-12 w-32 relative">
+              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
                 <Image
                   src="/assets/logos/polygon.svg"
                   alt="Polygon"
@@ -209,7 +274,7 @@ export default function Page() {
                   className="object-contain"
                 />
               </div>
-              <div className="flex-shrink-0 h-12 w-32 relative">
+              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
                 <Image
                   src="/assets/logos/binance.svg"
                   alt="Binance"
@@ -217,7 +282,7 @@ export default function Page() {
                   className="object-contain"
                 />
               </div>
-              <div className="flex-shrink-0 h-12 w-32 relative">
+              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
                 <Image
                   src="/assets/logos/solana.svg"
                   alt="Solana"
@@ -230,17 +295,17 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Testimonials Section */}
-      <div className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      {/* Testimonials Section - Responsive */}
+      <div className="py-12 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {/* Testimonial Content */}
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center order-2 md:order-1">
               <div className="flex mb-4">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <svg
                     key={star}
-                    className="w-6 h-6 text-yellow-400"
+                    className="w-5 h-5 md:w-6 md:h-6 text-yellow-400"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -249,7 +314,7 @@ export default function Page() {
                 ))}
               </div>
 
-              <h2 className="text-3xl font-medium text-gray-900 mb-6 leading-tight tracking-tighter">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-gray-900 mb-4 md:mb-6 leading-tight tracking-tighter">
                 Working with Web3Hustle was a game-changer for our project! Not
                 only was the process smooth and professional, but the final
                 product exceeded our expectations. From start to finish,
@@ -258,7 +323,7 @@ export default function Page() {
               </h2>
 
               <div className="flex items-center mt-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden mr-3 md:mr-4">
                   <Image
                     src="/assets/muniz.svg"
                     alt="Client"
@@ -271,37 +336,39 @@ export default function Page() {
                   <p className="font-semibold text-gray-900 tracking-tight">
                     Alex Johnson
                   </p>
-                  <p className="text-gray-600 font-normal tracking-tight">
+                  <p className="text-sm md:text-base text-gray-600 font-normal tracking-tight">
                     CTO, DecentralFi
                   </p>
                 </div>
               </div>
 
-              <div className="flex mt-8">
-                <button className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center mr-2 hover:bg-gray-100">
+              <div className="flex mt-6 md:mt-8">
+                <button className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-300 flex items-center justify-center mr-2 hover:bg-gray-100">
                   <svg
-                    width="20"
-                    height="20"
+                    width="16"
+                    height="16"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    className="w-4 h-4 md:w-5 md:h-5"
                   >
                     <path d="M19 12H5M12 19l-7-7 7-7" />
                   </svg>
                 </button>
-                <button className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100">
+                <button className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100">
                   <svg
-                    width="20"
-                    height="20"
+                    width="16"
+                    height="16"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    className="w-4 h-4 md:w-5 md:h-5"
                   >
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
@@ -310,7 +377,7 @@ export default function Page() {
             </div>
 
             {/* Testimonial Image */}
-            <div className="relative h-[500px] rounded-xl overflow-hidden">
+            <div className="relative h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] rounded-xl overflow-hidden order-1 md:order-2 mb-6 md:mb-0">
               <Image
                 src="/assets/web3-banner.jpg"
                 alt="Satisfied client"
@@ -322,15 +389,15 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="py-8 border-t">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* Footer - Responsive */}
+      <footer className="py-6 md:py-8 border-t">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-gray-600">
+            <div className="text-gray-600 text-sm md:text-base order-2 md:order-1 mt-4 md:mt-0">
               © {new Date().getFullYear()} Web3Hustle. All rights reserved.
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 order-1 md:order-2">
               <Link
                 href="#"
                 className="text-gray-600 hover:text-purple-600 transition-colors"
@@ -351,7 +418,7 @@ export default function Page() {
               </Link>
             </div>
 
-            <div className="flex items-center gap-1 text-gray-600">
+            <div className="flex items-center gap-1 text-gray-600 text-sm md:text-base order-3">
               Built with 🫶🏽💜 by{" "}
               <Link
                 href="#"
