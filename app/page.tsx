@@ -315,11 +315,7 @@ export default function Page() {
               </div>
 
               <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-gray-900 mb-4 md:mb-6 leading-tight tracking-tighter">
-                Working with Web3Hustle was a game-changer for our project! Not
-                only was the process smooth and professional, but the final
-                product exceeded our expectations. From start to finish,
-                everything was handled with such attention to detail. Highly
-                recommend!
+                The Hustle platform has been a game-changer for me. As a freelancer, I've struggled to find consistent work and fair pay. But with Hustle, I've been able to connect with high-quality clients and projects that match my skills and interests. The community support and resources have also been invaluable in helping me grow my business. I've increased my earnings by 300% since joining Hustle and I couldn't be more grateful!
               </h2>
 
               <div className="flex items-center mt-4">
@@ -337,7 +333,7 @@ export default function Page() {
                     Alex Johnson
                   </p>
                   <p className="text-sm md:text-base text-gray-600 font-normal tracking-tight">
-                    CTO, DecentralFi
+                    Freelance Smart Contract Auditor
                   </p>
                 </div>
               </div>
