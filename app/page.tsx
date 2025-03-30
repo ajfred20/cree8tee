@@ -163,7 +163,7 @@ export default function Page() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-black max-w-4xl leading-tight mb-4 md:mb-6">
-            Discover the Future of
+            Discover the Future of 
             <br className="hidden sm:block" />
             Freelancing: Web3
             <br className="hidden sm:block" />
