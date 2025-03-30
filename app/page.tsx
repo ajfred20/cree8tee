@@ -2,7 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Instagram, Twitter, Facebook, Menu, ArrowUpRight } from "lucide-react";
+import {
+  Instagram,
+  Twitter,
+  Facebook,
+  Menu,
+  ArrowUpRight,
+  BadgeDollarSign,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -10,6 +17,7 @@ export default function Page() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [currentTab, setCurrentTab] = useState("freelancer");
 
   // Testimonials data
   const testimonials = [
@@ -341,6 +349,302 @@ export default function Page() {
               <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
                 Web3 skills
               </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* How It Works Section - After Metrics */}
+      <div className="py-16 md:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+            {/* Left side - Image that changes based on tab */}
+            <div className="relative h-[350px] md:h-[450px] rounded-xl overflow-hidden order-2 md:order-1">
+              {/* Freelancer Image */}
+              <motion.div
+                className="absolute inset-0"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: currentTab === "freelancer" ? 1 : 0,
+                }}
+                transition={{ duration: 0.5 }}
+              >
+                <Image
+                  src="/assets/freelancer-illustration.svg"
+                  alt="Web3 freelancer working"
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+
+              {/* Client Image */}
+              <motion.div
+                className="absolute inset-0"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: currentTab === "client" ? 1 : 0,
+                }}
+                transition={{ duration: 0.5 }}
+              >
+                <Image
+                  src="/assets/client-illustration.svg"
+                  alt="Web3 client posting a project"
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+            </div>
+
+            {/* Right side - Content with futuristic toggle */}
+            <div className="order-1 md:order-2">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tighter text-black mb-8">
+                Elevate your Web3 career, it's simple
+              </h2>
+
+              {/* Futuristic toggle switch */}
+              <div className="flex justify-center mb-10 relative">
+                <div className="bg-gray-100 p-1 rounded-full w-full max-w-xs relative overflow-hidden">
+                  {/* Animated background pill */}
+                  <motion.div
+                    className="absolute top-1 bottom-1 rounded-full bg-gradient-to-r from-purple-500 to-purple-700 shadow-lg"
+                    initial={{
+                      x: currentTab === "freelancer" ? 0 : "100%",
+                    }}
+                    animate={{
+                      x: currentTab === "freelancer" ? 0 : "100%",
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30,
+                    }}
+                    style={{
+                      width: "50%",
+                      transform:
+                        currentTab === "freelancer"
+                          ? "translateX(0%)"
+                          : "translateX(100%)",
+                    }}
+                  />
+
+                  <div className="flex relative z-10">
+                    <button
+                      className={`py-3 px-6 rounded-full text-sm font-medium transition-colors w-1/2 ${
+                        currentTab === "freelancer"
+                          ? "text-white"
+                          : "text-gray-700 hover:text-black"
+                      }`}
+                      onClick={() => setCurrentTab("freelancer")}
+                    >
+                      Freelancer
+                    </button>
+                    <button
+                      className={`py-3 px-6 rounded-full text-sm font-medium transition-colors w-1/2 ${
+                        currentTab === "client"
+                          ? "text-white"
+                          : "text-gray-700 hover:text-black"
+                      }`}
+                      onClick={() => setCurrentTab("client")}
+                    >
+                      Client
+                    </button>
+                  </div>
+                </div>
+
+                {/* Decorative elements */}
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-purple-300 rounded-full opacity-50 animate-pulse"></div>
+                <div
+                  className="absolute -bottom-1 -left-1 w-3 h-3 bg-purple-400 rounded-full opacity-40 animate-pulse"
+                  style={{ animationDelay: "0.5s" }}
+                ></div>
+              </div>
+
+              {/* Content remains the same */}
+              {currentTab === "freelancer" && (
+                <div className="space-y-8">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1">
+                      <svg
+                        className="w-6 h-6 text-purple-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-xl font-medium text-black mb-1">
+                        Showcase your Web3 skills
+                      </h3>
+                      <p className="text-gray-600">
+                        Create a profile highlighting your blockchain expertise
+                        and stand out to potential clients looking for
+                        specialized talent.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1">
+                      <BadgeDollarSign className="w-6 h-6 text-purple-600" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-xl font-medium text-black mb-1">
+                        Get paid in crypto
+                      </h3>
+                      <p className="text-gray-600">
+                        Receive payments in your preferred cryptocurrency with
+                        our secure escrow system that protects both you and your
+                        clients.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1">
+                      <svg
+                        className="w-6 h-6 text-purple-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-xl font-medium text-black mb-1">
+                        Join a community of experts
+                      </h3>
+                      <p className="text-gray-600">
+                        Connect with other blockchain developers, share
+                        knowledge, and collaborate on cutting-edge Web3
+                        projects.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {currentTab === "client" && (
+                <div className="space-y-8">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1">
+                      <svg
+                        className="w-6 h-6 text-purple-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-xl font-medium text-black mb-1">
+                        Find pre-vetted Web3 talent
+                      </h3>
+                      <p className="text-gray-600">
+                        Access a curated pool of blockchain developers, smart
+                        contract auditors, and Web3 designers who have been
+                        verified for quality.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1">
+                      <svg
+                        className="w-6 h-6 text-purple-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-xl font-medium text-black mb-1">
+                        Post projects with ease
+                      </h3>
+                      <p className="text-gray-600">
+                        Describe your project needs and get matched with the
+                        perfect freelancers who have the exact skills you're
+                        looking for.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1">
+                      <svg
+                        className="w-6 h-6 text-purple-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-xl font-medium text-black mb-1">
+                        Secure milestone payments
+                      </h3>
+                      <p className="text-gray-600">
+                        Release payments only when you're satisfied with the
+                        work, using our secure escrow system that protects your
+                        investment.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="mt-10 flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="#"
+                  className="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 font-medium text-center"
+                >
+                  Sign up for free
+                </Link>
+                <Link
+                  href="#"
+                  className="border border-gray-300 text-black px-6 py-3 rounded-full hover:bg-gray-100 font-medium text-center"
+                >
+                  {currentTab === "freelancer"
+                    ? "Browse projects"
+                    : "Learn how to hire"}
+                </Link>
+              </div>
             </div>
           </div>
         </div>
