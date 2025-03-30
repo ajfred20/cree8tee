@@ -163,9 +163,9 @@ export default function Page() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-black max-w-4xl leading-tight mb-4 md:mb-6">
-            Discover the Future of 
+            Discover the Future 
             <br className="hidden sm:block" />
-            Freelancing: Web3
+            of Freelancing: Web3
             <br className="hidden sm:block" />
             Talent at your fingertips.
           </h1>
@@ -214,7 +214,7 @@ export default function Page() {
       <div className="py-8 md:py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-6 md:mb-8">
-            <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
+            <h2 className="text-xl md:text-2xl font-normal tracking-tight text-gray-800">
               Unlock opportunities to work in
             </h2>
           </div>
