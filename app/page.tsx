@@ -67,19 +67,19 @@ export default function Page() {
                 href="#"
                 className="text-black hover:text-purple-600 font-medium text-sm uppercase"
               >
-                Products
+                How it Works 
               </Link>
               <Link
                 href="#"
                 className="text-black hover:text-purple-600 font-medium text-sm uppercase"
               >
-                Testimonial
+                For Clients 
               </Link>
               <Link
                 href="#"
                 className="text-black hover:text-purple-600 font-medium text-sm uppercase"
               >
-                Blog
+                For Freelancers 
               </Link>
             </div>
             <div className="flex items-center gap-4">
