@@ -114,21 +114,21 @@ export default function Page() {
                   className="text-black hover:text-purple-600 font-medium text-lg uppercase"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Products
+                  How it Works
                 </Link>
                 <Link
                   href="#"
                   className="text-black hover:text-purple-600 font-medium text-lg uppercase"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Testimonial
+                  For Clients
                 </Link>
                 <Link
                   href="#"
                   className="text-black hover:text-purple-600 font-medium text-lg uppercase"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Blog
+                  For Freelancers
                 </Link>
                 <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
                   <Link
