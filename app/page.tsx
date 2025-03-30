@@ -2,34 +2,61 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Instagram, Twitter, Facebook, ArrowRight, Menu } from "lucide-react";
+import { Instagram, Twitter, Facebook, Menu, ArrowUpRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Page() {
-  const logoTickerRef = useRef<HTMLDivElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  // Animation for logo ticker
-  useEffect(() => {
-    const ticker = logoTickerRef.current;
-    if (!ticker) return;
+  // Testimonials data
+  const testimonials = [
+    {
+      text: "The Hustle platform has been a game-changer for me. As a freelancer, I've struggled to find consistent work and fair pay. But with Hustle, I've been able to connect with high-quality clients and projects that match my skills and interests. The community support and resources have also been invaluable in helping me grow my business. I've increased my earnings by 300% since joining Hustle and I couldn't be more grateful!",
+      name: "Udalric Fred",
+      role: "Solana Blockchain Developer",
+      avatar: "/assets/muniz.svg",
+      image: "/assets/dev-coding.jpg",
+    },
+    {
+      text: "Web3Hustle completely transformed how I find blockchain talent. Before, I spent weeks trying to find qualified developers. Now, I can connect with pre-vetted professionals in days. The quality of work has been exceptional, and the platform makes managing projects seamless. It's become an essential tool for our company's growth in the Web3 space.",
+      name: "Sarah Williams",
+      role: "CTO, DeFi Protocol",
+      avatar: "/assets/sarah.svg",
+      image: "/assets/web3-banner.jpg",
+    },
+    {
+      text: "As someone transitioning from Web2 to Web3 development, this platform provided exactly what I needed - real projects to build my portfolio and mentorship from experienced developers. The payment system is transparent and fair, and I've built relationships with clients who keep coming back. Highly recommend for anyone looking to break into the blockchain industry.",
+      name: "Kalejaiye Caleb",
+      role: "Blockchain Developer",
+      avatar: "/assets/caleb.jpg",
+      image: "/assets/web3-preview.jpg",
+    },
+  ];
 
-    const clone = ticker.innerHTML;
-    ticker.innerHTML += clone;
+  // Logo ticker with Framer Motion
+  const logos = [
+    { src: "/assets/logos/coinbase.svg", alt: "Coinbase" },
+    { src: "/assets/logos/metamask.svg", alt: "MetaMask" },
+    { src: "/assets/logos/opensea.svg", alt: "OpenSea" },
+    { src: "/assets/logos/uniswap.svg", alt: "Uniswap" },
+    { src: "/assets/logos/polygon.svg", alt: "Polygon" },
+    { src: "/assets/logos/binance.svg", alt: "Binance" },
+    { src: "/assets/logos/solana.svg", alt: "Solana" },
+  ];
 
-    const animateTicker = () => {
-      if (!ticker) return;
-      if (ticker.scrollLeft >= ticker.scrollWidth / 2) {
-        ticker.scrollLeft = 0;
-      } else {
-        ticker.scrollLeft += 1;
-      }
-      requestAnimationFrame(animateTicker);
-    };
+  // Handle testimonial navigation
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
 
-    const animation = requestAnimationFrame(animateTicker);
-    return () => cancelAnimationFrame(animation);
-  }, []);
+  const prevTestimonial = () => {
+    setCurrentTestimonial(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -67,19 +94,19 @@ export default function Page() {
                 href="#"
                 className="text-black hover:text-purple-600 font-medium text-sm uppercase"
               >
-                How it Works 
+                How it Works
               </Link>
               <Link
                 href="#"
                 className="text-black hover:text-purple-600 font-medium text-sm uppercase"
               >
-                For Clients 
+                For Clients
               </Link>
               <Link
                 href="#"
                 className="text-black hover:text-purple-600 font-medium text-sm uppercase"
               >
-                For Freelancers 
+                For Freelancers
               </Link>
             </div>
             <div className="flex items-center gap-4">
@@ -87,7 +114,7 @@ export default function Page() {
                 href="#"
                 className="text-black hover:text-purple-600 font-medium text-sm uppercase flex items-center"
               >
-                Login <ArrowRight className="w-4 h-4 ml-1" />
+                Login <ArrowUpRight className="w-4 h-4 ml-1" />
               </Link>
               <Link
                 href="#"
@@ -136,7 +163,7 @@ export default function Page() {
                     className="text-black hover:text-purple-600 font-medium text-lg uppercase flex items-center"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Login <ArrowRight className="w-5 h-5 ml-1" />
+                    Login <ArrowUpRight className="w-5 h-5 ml-1" />
                   </Link>
                   <Link
                     href="#"
@@ -163,8 +190,7 @@ export default function Page() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-black max-w-4xl leading-tight mb-4 md:mb-6">
-            Discover the Future{" "}
-            <br className="hidden sm:block" />
+            Discover the Future <br className="hidden sm:block" />
             of Freelancing: Web3
             <br className="hidden sm:block" />
             Talent at your fingertips.
@@ -210,7 +236,7 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Logo Ticker Section - Responsive */}
+      {/* Logo Ticker Section - Responsive with Framer Motion */}
       <div className="py-8 md:py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-6 md:mb-8">
@@ -220,82 +246,107 @@ export default function Page() {
           </div>
 
           <div className="overflow-hidden">
-            <div
-              ref={logoTickerRef}
-              className="flex space-x-8 md:space-x-12 py-4 whitespace-nowrap overflow-x-scroll scrollbar-hide"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            <motion.div
+              className="flex space-x-8 md:space-x-12 py-4"
+              initial={{ x: 0 }}
+              animate={{
+                x: isPaused ? "0%" : "-100%",
+              }}
+              transition={{
+                x: {
+                  duration: 20,
+                  ease: "linear",
+                  repeat: Infinity,
+                  repeatType: "loop",
+                },
+              }}
+              onHoverStart={() => setIsPaused(true)}
+              onHoverEnd={() => setIsPaused(false)}
             >
-              {/* Web3 Company Logos */}
-              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
-                <Image
-                  src="/assets/logos/coinbase.svg"
-                  alt="Coinbase"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
-                <Image
-                  src="/assets/logos/metamask.svg"
-                  alt="MetaMask"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
-                <Image
-                  src="/assets/logos/ethereum.svg"
-                  alt="Ethereum"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
-                <Image
-                  src="/assets/logos/opensea.svg"
-                  alt="OpenSea"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
-                <Image
-                  src="/assets/logos/uniswap.svg"
-                  alt="Uniswap"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
-                <Image
-                  src="/assets/logos/polygon.svg"
-                  alt="Polygon"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
-                <Image
-                  src="/assets/logos/binance.svg"
-                  alt="Binance"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative">
-                <Image
-                  src="/assets/logos/solana.svg"
-                  alt="Solana"
-                  fill
-                  className="object-contain"
-                />
-              </div>
+              {/* First set of logos */}
+              {logos.map((logo, index) => (
+                <motion.div
+                  key={`logo-1-${index}`}
+                  className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative logo-container"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    fill
+                    className="object-contain"
+                  />
+                </motion.div>
+              ))}
+
+              {/* Duplicate logos for seamless looping */}
+              {logos.map((logo, index) => (
+                <motion.div
+                  key={`logo-2-${index}`}
+                  className="flex-shrink-0 h-8 md:h-12 w-24 md:w-32 relative logo-container"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    fill
+                    className="object-contain"
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Stats Section - Updated with more realistic beta numbers */}
+      <div className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            {/* Projects completed */}
+            <div className="text-center">
+              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter text-black mb-2">
+                50+
+              </h3>
+              <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
+                Projects completed
+              </p>
+            </div>
+
+            {/* Return on investment */}
+            <div className="text-center">
+              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter text-black mb-2">
+                85%
+              </h3>
+              <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
+                Client satisfaction
+              </p>
+            </div>
+
+            {/* Global freelancers */}
+            <div className="text-center">
+              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter text-black mb-2">
+                500+
+              </h3>
+              <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
+                Beta testers
+              </p>
+            </div>
+
+            {/* 5-star reviews */}
+            <div className="text-center">
+              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter text-black mb-2">
+                30+
+              </h3>
+              <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
+                Web3 skills
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Testimonials Section - Responsive */}
+      {/* Testimonials Section - Responsive with Slider */}
       <div className="py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
@@ -314,32 +365,75 @@ export default function Page() {
                 ))}
               </div>
 
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-gray-900 mb-4 md:mb-6 leading-tight tracking-tighter">
-                The Hustle platform has been a game-changer for me. As a freelancer, I've struggled to find consistent work and fair pay. But with Hustle, I've been able to connect with high-quality clients and projects that match my skills and interests. The community support and resources have also been invaluable in helping me grow my business. I've increased my earnings by 300% since joining Hustle and I couldn't be more grateful!
-              </h2>
+              {/* Testimonial text - full display without scrolling */}
+              <div className="relative overflow-hidden">
+                {testimonials.map((testimonial, index) => (
+                  <motion.div
+                    key={index}
+                    className={`w-full ${
+                      index === currentTestimonial ? "block" : "hidden"
+                    }`}
+                    initial={{
+                      opacity: 0,
+                      x: index > currentTestimonial ? 100 : -100,
+                    }}
+                    animate={{
+                      opacity: index === currentTestimonial ? 1 : 0,
+                      x:
+                        index === currentTestimonial
+                          ? 0
+                          : index > currentTestimonial
+                          ? 100
+                          : -100,
+                    }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-gray-900 mb-4 md:mb-6 leading-tight tracking-tighter">
+                      {testimonial.text}
+                    </h2>
+                  </motion.div>
+                ))}
+              </div>
 
-              <div className="flex items-center mt-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden mr-3 md:mr-4">
-                  <Image
-                    src="/assets/muniz.svg"
-                    alt="Client"
-                    width={48}
-                    height={48}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900 tracking-tight">
-                    Alex Johnson
-                  </p>
-                  <p className="text-sm md:text-base text-gray-600 font-normal tracking-tight">
-                    Freelance Smart Contract Auditor
-                  </p>
-                </div>
+              {/* Testimonial author info - separate from text for better visibility */}
+              <div className="mt-4 md:mt-6 h-16">
+                {testimonials.map((testimonial, index) => (
+                  <motion.div
+                    key={`author-${index}`}
+                    className="flex items-center"
+                    initial={{ opacity: 0 }}
+                    animate={{
+                      opacity: index === currentTestimonial ? 1 : 0,
+                      display: index === currentTestimonial ? "flex" : "none",
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden mr-3 md:mr-4 flex-shrink-0">
+                      <Image
+                        src={testimonial.avatar}
+                        alt={testimonial.name}
+                        width={48}
+                        height={48}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 tracking-tight">
+                        {testimonial.name}
+                      </p>
+                      <p className="text-sm md:text-base text-gray-600 font-normal tracking-tight">
+                        {testimonial.role}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
 
               <div className="flex mt-6 md:mt-8">
-                <button className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-300 flex items-center justify-center mr-2 hover:bg-gray-100">
+                <button
+                  className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-300 flex items-center justify-center mr-2 hover:bg-gray-100"
+                  onClick={prevTestimonial}
+                >
                   <svg
                     width="16"
                     height="16"
@@ -354,7 +448,10 @@ export default function Page() {
                     <path d="M19 12H5M12 19l-7-7 7-7" />
                   </svg>
                 </button>
-                <button className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100">
+                <button
+                  className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100"
+                  onClick={nextTestimonial}
+                >
                   <svg
                     width="16"
                     height="16"
@@ -370,16 +467,43 @@ export default function Page() {
                   </svg>
                 </button>
               </div>
+
+              {/* Testimonial indicators */}
+              <div className="flex justify-center mt-6 space-x-2">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`w-2 h-2 rounded-full ${
+                      index === currentTestimonial
+                        ? "bg-purple-600"
+                        : "bg-gray-300"
+                    }`}
+                    onClick={() => setCurrentTestimonial(index)}
+                  />
+                ))}
+              </div>
             </div>
 
-            {/* Testimonial Image */}
+            {/* Testimonial Image - Changes with testimonial */}
             <div className="relative h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] rounded-xl overflow-hidden order-1 md:order-2 mb-6 md:mb-0">
-              <Image
-                src="/assets/web3-banner.jpg"
-                alt="Satisfied client"
-                fill
-                className="object-cover"
-              />
+              {testimonials.map((testimonial, index) => (
+                <motion.div
+                  key={`image-${index}`}
+                  className="absolute inset-0"
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: index === currentTestimonial ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Image
+                    src={testimonial.image}
+                    alt={`${testimonial.name}'s workspace`}
+                    fill
+                    className="object-cover"
+                  />
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>

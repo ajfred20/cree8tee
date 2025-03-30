@@ -127,3 +127,19 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* Update the logo ticker styles for Framer Motion */
+.logo-container {
+  cursor: pointer;
+}
+
+.logo-container img {
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.logo-container:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+}
