@@ -650,6 +650,132 @@ export default function Page() {
         </div>
       </div>
 
+      {/* Enterprise Section - After How It Works */}
+      <div className="py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="bg-purple-900 rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 items-center">
+              {/* Left side - Content */}
+              <div className="p-8 md:p-12 lg:p-16">
+                <div className="mb-6">
+                  <span className="text-purple-300 font-medium">
+                    Enterprise Suite
+                  </span>
+                </div>
+
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tighter text-white mb-6">
+                  This is how
+                  <div className="text-purple-300">
+                    innovative projects
+                    <br />
+                    find innovative talent.
+                  </div>
+                </h2>
+
+                <p className="text-white/80 text-base md:text-lg mb-8">
+                  Access the top 1% of Web3 talent on our platform, and a full
+                  suite of blockchain-powered workforce management tools. This
+                  is how decentralized innovation works now.
+                </p>
+
+                <div className="space-y-4 mb-10">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1 text-purple-300">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-white text-sm md:text-base">
+                        Access specialized Web3 talent to fill your blockchain
+                        skill gaps
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1 text-purple-300">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-white text-sm md:text-base">
+                        Streamline your workflow: hire, manage and pay with
+                        crypto or fiat
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1 text-purple-300">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-white text-sm md:text-base">
+                        Partner with Hustle for end-to-end decentralized support
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <Link
+                  href="#"
+                  className="inline-block bg-white text-purple-900 px-6 py-3 rounded-full hover:bg-purple-50 font-medium text-center"
+                >
+                  Learn more
+                </Link>
+              </div>
+
+              {/* Right side - Image */}
+              <div className="relative h-[300px] md:h-full">
+                <Image
+                  src="/assets/1-6.jpg"
+                  alt="Web3 enterprise solutions"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Testimonials Section - Responsive with Slider */}
       <div className="py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
