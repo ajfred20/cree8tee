@@ -10,6 +10,7 @@ import {
   ArrowUpRight,
   BadgeDollarSign,
   ArrowRight,
+  Megaphone,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
@@ -19,6 +20,9 @@ export default function Page() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [currentTab, setCurrentTab] = useState("freelancer");
+  const [activeSkillTab, setActiveSkillTab] = useState("top");
+  const [showAnnouncement, setShowAnnouncement] = useState(true);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Testimonials data
   const testimonials = [
@@ -69,6 +73,33 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Beta Announcement Banner */}
+      {showAnnouncement && (
+        <div className="bg-purple-700 text-white py-2 px-4 flex items-center justify-center relative">
+          <div className="flex items-center">
+            <span className="mr-2">
+              <Megaphone className="w-4 h-4" />
+            </span>
+            <p className="text-sm md:text-base font-medium">
+              Web3Hustle launching in beta soon! Join the waitlist for early
+              access
+            </p>
+            <Link
+              href="/waitlist"
+              className="ml-2 underline text-white/90 hover:text-white flex items-center"
+            >
+              Sign up <ArrowUpRight className="w-3 h-3 ml-1" />
+            </Link>
+          </div>
+          <button
+            onClick={() => setShowAnnouncement(false)}
+            className="absolute right-4 text-white/80 hover:text-white"
+            aria-label="Close announcement"
+          >
+            <span className="text-lg">×</span>
+          </button>
+        </div>
+      )}
       {/* Navigation - Responsive */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
         <nav className="flex items-center justify-between">
@@ -859,55 +890,480 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Find Great Work Section - After Freelancer Section */}
+      {/* Top Skills Section */}
+      <div className="py-16 md:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row">
+            {/* Left side - Navigation */}
+            <div className="md:w-1/4 mb-8 md:mb-0">
+              <div className="space-y-4">
+                <button
+                  onClick={() => setActiveSkillTab("top")}
+                  className={`text-2xl font-medium tracking-tight ${
+                    activeSkillTab === "top"
+                      ? "text-purple-600"
+                      : "text-gray-300"
+                  } text-left w-full`}
+                >
+                  Top skills
+                </button>
+                <button
+                  onClick={() => setActiveSkillTab("trending")}
+                  className={`text-2xl font-medium tracking-tight ${
+                    activeSkillTab === "trending"
+                      ? "text-purple-600"
+                      : "text-gray-300"
+                  } text-left w-full`}
+                >
+                  Trending skills
+                </button>
+                <button
+                  onClick={() => setActiveSkillTab("NG")}
+                  className={`text-2xl font-medium tracking-tight ${
+                    activeSkillTab === "NG"
+                      ? "text-purple-600"
+                      : "text-gray-300"
+                  } text-left w-full`}
+                >
+                  Top skills in Nigeria
+                </button>
+              </div>
+            </div>
+
+            {/* Right side - Skills lists */}
+            {activeSkillTab === "trending" && (
+              <div className="md:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                <div className="space-y-4">
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Zero-Knowledge Proofs
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    AI + Blockchain Integration
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Rollup Development
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Modular Blockchain Design
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Account Abstraction
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Real-World Asset Tokenization
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Cross-Chain Development
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    MEV Protection
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Decentralized Identity
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Regenerative Finance
+                  </Link>
+                </div>
+
+                <div className="space-y-4">
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Rust for Blockchain
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Decentralized Storage
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Solidity Security Auditing
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    zkEVM Development
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Decentralized Social Media
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Liquid Staking
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Restaking Protocols
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Decentralized Science
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Onchain Gaming
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Sovereign Rollups
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {activeSkillTab === "top" && (
+              <div className="md:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                <div className="space-y-4">
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Smart Contract Developer
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Solidity Developer
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Blockchain Engineer
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    NFT Developer
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    DeFi Specialist
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Web3 Frontend Developer
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Crypto Researcher
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Tokenomics Expert
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Ethereum Developer
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Rust Developer
+                  </Link>
+                </div>
+
+                <div className="space-y-4">
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    dApp Developer
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Blockchain Consultant
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Smart Contract Auditor
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Web3 Designer
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Crypto Content Writer
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Blockchain Project Manager
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Metaverse Developer
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    DAO Specialist
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Crypto Community Manager
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 transition-colors font-light tracking-tight text-xl"
+                  >
+                    Layer 2 Developer
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {activeSkillTab === "NG" && (
+              <div className="md:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                {/* Left column - Skills in Nigeria */}
+                <div className="space-y-4">
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Blockchain Developers in Nigeria
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Smart Contract Auditors in Nigeria
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Web3 Designers in Nigeria
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    DeFi Specialists in Nigeria
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Crypto Content Writers in Nigeria
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    NFT Artists in Nigeria
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Solidity Developers in Nigeria
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Crypto Community Managers in Nigeria
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Blockchain Project Managers in Nigeria
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Web3 Educators in Nigeria
+                  </Link>
+                </div>
+
+                {/* Right column - Skills by city */}
+                <div className="space-y-4">
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Blockchain Developers in Lagos
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Smart Contract Developers in Abuja
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Web3 Designers in Port Harcourt
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Crypto Consultants in Lagos
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    NFT Artists in Ibadan
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Blockchain Educators in Enugu
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    DeFi Specialists in Lagos
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Crypto Content Writers in Abuja
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Solidity Developers in Kaduna
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-gray-700 hover:text-purple-600 font-light tracking-tight text-xl transition-colors"
+                  >
+                    Web3 Community Managers in Lagos
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* For Clients Section - Reversed from the talent section */}
       <div className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="relative rounded-2xl overflow-hidden flex flex-col md:flex-row">
-            {/* Left side - Image */}
-            <div className="relative h-[300px] md:h-auto md:w-1/2">
-              <Image
-                src="/assets/1-8.jpg"
-                alt="Freelancer at desk"
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            {/* Right side - Blue content area */}
-            <div className="bg-blue-600 p-8 md:p-12 lg:p-16 md:w-1/2">
+            {/* Left side - Green content area */}
+            <div className="bg-green-600 p-8 md:p-12 lg:p-16 md:w-1/2">
               <div className="mb-4">
-                <span className="text-white/80 font-medium">For talent</span>
+                <span className="text-white/80 font-medium">For clients</span>
               </div>
 
               <h2 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white mb-6 leading-tight">
-                Find great
+                Find expert
                 <br />
-                work
+                talent
               </h2>
 
               <p className="text-white/90 text-lg mb-10">
-                Meet clients you're excited to work with and take your career or
-                business to new heights.
+                Work with the most talented Web3 professionals and build your
+                blockchain projects with confidence.
               </p>
 
               <div className="border-t border-white/20 pt-8 mb-8">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
                     <p className="text-white font-medium mb-2">
-                      Find opportunities for every stage of your freelance
-                      career
+                      Access specialized blockchain expertise
                     </p>
                   </div>
 
                   <div>
                     <p className="text-white font-medium mb-2">
-                      Control when, where, and how you work
+                      Scale your team up or down as needed
                     </p>
                   </div>
 
                   <div>
                     <p className="text-white font-medium mb-2">
-                      Explore different ways to earn
+                      Pay securely with crypto or fiat
                     </p>
                   </div>
                 </div>
@@ -915,10 +1371,20 @@ export default function Page() {
 
               <Link
                 href="#"
-                className="inline-block bg-white text-blue-600 px-6 py-3 rounded-full hover:bg-blue-50 font-medium transition-colors"
+                className="inline-block bg-white text-green-600 px-6 py-3 rounded-full hover:bg-green-50 font-medium transition-colors"
               >
-                Find opportunities
+                Post a job
               </Link>
+            </div>
+
+            {/* Right side - Image */}
+            <div className="relative h-[300px] md:h-auto md:w-1/2">
+              <Image
+                src="/assets/1-8.jpg"
+                alt="Client hiring talent"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
         </div>
@@ -1082,6 +1548,251 @@ export default function Page() {
                   />
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* FAQ Section */}
+      <div className="py-16 md:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-5xl md:text-5xl font-semibold tracking-tighter mb-6">
+              Frequently ask questions
+            </h2>
+            <p className="text-gray-600 mb-12">
+              If you don't find any question you are looking for. You can drop a
+              question.
+            </p>
+
+            <Link
+              href="/contact"
+              className="inline-flex items-center px-6 py-3 border border-purple-600 text-purple-600 rounded-full hover:bg-purple-50 transition-colors mb-16"
+            >
+              SEND US A MESSAGE <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+
+            <div className="space-y-6">
+              {/* FAQ Item 1 */}
+              <div className="border-b border-gray-200 pb-6">
+                <button
+                  className="flex justify-between items-center w-full text-left"
+                  onClick={() => setOpenFaq(openFaq === 1 ? null : 1)}
+                >
+                  <div className="flex items-center">
+                    <span className="flex items-center justify-center bg-gray-800 text-white rounded-full w-8 h-8 mr-4 text-sm">
+                      01
+                    </span>
+                    <h3 className="text-xl font-medium">
+                      How does Web3Hustle verify freelancer skills?
+                    </h3>
+                  </div>
+                  <svg
+                    className={`w-6 h-6 transform ${
+                      openFaq === 1 ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+
+                {openFaq === 1 && (
+                  <div className="mt-4 pl-12 text-gray-600">
+                    <p>
+                      Our platform uses a multi-step verification process
+                      including skills assessments, portfolio reviews, and
+                      blockchain knowledge tests. We also verify past work
+                      experience and client feedback to ensure all freelancers
+                      have the expertise they claim in their profiles.
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* FAQ Item 2 */}
+              <div className="border-b border-gray-200 pb-6">
+                <button
+                  className="flex justify-between items-center w-full text-left"
+                  onClick={() => setOpenFaq(openFaq === 2 ? null : 2)}
+                >
+                  <div className="flex items-center">
+                    <span className="flex items-center justify-center bg-gray-800 text-white rounded-full w-8 h-8 mr-4 text-sm">
+                      02
+                    </span>
+                    <h3 className="text-xl font-medium">
+                      Can I pay freelancers with cryptocurrency?
+                    </h3>
+                  </div>
+                  <svg
+                    className={`w-6 h-6 transform ${
+                      openFaq === 2 ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+
+                {openFaq === 2 && (
+                  <div className="mt-4 pl-12 text-gray-600">
+                    <p>
+                      Yes! Web3Hustle supports payments in major
+                      cryptocurrencies including ETH, USDC, and BTC. We also
+                      support traditional payment methods for clients who prefer
+                      to pay in fiat currencies. Our escrow system ensures
+                      secure transactions for both parties.
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* FAQ Item 3 */}
+              <div className="border-b border-gray-200 pb-6">
+                <button
+                  className="flex justify-between items-center w-full text-left"
+                  onClick={() => setOpenFaq(openFaq === 3 ? null : 3)}
+                >
+                  <div className="flex items-center">
+                    <span className="flex items-center justify-center bg-gray-800 text-white rounded-full w-8 h-8 mr-4 text-sm">
+                      03
+                    </span>
+                    <h3 className="text-xl font-medium">
+                      What if I'm new to Web3 development?
+                    </h3>
+                  </div>
+                  <svg
+                    className={`w-6 h-6 transform ${
+                      openFaq === 3 ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+
+                {openFaq === 3 && (
+                  <div className="mt-4 pl-12 text-gray-600">
+                    <p>
+                      Web3Hustle welcomes developers at all stages of their
+                      blockchain journey. We offer resources, learning paths,
+                      and mentorship opportunities to help you transition from
+                      Web2 to Web3. You can start with smaller projects and
+                      build your portfolio as you gain experience.
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* FAQ Item 4 */}
+              <div className="border-b border-gray-200 pb-6">
+                <button
+                  className="flex justify-between items-center w-full text-left"
+                  onClick={() => setOpenFaq(openFaq === 4 ? null : 4)}
+                >
+                  <div className="flex items-center">
+                    <span className="flex items-center justify-center bg-gray-800 text-white rounded-full w-8 h-8 mr-4 text-sm">
+                      04
+                    </span>
+                    <h3 className="text-xl font-medium">
+                      How are platform fees structured?
+                    </h3>
+                  </div>
+                  <svg
+                    className={`w-6 h-6 transform ${
+                      openFaq === 4 ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+
+                {openFaq === 4 && (
+                  <div className="mt-4 pl-12 text-gray-600">
+                    <p>
+                      Web3Hustle charges a competitive 5% fee on completed
+                      projects, significantly lower than traditional freelance
+                      platforms. We also offer subscription plans for companies
+                      with ongoing hiring needs, which can reduce fees further.
+                      There are no hidden charges or withdrawal fees.
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* FAQ Item 5 */}
+              <div className="border-b border-gray-200 pb-6">
+                <button
+                  className="flex justify-between items-center w-full text-left"
+                  onClick={() => setOpenFaq(openFaq === 5 ? null : 5)}
+                >
+                  <div className="flex items-center">
+                    <span className="flex items-center justify-center bg-gray-800 text-white rounded-full w-8 h-8 mr-4 text-sm">
+                      05
+                    </span>
+                    <h3 className="text-xl font-medium">
+                      Do you offer protection for both clients and freelancers?
+                    </h3>
+                  </div>
+                  <svg
+                    className={`w-6 h-6 transform ${
+                      openFaq === 5 ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+
+                {openFaq === 5 && (
+                  <div className="mt-4 pl-12 text-gray-600">
+                    <p>
+                      Absolutely. Our escrow system holds client funds securely
+                      until project milestones are approved. For freelancers,
+                      this ensures payment for completed work. For clients, it
+                      provides assurance that funds are only released when work
+                      meets requirements. We also offer dispute resolution
+                      services if needed.
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
