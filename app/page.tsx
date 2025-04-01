@@ -9,6 +9,7 @@ import {
   Menu,
   ArrowUpRight,
   BadgeDollarSign,
+  ArrowRight,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
@@ -771,6 +772,153 @@ export default function Page() {
                   className="object-cover"
                 />
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Find Talent/Work Your Way Section - After Enterprise Section */}
+      <div className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="relative rounded-2xl overflow-hidden">
+            {/* Background image */}
+            <div className="absolute inset-0">
+              <Image
+                src="/assets/1-7.jpg"
+                alt="Freelancer working"
+                fill
+                className="object-cover"
+              />
+            </div>
+
+            {/* Content overlay */}
+            <div className="relative z-10 p-8 md:p-12 lg:p-16">
+              <div className="mb-4">
+                <span className="text-white/80 font-medium">
+                  For freelancers
+                </span>
+              </div>
+
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white mb-6 leading-tight">
+                Find work
+                <br />
+                your way
+              </h2>
+
+              <p className="text-white/90 text-lg mb-10 max-w-lg">
+                Connect with the largest network of Web3 clients and get
+                projects done—from quick smart contracts to major dApp
+                transformations.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link href="#" className="block">
+                  <div className="bg-purple-600 p-6 rounded-xl transition-colors duration-300 hover:bg-white group">
+                    <h3 className="text-2xl font-medium tracking-tight text-white mb-2 group-hover:text-purple-600">
+                      Find open
+                      <br />
+                      projects
+                    </h3>
+                    <div className="flex items-center mt-4 text-white/80 group-hover:text-purple-600">
+                      <span className="text-sm">Job Board™</span>
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </div>
+                  </div>
+                </Link>
+
+                <Link href="#" className="block">
+                  <div className="bg-purple-600 p-6 rounded-xl transition-colors duration-300 hover:bg-white group">
+                    <h3 className="text-2xl font-medium tracking-tight text-white mb-2 group-hover:text-purple-600">
+                      Showcase your
+                      <br />
+                      portfolio
+                    </h3>
+                    <div className="flex items-center mt-4 text-white/80 group-hover:text-purple-600">
+                      <span className="text-sm">Profile Builder™</span>
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </div>
+                  </div>
+                </Link>
+
+                <Link href="#" className="block">
+                  <div className="bg-purple-600 p-6 rounded-xl transition-colors duration-300 hover:bg-white group">
+                    <h3 className="text-2xl font-medium tracking-tight text-white mb-2 group-hover:text-purple-600">
+                      Get paid in
+                      <br />
+                      crypto
+                    </h3>
+                    <div className="flex items-center mt-4 text-white/80 group-hover:text-purple-600">
+                      <span className="text-sm">Secure Payments</span>
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Find Great Work Section - After Freelancer Section */}
+      <div className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="relative rounded-2xl overflow-hidden flex flex-col md:flex-row">
+            {/* Left side - Image */}
+            <div className="relative h-[300px] md:h-auto md:w-1/2">
+              <Image
+                src="/assets/1-8.jpg"
+                alt="Freelancer at desk"
+                fill
+                className="object-cover"
+              />
+            </div>
+
+            {/* Right side - Blue content area */}
+            <div className="bg-blue-600 p-8 md:p-12 lg:p-16 md:w-1/2">
+              <div className="mb-4">
+                <span className="text-white/80 font-medium">For talent</span>
+              </div>
+
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white mb-6 leading-tight">
+                Find great
+                <br />
+                work
+              </h2>
+
+              <p className="text-white/90 text-lg mb-10">
+                Meet clients you're excited to work with and take your career or
+                business to new heights.
+              </p>
+
+              <div className="border-t border-white/20 pt-8 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <p className="text-white font-medium mb-2">
+                      Find opportunities for every stage of your freelance
+                      career
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-white font-medium mb-2">
+                      Control when, where, and how you work
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-white font-medium mb-2">
+                      Explore different ways to earn
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <Link
+                href="#"
+                className="inline-block bg-white text-blue-600 px-6 py-3 rounded-full hover:bg-blue-50 font-medium transition-colors"
+              >
+                Find opportunities
+              </Link>
             </div>
           </div>
         </div>
