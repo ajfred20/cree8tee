@@ -430,7 +430,7 @@ export default function Page() {
             {/* Right side - Content with futuristic toggle */}
             <div className="order-1 md:order-2">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tighter text-black mb-8">
-                Elevate your Web3 career, it's simple
+                Elevate your Web3 career, it's that simple
               </h2>
 
               {/* Futuristic toggle switch */}
