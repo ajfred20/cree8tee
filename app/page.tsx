@@ -34,7 +34,7 @@ export default function Page() {
       image: "/assets/dev-coding.jpg",
     },
     {
-      text: "Web3Hustle completely transformed how I find blockchain talent. Before, I spent weeks trying to find qualified developers. Now, I can connect with pre-vetted professionals in days. The quality of work has been exceptional, and the platform makes managing projects seamless. It's become an essential tool for our company's growth in the Web3 space.",
+      text: "Hustle completely transformed how I find blockchain talent. Before, I spent weeks trying to find qualified developers. Now, I can connect with pre-vetted professionals in days. The quality of work has been exceptional, and the platform makes managing projects seamless. It's become an essential tool for our company's growth in the Web3 space.",
       name: "Sarah Williams",
       role: "CTO, DeFi Protocol",
       avatar: "/assets/sarah.svg",
@@ -81,7 +81,7 @@ export default function Page() {
               <Megaphone className="w-4 h-4" />
             </span>
             <p className="text-sm md:text-base font-medium">
-              Web3Hustle launching in beta soon! Join the waitlist for early
+              Hustle launching in beta soon! Join the waitlist for early
               access
             </p>
             <Link
@@ -1558,7 +1558,7 @@ export default function Page() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-5xl md:text-5xl font-semibold tracking-tighter mb-6">
-              Frequently ask questions
+              Frequently asked questions
             </h2>
             <p className="text-gray-600 mb-12">
               If you don't find any question you are looking for. You can drop a
