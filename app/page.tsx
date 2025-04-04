@@ -12,7 +12,7 @@ import {
   ArrowRight,
   Megaphone,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Page() {
@@ -34,7 +34,7 @@ export default function Page() {
       image: "/assets/dev-coding.jpg",
     },
     {
-      text: "Web3Hustle completely transformed how I find blockchain talent. Before, I spent weeks trying to find qualified developers. Now, I can connect with pre-vetted professionals in days. The quality of work has been exceptional, and the platform makes managing projects seamless. It's become an essential tool for our company's growth in the Web3 space.",
+      text: "Hustle completely transformed how I find blockchain talent. Before, I spent weeks trying to find qualified developers. Now, I can connect with pre-vetted professionals in days. The quality of work has been exceptional, and the platform makes managing projects seamless. It's become an essential tool for our company's growth in the Web3 space.",
       name: "Sarah Williams",
       role: "CTO, DeFi Protocol",
       avatar: "/assets/sarah.svg",
@@ -81,8 +81,7 @@ export default function Page() {
               <Megaphone className="w-4 h-4" />
             </span>
             <p className="text-sm md:text-base font-medium">
-              Web3Hustle launching in beta soon! Join the waitlist for early
-              access
+              Hustle launching in beta soon! Join the waitlist for early access
             </p>
             <Link
               href="/waitlist"
@@ -106,7 +105,7 @@ export default function Page() {
           <Link href="/" className="font-bold text-2xl text-black z-10">
             <Image
               src="/assets/logo.svg"
-              alt="Web3Hustle Logo"
+              alt="Hustle Logo"
               width={120}
               height={40}
               className="h-10 w-auto"
@@ -1584,7 +1583,7 @@ export default function Page() {
                       01
                     </span>
                     <h3 className="text-xl font-medium">
-                      How does Web3Hustle verify freelancer skills?
+                      How does Hustle verify freelancer skills?
                     </h3>
                   </div>
                   <svg
@@ -1651,11 +1650,11 @@ export default function Page() {
                 {openFaq === 2 && (
                   <div className="mt-4 pl-12 text-gray-600">
                     <p>
-                      Yes! Web3Hustle supports payments in major
-                      cryptocurrencies including ETH, USDC, and BTC. We also
-                      support traditional payment methods for clients who prefer
-                      to pay in fiat currencies. Our escrow system ensures
-                      secure transactions for both parties.
+                      Yes! Hustle supports payments in major cryptocurrencies
+                      including ETH, USDC, and BTC. We also support traditional
+                      payment methods for clients who prefer to pay in fiat
+                      currencies. Our escrow system ensures secure transactions
+                      for both parties.
                     </p>
                   </div>
                 )}
@@ -1695,7 +1694,7 @@ export default function Page() {
                 {openFaq === 3 && (
                   <div className="mt-4 pl-12 text-gray-600">
                     <p>
-                      Web3Hustle welcomes developers at all stages of their
+                      Hustle welcomes developers at all stages of their
                       blockchain journey. We offer resources, learning paths,
                       and mentorship opportunities to help you transition from
                       Web2 to Web3. You can start with smaller projects and
@@ -1739,11 +1738,11 @@ export default function Page() {
                 {openFaq === 4 && (
                   <div className="mt-4 pl-12 text-gray-600">
                     <p>
-                      Web3Hustle charges a competitive 5% fee on completed
-                      projects, significantly lower than traditional freelance
-                      platforms. We also offer subscription plans for companies
-                      with ongoing hiring needs, which can reduce fees further.
-                      There are no hidden charges or withdrawal fees.
+                      Hustle charges a competitive 5% fee on completed projects,
+                      significantly lower than traditional freelance platforms.
+                      We also offer subscription plans for companies with
+                      ongoing hiring needs, which can reduce fees further. There
+                      are no hidden charges or withdrawal fees.
                     </p>
                   </div>
                 )}
@@ -1803,7 +1802,7 @@ export default function Page() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-gray-600 text-sm md:text-base order-2 md:order-1 mt-4 md:mt-0">
-              © {new Date().getFullYear()} Web3Hustle. All rights reserved.
+              © {new Date().getFullYear()} Hustle. All rights reserved.
             </div>
 
             <div className="flex items-center gap-6 order-1 md:order-2">
@@ -1835,7 +1834,7 @@ export default function Page() {
                 rel="noopener noreferrer"
                 className="font-medium text-black hover:text-purple-600 transition-colors"
               >
-                Web3Hustle Team
+                Hustle Team
               </Link>
             </div>
           </div>
