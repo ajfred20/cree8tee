@@ -11,6 +11,10 @@ import {
   BadgeDollarSign,
   ArrowRight,
   Megaphone,
+  Linkedin,
+  Youtube,
+  Apple,
+  Smartphone,
 } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -1579,10 +1583,10 @@ export default function Page() {
                   onClick={() => setOpenFaq(openFaq === 1 ? null : 1)}
                 >
                   <div className="flex items-center">
-                    <span className="flex items-center justify-center bg-gray-800 text-white rounded-full w-8 h-8 mr-4 text-sm">
+                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-4 text-sm">
                       01
                     </span>
-                    <h3 className="text-xl font-medium">
+                    <h3 className="text-xl font-medium tracking-tighter">
                       How does Hustle verify freelancer skills?
                     </h3>
                   </div>
@@ -1605,7 +1609,7 @@ export default function Page() {
 
                 {openFaq === 1 && (
                   <div className="mt-4 pl-12 text-gray-600">
-                    <p>
+                    <p className="font-normal tracking-tight">
                       Our platform uses a multi-step verification process
                       including skills assessments, portfolio reviews, and
                       blockchain knowledge tests. We also verify past work
@@ -1623,10 +1627,10 @@ export default function Page() {
                   onClick={() => setOpenFaq(openFaq === 2 ? null : 2)}
                 >
                   <div className="flex items-center">
-                    <span className="flex items-center justify-center bg-gray-800 text-white rounded-full w-8 h-8 mr-4 text-sm">
+                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-4 text-sm">
                       02
                     </span>
-                    <h3 className="text-xl font-medium">
+                    <h3 className="text-xl font-medium tracking-tighter">
                       Can I pay freelancers with cryptocurrency?
                     </h3>
                   </div>
@@ -1649,7 +1653,7 @@ export default function Page() {
 
                 {openFaq === 2 && (
                   <div className="mt-4 pl-12 text-gray-600">
-                    <p>
+                    <p className="font-normal tracking-tight">
                       Yes! Hustle supports payments in major cryptocurrencies
                       including ETH, USDC, and BTC. We also support traditional
                       payment methods for clients who prefer to pay in fiat
@@ -1667,10 +1671,10 @@ export default function Page() {
                   onClick={() => setOpenFaq(openFaq === 3 ? null : 3)}
                 >
                   <div className="flex items-center">
-                    <span className="flex items-center justify-center bg-gray-800 text-white rounded-full w-8 h-8 mr-4 text-sm">
+                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-4 text-sm">
                       03
                     </span>
-                    <h3 className="text-xl font-medium">
+                    <h3 className="text-xl font-medium tracking-tighter">
                       What if I'm new to Web3 development?
                     </h3>
                   </div>
@@ -1693,7 +1697,7 @@ export default function Page() {
 
                 {openFaq === 3 && (
                   <div className="mt-4 pl-12 text-gray-600">
-                    <p>
+                    <p className="font-normal tracking-tight">
                       Hustle welcomes developers at all stages of their
                       blockchain journey. We offer resources, learning paths,
                       and mentorship opportunities to help you transition from
@@ -1711,10 +1715,10 @@ export default function Page() {
                   onClick={() => setOpenFaq(openFaq === 4 ? null : 4)}
                 >
                   <div className="flex items-center">
-                    <span className="flex items-center justify-center bg-gray-800 text-white rounded-full w-8 h-8 mr-4 text-sm">
+                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-4 text-sm">
                       04
                     </span>
-                    <h3 className="text-xl font-medium">
+                    <h3 className="text-xl font-medium tracking-tighter">
                       How are platform fees structured?
                     </h3>
                   </div>
@@ -1737,7 +1741,7 @@ export default function Page() {
 
                 {openFaq === 4 && (
                   <div className="mt-4 pl-12 text-gray-600">
-                    <p>
+                    <p className="font-normal tracking-tight">
                       Hustle charges a competitive 5% fee on completed projects,
                       significantly lower than traditional freelance platforms.
                       We also offer subscription plans for companies with
@@ -1755,10 +1759,10 @@ export default function Page() {
                   onClick={() => setOpenFaq(openFaq === 5 ? null : 5)}
                 >
                   <div className="flex items-center">
-                    <span className="flex items-center justify-center bg-gray-800 text-white rounded-full w-8 h-8 mr-4 text-sm">
+                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-4 text-sm">
                       05
                     </span>
-                    <h3 className="text-xl font-medium">
+                    <h3 className="text-xl font-medium tracking-tighter">
                       Do you offer protection for both clients and freelancers?
                     </h3>
                   </div>
@@ -1781,7 +1785,7 @@ export default function Page() {
 
                 {openFaq === 5 && (
                   <div className="mt-4 pl-12 text-gray-600">
-                    <p>
+                    <p className="font-normal tracking-tight">
                       Absolutely. Our escrow system holds client funds securely
                       until project milestones are approved. For freelancers,
                       this ensures payment for completed work. For clients, it
@@ -1797,44 +1801,202 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Footer - Responsive */}
-      <footer className="py-6 md:py-8 border-t">
+      {/* Footer */}
+      <footer className="bg-purple-800 text-white py-16 max-w-7xl mx-auto px-4 sm:px-6 rounded-lg mb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-gray-600 text-sm md:text-base order-2 md:order-1 mt-4 md:mt-0">
-              © {new Date().getFullYear()} Hustle. All rights reserved.
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            {/* For Clients */}
+            <div>
+              <h3 className="text-white font-medium mb-6 tracking-tighter">
+                For Clients
+              </h3>
+              <ul className="space-y-4">
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    How to hire
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    Talent Marketplace
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    Enterprise
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    Hire worldwide
+                  </Link>
+                </li>
+              </ul>
             </div>
 
-            <div className="flex items-center gap-6 order-1 md:order-2">
-              <Link
-                href="#"
-                className="text-gray-600 hover:text-purple-600 transition-colors"
-              >
-                <Facebook className="w-5 h-5" />
-              </Link>
-              <Link
-                href="#"
-                className="text-gray-600 hover:text-purple-600 transition-colors"
-              >
-                <Twitter className="w-5 h-5" />
-              </Link>
-              <Link
-                href="#"
-                className="text-gray-600 hover:text-purple-600 transition-colors"
-              >
-                <Instagram className="w-5 h-5" />
-              </Link>
+            {/* For Talent */}
+            <div>
+              <h3 className="text-white font-medium mb-6">For Talent</h3>
+              <ul className="space-y-4">
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    How to find work
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    Find Web3 jobs worldwide
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    Earn with crypto
+                  </Link>
+                </li>
+              </ul>
             </div>
 
-            <div className="flex items-center gap-1 text-gray-600 text-sm md:text-base order-3">
-              Built with 🫶🏽💜 by{" "}
-              <Link
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-black hover:text-purple-600 transition-colors"
-              >
-                Hustle Team
+            {/* Resources */}
+            <div>
+              <h3 className="text-white font-medium mb-6">Resources</h3>
+              <ul className="space-y-4">
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    Help & support
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    Success stories
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    Blog
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h3 className="text-white font-medium mb-6">Company</h3>
+              <ul className="space-y-4">
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    About us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    Careers
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    Contact us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-100 hover:text-white tracking-tight transition-colors"
+                  >
+                    Trust, safety & security
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-gray-800">
+            <div className="flex items-center mb-4 md:mb-0">
+              <p className="text-gray-100 text-sm">Follow us</p>
+              <div className="flex space-x-4 ml-4">
+                <Link
+                  href="#"
+                  className="text-gray-100 hover:text-purple-400 transition-colors"
+                >
+                  <Facebook className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="#"
+                  className="text-gray-100 hover:text-purple-400 transition-colors"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="#"
+                  className="text-gray-100 hover:text-purple-400 transition-colors"
+                >
+                  <Twitter className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="#"
+                  className="text-gray-100 hover:text-purple-400 transition-colors"
+                >
+                  <Youtube className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="#"
+                  className="text-gray-100 hover:text-purple-400 transition-colors"
+                >
+                  <Instagram className="w-5 h-5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-between pt-8 text-sm text-gray-100">
+            <p>© {new Date().getFullYear()} Hustle Inc.</p>
+            <div className="flex flex-wrap gap-4 mt-4 md:mt-0">
+              <Link href="#" className="hover:text-white transition-colors">
+                Terms of Service
+              </Link>
+              <Link href="#" className="hover:text-white transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="#" className="hover:text-white transition-colors">
+                Accessibility
               </Link>
             </div>
           </div>
