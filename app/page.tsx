@@ -429,7 +429,7 @@ export default function Page() {
             {/* Right side - Content with futuristic toggle */}
             <div className="order-1 md:order-2">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tighter text-black mb-8">
-                Elevate your Web3 career, it's simple
+                Elevate your Web3 career, it's that simple
               </h2>
 
               {/* Futuristic toggle switch */}
@@ -1557,7 +1557,7 @@ export default function Page() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-5xl md:text-5xl font-semibold tracking-tighter mb-6">
-              Frequently ask questions
+              Frequently asked questions
             </h2>
             <p className="text-gray-600 mb-12">
               If you don't find any question you are looking for. You can drop a
