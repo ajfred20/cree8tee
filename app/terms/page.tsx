@@ -8,8 +8,8 @@ import { useState } from "react";
 
 export default function TermsOfService() {
   // Last updated date
-  const lastUpdated = "April 6, 2023";
-  const effectiveDate = "April 15, 2023";
+  const lastUpdated = "April 6, 2025";
+  const effectiveDate = "April 6, 2025";
 
   // State for active section (for mobile scrolling)
   const [activeSection, setActiveSection] = useState("01");
@@ -49,7 +49,7 @@ export default function TermsOfService() {
       {/* Header - Simple Version */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 pb-12">
         <motion.h1
-          className="text-3xl md:text-4xl font-bold text-gray-900 text-center"
+          className="text-3xl md:text-4xl font-semibold tracking-tighter text-gray-900 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -57,7 +57,7 @@ export default function TermsOfService() {
           Terms of Service
         </motion.h1>
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-2 text-gray-500 text-sm mt-2"
+          className="flex flex-col sm:flex-row items-center justify-center font-normal tracking-tight gap-2 text-gray-500 text-sm mt-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -74,7 +74,7 @@ export default function TermsOfService() {
           {/* Table of Contents - Sidebar */}
           <div className="md:w-1/3">
             <div className="sticky top-8">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+              <h2 className="text-lg font-semibold tracking-tight text-gray-900 mb-4">
                 Table of Contents
               </h2>
               <ul className="space-y-2">
@@ -171,7 +171,7 @@ export default function TermsOfService() {
 
             {/* Section 1: Definitions */}
             <section id="01" className="mb-16 scroll-mt-8">
-              <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2 mb-8">
+              <h2 className="text-xl font-semibold tracking-tight text-gray-900 flex items-center gap-2 mb-8">
                 <span className="text-purple-600">01.</span> Definitions
               </h2>
 
@@ -179,7 +179,7 @@ export default function TermsOfService() {
 
               <div className="space-y-3 text-sm text-gray-600">
                 <div>
-                  <p className="font-medium text-gray-800">
+                  <p className="font-medium tracking-tight text-gray-800">
                     • "Hustle", "we", "us", or "our"
                   </p>
                   <p className="pl-4">
@@ -188,7 +188,9 @@ export default function TermsOfService() {
                 </div>
 
                 <div>
-                  <p className="font-medium text-gray-800">• "You" or "your"</p>
+                  <p className="font-medium tracking-tight text-gray-800">
+                    • "You" or "your"
+                  </p>
                   <p className="pl-4">
                     Refers to any individual or entity that accesses or uses our
                     Platform.
@@ -196,14 +198,18 @@ export default function TermsOfService() {
                 </div>
 
                 <div>
-                  <p className="font-medium text-gray-800">• "Freelancer"</p>
+                  <p className="font-medium tracking-tight text-gray-800">
+                    • "Freelancer"
+                  </p>
                   <p className="pl-4">
                     Refers to users who offer services through the Platform.
                   </p>
                 </div>
 
                 <div>
-                  <p className="font-medium text-gray-800">• "Client"</p>
+                  <p className="font-medium tracking-tight text-gray-800">
+                    • "Client"
+                  </p>
                   <p className="pl-4">
                     Refers to users who seek to purchase services through the
                     Platform.
@@ -211,7 +217,9 @@ export default function TermsOfService() {
                 </div>
 
                 <div>
-                  <p className="font-medium text-gray-800">• "Content"</p>
+                  <p className="font-medium tracking-tight text-gray-800">
+                    • "Content"
+                  </p>
                   <p className="pl-4">
                     Includes text, graphics, images, music, software, audio,
                     video, information, or other materials.
@@ -222,7 +230,7 @@ export default function TermsOfService() {
 
             {/* Section 2: Eligibility */}
             <section id="02" className="mb-16 scroll-mt-8">
-              <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2 mb-8">
+              <h2 className="text-xl font-semibold tracking-tight text-gray-900 flex items-center gap-2 mb-8">
                 <span className="text-purple-600">02.</span> Eligibility
               </h2>
 
@@ -232,7 +240,7 @@ export default function TermsOfService() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="font-medium text-gray-800 mb-2">
+                  <h3 className="font-medium tracking-tight text-gray-800 mb-2">
                     Age & Legal Requirements
                   </h3>
                   <ul className="space-y-2 text-sm text-gray-600">
@@ -248,7 +256,7 @@ export default function TermsOfService() {
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-800 mb-2">
+                  <h3 className="font-medium tracking-tight text-gray-800 mb-2">
                     Account Requirements
                   </h3>
                   <ul className="space-y-2 text-sm text-gray-600">
@@ -262,7 +270,7 @@ export default function TermsOfService() {
 
             {/* Section 3: Accounts */}
             <section id="03" className="mb-16 scroll-mt-8">
-              <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2 mb-8">
+              <h2 className="text-xl font-semibold tracking-tight text-gray-900 flex items-center gap-2 mb-8">
                 <span className="text-purple-600">03.</span> Accounts
               </h2>
 
@@ -272,7 +280,7 @@ export default function TermsOfService() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="font-medium text-gray-800 mb-2">
+                  <h3 className="font-medium tracking-tight text-gray-800 mb-2">
                     Your Responsibilities
                   </h3>
                   <ul className="space-y-2 text-sm text-gray-600">
@@ -288,7 +296,9 @@ export default function TermsOfService() {
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-800 mb-2">Our Rights</h3>
+                  <h3 className="font-medium tracking-tight text-gray-800 mb-2">
+                    Our Rights
+                  </h3>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li>• Disable accounts that violate our Terms</li>
                     <li>
@@ -303,13 +313,13 @@ export default function TermsOfService() {
 
             {/* Section 4: Platform Rules */}
             <section id="04" className="mb-16 scroll-mt-8">
-              <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2 mb-8">
+              <h2 className="text-xl font-semibold tracking-tight text-gray-900 flex items-center gap-2 mb-8">
                 <span className="text-purple-600">04.</span> Platform Rules
               </h2>
 
               <div className="grid grid-cols-1 gap-8">
                 <div>
-                  <h3 className="font-medium text-gray-800 mb-2">
+                  <h3 className="font-medium tracking-tight text-gray-800 mb-2">
                     General Rules
                   </h3>
                   <p className="text-gray-600 mb-3 text-sm">
@@ -359,7 +369,7 @@ export default function TermsOfService() {
 
             {/* Section 5: Payments and Fees */}
             <section id="05" className="mb-16 scroll-mt-8">
-              <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2 mb-8">
+              <h2 className="text-xl font-semibold tracking-tight text-gray-900 flex items-center gap-2 mb-8">
                 <span className="text-purple-600">05.</span> Payments & Fees
               </h2>
 
@@ -374,7 +384,7 @@ export default function TermsOfService() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="font-medium text-gray-800 mb-2">
+                  <h3 className="font-medium tracking-tight text-gray-800 mb-2">
                     For Clients
                   </h3>
                   <ul className="space-y-2 text-sm text-gray-600">
@@ -386,7 +396,7 @@ export default function TermsOfService() {
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-800 mb-2">
+                  <h3 className="font-medium tracking-tight text-gray-800 mb-2">
                     For Freelancers
                   </h3>
                   <ul className="space-y-2 text-sm text-gray-600">
@@ -401,14 +411,14 @@ export default function TermsOfService() {
 
             {/* Section 6: Intellectual Property */}
             <section id="06" className="mb-16 scroll-mt-8">
-              <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2 mb-8">
+              <h2 className="text-xl font-semibold tracking-tight text-gray-900 flex items-center gap-2 mb-8">
                 <span className="text-purple-600">06.</span> Intellectual
                 Property
               </h2>
 
               <div className="grid grid-cols-1 gap-8">
                 <div>
-                  <h3 className="font-medium text-gray-800 mb-2">
+                  <h3 className="font-medium tracking-tight text-gray-800 mb-2">
                     Platform Content
                   </h3>
                   <p className="text-sm text-gray-600 mb-4">
@@ -421,7 +431,7 @@ export default function TermsOfService() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
-                    <h3 className="font-medium text-gray-800 mb-2">
+                    <h3 className="font-medium tracking-tight text-gray-800 mb-2">
                       User Content
                     </h3>
                     <ul className="space-y-2 text-sm text-gray-600">
@@ -432,7 +442,7 @@ export default function TermsOfService() {
                   </div>
 
                   <div>
-                    <h3 className="font-medium text-gray-800 mb-2">
+                    <h3 className="font-medium tracking-tight t ext-gray-800 mb-2">
                       Project Deliverables
                     </h3>
                     <ul className="space-y-2 text-sm text-gray-600">
