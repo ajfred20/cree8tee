@@ -19,19 +19,19 @@ export default function LoginPage() {
       {/* Left Column - Image */}
       <div className="relative hidden lg:block lg:w-1/2">
         <Image
-          src="/assets/dev-coding.jpg"
+          src="/assets/3-2.jpg"
           alt="Web3 Developers"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/70 to-purple-700/50">
-          <div className="flex flex-col justify-center h-full px-12 py-8">
+        <div className="absolute inset-0">
+          <div className="flex flex-col justify-end h-full px-12 py-8">
             <div className="max-w-md text-white">
-              <h1 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
+              <h1 className="text-2xl sm:text-4xl font-semibold tracking-tighter mb-6 leading-tight">
                 Connect with top Web3 talent worldwide
               </h1>
-              <p className="text-xl text-white/90">
+              <p className="text-base font-normal tracking-tight text-white/90">
                 Join thousands of freelancers and clients building the
                 decentralized future
               </p>
