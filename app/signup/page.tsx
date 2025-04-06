@@ -133,7 +133,7 @@ export default function SignupPage() {
                   className={`relative p-6 border-2 rounded-md text-left transition-all ${
                     userType === "client"
                       ? "border-purple-600 bg-purple-50"
-                      : "border-gray-200 hover:border-gray-300"
+                      : "border-gray-200 hover:border-purple-300"
                   }`}
                 >
                   {userType === "client" && (
@@ -157,10 +157,10 @@ export default function SignupPage() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-medium text-gray-900">
+                  <h3 className="text-lg font-medium tracking-tight text-gray-900">
                     I'm a Talent Seeker
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">
+                  <p className="mt-1 text-sm font-normal tracking-tight text-gray-500">
                     I want to hire blockchain experts for my Web3 projects
                   </p>
                 </button>
@@ -192,18 +192,6 @@ export default function SignupPage() {
             </div>
           ) : (
             <form className="space-y-5">
-              <div className="flex justify-center space-x-1 mb-6">
-                <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center">
-                    <span className="text-white text-xs">1</span>
-                  </div>
-                  <div className="h-1 w-12 bg-purple-600"></div>
-                  <div className="w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center">
-                    <span className="text-white text-xs">2</span>
-                  </div>
-                </div>
-              </div>
-
               <div>
                 <label
                   htmlFor="fullName"
