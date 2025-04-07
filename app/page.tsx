@@ -82,14 +82,27 @@ export default function Page() {
         <div className="bg-purple-700 text-white py-2 px-4 flex items-center justify-center relative">
           <div className="flex items-center">
             <span className="mr-2">
-              <Megaphone className="w-4 h-4" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46"
+                />
+              </svg>
             </span>
-            <p className="text-sm md:text-base font-medium">
+            <p className="text-sm md:text-base font-medium tracking-tight">
               Hustle launching in beta soon! Join the waitlist for early access
             </p>
             <Link
               href="/waitlist"
-              className="ml-2 underline text-white/90 hover:text-white flex items-center"
+              className="ml-2 underline text-white/90 hover:text-white flex items-center font-normal tracking-tight"
             >
               Sign up <ArrowUpRight className="w-3 h-3 ml-1" />
             </Link>
@@ -254,25 +267,29 @@ export default function Page() {
         </div>
 
         {/* Hero Image - Responsive */}
-        <div className="relative w-full h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] rounded-lg overflow-hidden">
+        <div className="relative w-full h-[300px] sm:h-[400] md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden">
           <Image
-            src="/assets/web3-banner.jpg"
+            src="/assets/2-9.jpg"
             alt="Web3 landscape"
             fill
             className="object-cover"
             priority
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <button className="w-12 h-12 md:w-16 md:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+            <button className="w-12 h-12 md:w-16 md:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
               <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="white"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 md:w-6 md:h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6"
               >
-                <path d="M8 5v14l11-7z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+                />
               </svg>
             </button>
           </div>
@@ -394,7 +411,7 @@ export default function Page() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
             {/* Left side - Image that changes based on tab */}
-            <div className="relative h-[350px] md:h-[450px] rounded-xl overflow-hidden order-2 md:order-1">
+            <div className="relative h-[300px] sm:h-[350px] md:h-[450px] rounded-xl overflow-hidden order-2 md:order-1 max-w-xl">
               {/* Freelancer Image */}
               <motion.div
                 className="absolute inset-0"
@@ -498,20 +515,20 @@ export default function Page() {
               {currentTab === "freelancer" && (
                 <div className="space-y-8">
                   <div className="flex items-start">
-                    <div className="flex-shrink-0 mt-1">
+                    <div className="flex-shrink-0 mt-1 text-purple-600">
                       <svg
-                        className="w-6 h-6 text-purple-600"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-6"
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        ></path>
+                          d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"
+                        />
                       </svg>
                     </div>
                     <div className="ml-4">
@@ -527,8 +544,21 @@ export default function Page() {
                   </div>
 
                   <div className="flex items-start">
-                    <div className="flex-shrink-0 mt-1">
-                      <BadgeDollarSign className="w-6 h-6 text-purple-600" />
+                    <div className="flex-shrink-0 mt-1 text-purple-600">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"
+                        />
+                      </svg>
                     </div>
                     <div className="ml-4">
                       <h3 className="text-xl font-medium text-black mb-1">
@@ -543,20 +573,20 @@ export default function Page() {
                   </div>
 
                   <div className="flex items-start">
-                    <div className="flex-shrink-0 mt-1">
+                    <div className="flex-shrink-0 text-purple-600 mt-1">
                       <svg
-                        className="w-6 h-6 text-purple-600"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-6"
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                        ></path>
+                          d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
+                        />
                       </svg>
                     </div>
                     <div className="ml-4">
@@ -833,7 +863,7 @@ export default function Page() {
                 </span>
               </div>
 
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white mb-6 leading-tight">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tighter text-white mb-6 leading-tight">
                 Find work
                 <br />
                 your way
