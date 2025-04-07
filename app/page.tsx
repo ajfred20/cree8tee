@@ -97,12 +97,12 @@ export default function Page() {
                 />
               </svg>
             </span>
-            <p className="text-sm md:text-base font-medium tracking-tight">
+            <p className="text-xs md:text-sm font-medium tracking-tight">
               Hustle launching in beta soon! Join the waitlist for early access
             </p>
             <Link
               href="/waitlist"
-              className="ml-2 underline text-white/90 hover:text-white flex items-center font-normal tracking-tight"
+              className="ml-2 underline text-white/90 hover:text-white items-center font-normal tracking-tight hidden sm:flex"
             >
               Sign up <ArrowUpRight className="w-3 h-3 ml-1" />
             </Link>
