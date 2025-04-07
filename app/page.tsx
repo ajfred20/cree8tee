@@ -1613,10 +1613,10 @@ export default function Page() {
                   onClick={() => setOpenFaq(openFaq === 1 ? null : 1)}
                 >
                   <div className="flex items-center">
-                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-4 text-sm">
+                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-2 sm:mr-4 text-sm">
                       01
                     </span>
-                    <h3 className="text-xl font-medium tracking-tighter">
+                    <h3 className="text-lg sm:text-xl font-medium tracking-tighter">
                       How does Hustle verify freelancer skills?
                     </h3>
                   </div>
@@ -1638,7 +1638,7 @@ export default function Page() {
                 </button>
 
                 {openFaq === 1 && (
-                  <div className="mt-4 pl-12 text-gray-600">
+                  <div className="mt-4 pl-4 sm:pl-12 text-gray-600">
                     <p className="font-normal tracking-tight">
                       Our platform uses a multi-step verification process
                       including skills assessments, portfolio reviews, and
@@ -1657,10 +1657,10 @@ export default function Page() {
                   onClick={() => setOpenFaq(openFaq === 2 ? null : 2)}
                 >
                   <div className="flex items-center">
-                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-4 text-sm">
+                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-2 sm:mr-4 text-sm">
                       02
                     </span>
-                    <h3 className="text-xl font-medium tracking-tighter">
+                    <h3 className="text-lg sm:text-xl font-medium tracking-tighter">
                       Can I pay freelancers with cryptocurrency?
                     </h3>
                   </div>
@@ -1682,7 +1682,7 @@ export default function Page() {
                 </button>
 
                 {openFaq === 2 && (
-                  <div className="mt-4 pl-12 text-gray-600">
+                  <div className="mt-4 pl-4 sm:pl-12 text-gray-600">
                     <p className="font-normal tracking-tight">
                       Yes! Hustle supports payments in major cryptocurrencies
                       including ETH, USDC, and BTC. We also support traditional
@@ -1701,10 +1701,10 @@ export default function Page() {
                   onClick={() => setOpenFaq(openFaq === 3 ? null : 3)}
                 >
                   <div className="flex items-center">
-                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-4 text-sm">
+                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-2 sm:mr-4 text-sm">
                       03
                     </span>
-                    <h3 className="text-xl font-medium tracking-tighter">
+                    <h3 className="text-lg sm:text-xl font-medium tracking-tighter">
                       What if I'm new to Web3 development?
                     </h3>
                   </div>
@@ -1726,7 +1726,7 @@ export default function Page() {
                 </button>
 
                 {openFaq === 3 && (
-                  <div className="mt-4 pl-12 text-gray-600">
+                  <div className="mt-4 pl-4 sm:pl-12 text-gray-600">
                     <p className="font-normal tracking-tight">
                       Hustle welcomes developers at all stages of their
                       blockchain journey. We offer resources, learning paths,
@@ -1745,10 +1745,10 @@ export default function Page() {
                   onClick={() => setOpenFaq(openFaq === 4 ? null : 4)}
                 >
                   <div className="flex items-center">
-                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-4 text-sm">
+                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-2 sm:mr-4 text-sm">
                       04
                     </span>
-                    <h3 className="text-xl font-medium tracking-tighter">
+                    <h3 className="text-lg sm:text-xl font-medium tracking-tighter">
                       How are platform fees structured?
                     </h3>
                   </div>
@@ -1770,7 +1770,7 @@ export default function Page() {
                 </button>
 
                 {openFaq === 4 && (
-                  <div className="mt-4 pl-12 text-gray-600">
+                  <div className="mt-4 pl-4 sm:pl-12 text-gray-600">
                     <p className="font-normal tracking-tight">
                       Hustle charges a competitive 5% fee on completed projects,
                       significantly lower than traditional freelance platforms.
@@ -1789,10 +1789,10 @@ export default function Page() {
                   onClick={() => setOpenFaq(openFaq === 5 ? null : 5)}
                 >
                   <div className="flex items-center">
-                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-4 text-sm">
+                    <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-2 sm:mr-4 text-sm">
                       05
                     </span>
-                    <h3 className="text-xl font-medium tracking-tighter">
+                    <h3 className="text-lg sm:text-xl font-medium tracking-tighter">
                       Do you offer protection for both clients and freelancers?
                     </h3>
                   </div>
@@ -1814,7 +1814,7 @@ export default function Page() {
                 </button>
 
                 {openFaq === 5 && (
-                  <div className="mt-4 pl-12 text-gray-600">
+                  <div className="mt-4 pl-4 sm:pl-12 text-gray-600">
                     <p className="font-normal tracking-tight">
                       Absolutely. Our escrow system holds client funds securely
                       until project milestones are approved. For freelancers,
