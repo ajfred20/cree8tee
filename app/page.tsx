@@ -27,6 +27,80 @@ export default function Page() {
   const [activeSkillTab, setActiveSkillTab] = useState("top");
   const [showAnnouncement, setShowAnnouncement] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+  // Navigation items with dropdowns
+  const navItems = {
+    find: {
+      label: "Solutions",
+      items: [
+        {
+          title: "Hire Talent",
+          description: "Find and hire top Web3 professionals",
+          icon: "👥",
+          href: "/hire",
+        },
+        {
+          title: "Find Work",
+          description: "Browse Web3 jobs and opportunities",
+          icon: "💼",
+          href: "/jobs",
+        },
+        {
+          title: "Enterprise",
+          description: "Custom solutions for large teams",
+          icon: "🏢",
+          href: "/enterprise",
+        },
+      ],
+    },
+    resources: {
+      label: "Resources",
+      items: [
+        {
+          title: "Blog",
+          description: "Latest insights and updates",
+          icon: "📝",
+          href: "/blog",
+        },
+        {
+          title: "Community",
+          description: "Join our Web3 community",
+          icon: "🌐",
+          href: "/community",
+        },
+        {
+          title: "Help Center",
+          description: "Get support and answers",
+          icon: "❓",
+          href: "/help",
+        },
+      ],
+    },
+    company: {
+      label: "Company",
+      items: [
+        {
+          title: "About Us",
+          description: "Our mission and values",
+          icon: "🎯",
+          href: "/about",
+        },
+        {
+          title: "Careers",
+          description: "Join our team",
+          icon: "🚀",
+          href: "/careers",
+        },
+        {
+          title: "Contact",
+          description: "Get in touch with us",
+          icon: "📧",
+          href: "/contact",
+        },
+      ],
+    },
+  };
 
   // Testimonials data
   const testimonials = [
@@ -137,44 +211,234 @@ export default function Page() {
             <Menu className="h-6 w-6 text-black" />
           </button>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-4 lg:gap-8">
-            <div className="flex items-center gap-4 lg:gap-8">
-              <Link
-                href="#"
-                className="text-black hover:text-purple-600 font-medium text-sm uppercase"
-              >
-                About
-              </Link>
-              <Link
-                href="#"
-                className="text-black hover:text-purple-600 font-medium text-sm uppercase"
-              >
-                How it Works
-              </Link>
-              <Link
-                href="#"
-                className="text-black hover:text-purple-600 font-medium text-sm uppercase"
-              >
-                For Clients
-              </Link>
-              <Link
-                href="#"
-                className="text-black hover:text-purple-600 font-medium text-sm uppercase"
-              >
-                For Freelancers
-              </Link>
+          {/* Desktop Navigation - Exactly matching the provided image */}
+          <div className="hidden md:flex items-center gap-6">
+            {/* Navigation Items with Dropdowns */}
+            <div
+              className="relative group"
+              onMouseEnter={() => setActiveDropdown("talent")}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
+              <button className="flex items-center text-gray-800 hover:text-purple-600 font-medium text-sm gap-1 py-2">
+                Find talent
+                <svg
+                  className="w-4 h-4 transition-transform"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {activeDropdown === "talent" && (
+                <div className="absolute left-0 mt-1 w-64 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                  <div className="p-4 space-y-3">
+                    <Link
+                      href="/post-job"
+                      className="block p-2 hover:bg-gray-50 rounded"
+                    >
+                      <p className="text-sm font-medium text-gray-900">
+                        Post a job
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        Find the perfect match
+                      </p>
+                    </Link>
+                    <Link
+                      href="/browse-talent"
+                      className="block p-2 hover:bg-gray-50 rounded"
+                    >
+                      <p className="text-sm font-medium text-gray-900">
+                        Browse talent profiles
+                      </p>
+                      <p className="text-xs text-gray-500">Review portfolios</p>
+                    </Link>
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="flex items-center gap-4">
+
+            <div
+              className="relative group"
+              onMouseEnter={() => setActiveDropdown("work")}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
+              <button className="flex items-center text-gray-800 hover:text-purple-600 font-medium text-sm gap-1 py-2">
+                Find work
+                <svg
+                  className="w-4 h-4 transition-transform"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {activeDropdown === "work" && (
+                <div className="absolute left-0 mt-1 w-64 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                  <div className="p-4 space-y-3">
+                    <Link
+                      href="/jobs"
+                      className="block p-2 hover:bg-gray-50 rounded"
+                    >
+                      <p className="text-sm font-medium text-gray-900">
+                        Find jobs
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        Browse opportunities
+                      </p>
+                    </Link>
+                    <Link
+                      href="/saved-jobs"
+                      className="block p-2 hover:bg-gray-50 rounded"
+                    >
+                      <p className="text-sm font-medium text-gray-900">
+                        Saved jobs
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        View your bookmarks
+                      </p>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div
+              className="relative group"
+              onMouseEnter={() => setActiveDropdown("why")}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
+              <button className="flex items-center text-gray-800 hover:text-purple-600 font-medium text-sm gap-1 py-2">
+                Why Hustle
+                <svg
+                  className="w-4 h-4 transition-transform"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {activeDropdown === "why" && (
+                <div className="absolute left-0 mt-1 w-64 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                  <div className="p-4 space-y-3">
+                    <Link
+                      href="/success-stories"
+                      className="block p-2 hover:bg-gray-50 rounded"
+                    >
+                      <p className="text-sm font-medium text-gray-900">
+                        Success stories
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        Client testimonials
+                      </p>
+                    </Link>
+                    <Link
+                      href="/reviews"
+                      className="block p-2 hover:bg-gray-50 rounded"
+                    >
+                      <p className="text-sm font-medium text-gray-900">
+                        Reviews
+                      </p>
+                      <p className="text-xs text-gray-500">What clients say</p>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div
+              className="relative group"
+              onMouseEnter={() => setActiveDropdown("new")}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
+              <button className="flex items-center text-gray-800 hover:text-purple-600 font-medium text-sm gap-1 py-2">
+                What's new
+                <svg
+                  className="w-4 h-4 transition-transform"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {activeDropdown === "new" && (
+                <div className="absolute left-0 mt-1 w-64 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                  <div className="p-4 space-y-3">
+                    <Link
+                      href="/features"
+                      className="block p-2 hover:bg-gray-50 rounded"
+                    >
+                      <p className="text-sm font-medium text-gray-900">
+                        New features
+                      </p>
+                      <p className="text-xs text-gray-500">Platform updates</p>
+                    </Link>
+                    <Link
+                      href="/news"
+                      className="block p-2 hover:bg-gray-50 rounded"
+                    >
+                      <p className="text-sm font-medium text-gray-900">News</p>
+                      <p className="text-xs text-gray-500">
+                        Latest announcements
+                      </p>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <Link
+              href="/enterprise"
+              className="text-gray-800 hover:text-purple-600 font-medium text-sm py-2"
+            >
+              Enterprise
+            </Link>
+
+            <Link
+              href="/pricing"
+              className="text-gray-800 hover:text-purple-600 font-medium text-sm py-2"
+            >
+              Pricing
+            </Link>
+
+            {/* Action Buttons */}
+            <div className="flex items-center gap-4 ml-6">
               <Link
                 href="/login"
-                className="text-black hover:text-purple-600 font-medium text-sm uppercase flex items-center"
+                className="text-gray-700 hover:text-purple-600 font-medium text-sm flex items-center"
               >
                 Login <ArrowUpRight className="w-4 h-4 ml-1" />
               </Link>
               <Link
                 href="/signup"
-                className="bg-purple-600 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-full hover:bg-purple-700 font-medium text-sm uppercase"
+                className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 font-medium text-sm"
               >
                 Get Started
               </Link>
@@ -183,47 +447,142 @@ export default function Page() {
 
           {/* Mobile Navigation Overlay */}
           {mobileMenuOpen && (
-            <div className="fixed inset-0 bg-white z-10 flex flex-col items-center justify-center md:hidden">
-              <div className="flex flex-col items-center gap-8">
-                <Link
-                  href="#"
-                  className="text-black hover:text-purple-600 font-medium text-lg uppercase"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  About
-                </Link>
-                <Link
-                  href="#"
-                  className="text-black hover:text-purple-600 font-medium text-lg uppercase"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  How it Works
-                </Link>
-                <Link
-                  href="#"
-                  className="text-black hover:text-purple-600 font-medium text-lg uppercase"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  For Clients
-                </Link>
-                <Link
-                  href="#"
-                  className="text-black hover:text-purple-600 font-medium text-lg uppercase"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  For Freelancers
-                </Link>
-                <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
-                  <Link
-                    href="#"
-                    className="text-black hover:text-purple-600 font-medium text-lg uppercase flex items-center"
+            <div className="fixed inset-0 bg-white z-10 overflow-y-auto">
+              <div className="p-4">
+                <div className="flex items-center justify-between mb-8">
+                  <Link href="/" className="font-bold text-2xl text-black">
+                    <Image
+                      src="/assets/logo.svg"
+                      alt="Hustle Logo"
+                      width={120}
+                      height={40}
+                      className="h-10 w-auto"
+                    />
+                  </Link>
+                  <button
+                    className="p-2"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Login <ArrowUpRight className="w-5 h-5 ml-1" />
+                    <svg
+                      className="h-6 w-6 text-black"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Mobile Navigation Items - Matching the image style */}
+                <div className="space-y-6">
+                  <div className="border-b pb-2">
+                    <button className="flex items-center justify-between w-full py-2">
+                      <span className="text-base font-medium">Find talent</span>
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div className="border-b pb-2">
+                    <button className="flex items-center justify-between w-full py-2">
+                      <span className="text-base font-medium">Find work</span>
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div className="border-b pb-2">
+                    <button className="flex items-center justify-between w-full py-2">
+                      <span className="text-base font-medium">Why Hustle</span>
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div className="border-b pb-2">
+                    <button className="flex items-center justify-between w-full py-2">
+                      <span className="text-base font-medium">What's new</span>
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div className="border-b pb-2">
+                    <Link
+                      href="/enterprise"
+                      className="block py-2 text-base font-medium"
+                    >
+                      Enterprise
+                    </Link>
+                  </div>
+                  <div className="border-b pb-2">
+                    <Link
+                      href="/pricing"
+                      className="block py-2 text-base font-medium"
+                    >
+                      Pricing
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Mobile Action Buttons */}
+                <div className="mt-8 space-y-4">
+                  <Link
+                    href="/login"
+                    className="block w-full text-center px-4 py-3 border border-purple-600 text-purple-600 rounded-full hover:bg-purple-50 font-medium"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Login
                   </Link>
                   <Link
-                    href="#"
-                    className="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 font-medium text-lg uppercase mt-4 sm:mt-0"
+                    href="/signup"
+                    className="block w-full text-center px-4 py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 font-medium"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Get Started
