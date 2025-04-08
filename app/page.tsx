@@ -823,7 +823,7 @@ export default function Page() {
             {/* Global freelancers */}
             <div className="text-center">
               <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.1em] text-black mb-2">
-                500+
+                100+
               </h3>
               <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
                 Beta testers
@@ -1133,13 +1133,13 @@ export default function Page() {
 
               <div className="mt-10 flex flex-col sm:flex-row gap-4">
                 <Link
-                  href="#"
+                  href="/signup"
                   className="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 font-medium text-center"
                 >
                   Sign up for free
                 </Link>
                 <Link
-                  href="#"
+                  href="/signup"
                   className="border border-gray-300 text-black px-6 py-3 rounded-full hover:bg-gray-100 font-medium text-center"
                 >
                   {currentTab === "freelancer"
