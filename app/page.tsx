@@ -167,13 +167,13 @@ export default function Page() {
             </div>
             <div className="flex items-center gap-4">
               <Link
-                href="#"
+                href="/login"
                 className="text-black hover:text-purple-600 font-medium text-sm uppercase flex items-center"
               >
                 Login <ArrowUpRight className="w-4 h-4 ml-1" />
               </Link>
               <Link
-                href="#"
+                href="/signup"
                 className="bg-purple-600 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-full hover:bg-purple-700 font-medium text-sm uppercase"
               >
                 Get Started
@@ -363,7 +363,7 @@ export default function Page() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {/* Projects completed */}
             <div className="text-center">
-              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter text-black mb-2">
+              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.1em] text-black mb-2">
                 50+
               </h3>
               <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
@@ -373,7 +373,7 @@ export default function Page() {
 
             {/* Return on investment */}
             <div className="text-center">
-              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter text-black mb-2">
+              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.1em] text-black mb-2">
                 85%
               </h3>
               <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
@@ -383,7 +383,7 @@ export default function Page() {
 
             {/* Global freelancers */}
             <div className="text-center">
-              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter text-black mb-2">
+              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.1em] text-black mb-2">
                 500+
               </h3>
               <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
@@ -393,7 +393,7 @@ export default function Page() {
 
             {/* 5-star reviews */}
             <div className="text-center">
-              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter text-black mb-2">
+              <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.1em] text-black mb-2">
                 30+
               </h3>
               <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
@@ -2159,6 +2159,18 @@ export default function Page() {
           </div>
         </div>
       </footer>
+
+      <div className="w-full px-2 sm:px-4 py-20 md:py-24 text-center bg-gradient-to-r from-purple-50 to-white">
+        <div className="flex flex-col items-center justify-center">
+          <Image
+            src="/assets/logo.svg"
+            alt="Hustle Logo"
+            width={1200}
+            height={1400}
+            className="inline-block mx-3 transform scale-110 md:scale-125"
+          />
+        </div>
+      </div>
     </div>
   );
 }
