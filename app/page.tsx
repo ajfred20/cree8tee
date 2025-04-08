@@ -237,28 +237,48 @@ export default function Page() {
               </button>
 
               {activeDropdown === "talent" && (
-                <div className="absolute left-0 mt-1 w-64 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                  <div className="p-4 space-y-3">
-                    <Link
-                      href="/post-job"
-                      className="block p-2 hover:bg-gray-50 rounded"
-                    >
-                      <p className="text-sm font-medium text-gray-900">
-                        Post a job
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        Find the perfect match
-                      </p>
-                    </Link>
-                    <Link
-                      href="/browse-talent"
-                      className="block p-2 hover:bg-gray-50 rounded"
-                    >
-                      <p className="text-sm font-medium text-gray-900">
-                        Browse talent profiles
-                      </p>
-                      <p className="text-xs text-gray-500">Review portfolios</p>
-                    </Link>
+                <div className="absolute left-0 mt-1 w-64 bg-white rounded-lg shadow-lg ring-1 ring-black/5 focus:outline-none z-50 border-t-2 border-purple-600">
+                  <div className="py-3">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <h3 className="text-sm font-medium text-gray-900">
+                        Ways to hire
+                      </h3>
+                    </div>
+                    <div className="p-2">
+                      <Link
+                        href="/post-job"
+                        className="block px-4 py-2 hover:bg-gray-50 rounded"
+                      >
+                        <p className="text-sm font-medium text-gray-900">
+                          Post a job
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Find the perfect match
+                        </p>
+                      </Link>
+                      <Link
+                        href="/browse-talent"
+                        className="block px-4 py-2 hover:bg-gray-50 rounded"
+                      >
+                        <p className="text-sm font-medium text-gray-900">
+                          Browse talent profiles
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Review portfolios
+                        </p>
+                      </Link>
+                      <Link
+                        href="/project-catalog"
+                        className="block px-4 py-2 hover:bg-gray-50 rounded"
+                      >
+                        <p className="text-sm font-medium text-gray-900">
+                          Project Catalog
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Fixed-price projects
+                        </p>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               )}
@@ -287,30 +307,48 @@ export default function Page() {
               </button>
 
               {activeDropdown === "work" && (
-                <div className="absolute left-0 mt-1 w-64 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                  <div className="p-4 space-y-3">
-                    <Link
-                      href="/jobs"
-                      className="block p-2 hover:bg-gray-50 rounded"
-                    >
-                      <p className="text-sm font-medium text-gray-900">
-                        Find jobs
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        Browse opportunities
-                      </p>
-                    </Link>
-                    <Link
-                      href="/saved-jobs"
-                      className="block p-2 hover:bg-gray-50 rounded"
-                    >
-                      <p className="text-sm font-medium text-gray-900">
-                        Saved jobs
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        View your bookmarks
-                      </p>
-                    </Link>
+                <div className="absolute left-0 mt-1 w-64 bg-white rounded-lg shadow-lg ring-1 ring-black/5 focus:outline-none z-50 border-t-2 border-purple-600">
+                  <div className="py-3">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <h3 className="text-sm font-medium text-gray-900">
+                        Find work for your skills
+                      </h3>
+                    </div>
+                    <div className="p-2">
+                      <Link
+                        href="/jobs"
+                        className="block px-4 py-2 hover:bg-gray-50 rounded"
+                      >
+                        <p className="text-sm font-medium text-gray-900">
+                          Find jobs
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Browse opportunities
+                        </p>
+                      </Link>
+                      <Link
+                        href="/saved-jobs"
+                        className="block px-4 py-2 hover:bg-gray-50 rounded"
+                      >
+                        <p className="text-sm font-medium text-gray-900">
+                          Saved jobs
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          View your bookmarks
+                        </p>
+                      </Link>
+                      <Link
+                        href="/proposals"
+                        className="block px-4 py-2 hover:bg-gray-50 rounded"
+                      >
+                        <p className="text-sm font-medium text-gray-900">
+                          Proposals
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Track your applications
+                        </p>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               )}
@@ -322,7 +360,7 @@ export default function Page() {
               onMouseLeave={() => setActiveDropdown(null)}
             >
               <button className="flex items-center text-gray-800 hover:text-purple-600 font-medium text-sm gap-1 py-2">
-                Why Hustle
+                Why Upwork
                 <svg
                   className="w-4 h-4 transition-transform"
                   fill="none"
@@ -339,28 +377,48 @@ export default function Page() {
               </button>
 
               {activeDropdown === "why" && (
-                <div className="absolute left-0 mt-1 w-64 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                  <div className="p-4 space-y-3">
-                    <Link
-                      href="/success-stories"
-                      className="block p-2 hover:bg-gray-50 rounded"
-                    >
-                      <p className="text-sm font-medium text-gray-900">
-                        Success stories
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        Client testimonials
-                      </p>
-                    </Link>
-                    <Link
-                      href="/reviews"
-                      className="block p-2 hover:bg-gray-50 rounded"
-                    >
-                      <p className="text-sm font-medium text-gray-900">
-                        Reviews
-                      </p>
-                      <p className="text-xs text-gray-500">What clients say</p>
-                    </Link>
+                <div className="absolute left-0 mt-1 w-64 bg-white rounded-lg shadow-lg ring-1 ring-black/5 focus:outline-none z-50 border-t-2 border-purple-600">
+                  <div className="py-3">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <h3 className="text-sm font-medium text-gray-900">
+                        Ways to earn
+                      </h3>
+                    </div>
+                    <div className="p-2">
+                      <Link
+                        href="/success-stories"
+                        className="block px-4 py-2 hover:bg-gray-50 rounded"
+                      >
+                        <p className="text-sm font-medium text-gray-900">
+                          Success stories
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Client testimonials
+                        </p>
+                      </Link>
+                      <Link
+                        href="/reviews"
+                        className="block px-4 py-2 hover:bg-gray-50 rounded"
+                      >
+                        <p className="text-sm font-medium text-gray-900">
+                          Reviews
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          What clients say
+                        </p>
+                      </Link>
+                      <Link
+                        href="/platform-benefits"
+                        className="block px-4 py-2 hover:bg-gray-50 rounded"
+                      >
+                        <p className="text-sm font-medium text-gray-900">
+                          Platform benefits
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Learn why Upwork works
+                        </p>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               )}
@@ -389,26 +447,48 @@ export default function Page() {
               </button>
 
               {activeDropdown === "new" && (
-                <div className="absolute left-0 mt-1 w-64 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                  <div className="p-4 space-y-3">
-                    <Link
-                      href="/features"
-                      className="block p-2 hover:bg-gray-50 rounded"
-                    >
-                      <p className="text-sm font-medium text-gray-900">
-                        New features
-                      </p>
-                      <p className="text-xs text-gray-500">Platform updates</p>
-                    </Link>
-                    <Link
-                      href="/news"
-                      className="block p-2 hover:bg-gray-50 rounded"
-                    >
-                      <p className="text-sm font-medium text-gray-900">News</p>
-                      <p className="text-xs text-gray-500">
-                        Latest announcements
-                      </p>
-                    </Link>
+                <div className="absolute left-0 mt-1 w-64 bg-white rounded-lg shadow-lg ring-1 ring-black/5 focus:outline-none z-50 border-t-2 border-purple-600">
+                  <div className="py-3">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <h3 className="text-sm font-medium text-gray-900">
+                        Win work with ads
+                      </h3>
+                    </div>
+                    <div className="p-2">
+                      <Link
+                        href="/features"
+                        className="block px-4 py-2 hover:bg-gray-50 rounded"
+                      >
+                        <p className="text-sm font-medium text-gray-900">
+                          New features
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Platform updates
+                        </p>
+                      </Link>
+                      <Link
+                        href="/news"
+                        className="block px-4 py-2 hover:bg-gray-50 rounded"
+                      >
+                        <p className="text-sm font-medium text-gray-900">
+                          News
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Latest announcements
+                        </p>
+                      </Link>
+                      <Link
+                        href="/freelancer-plus"
+                        className="block px-4 py-2 hover:bg-gray-50 rounded"
+                      >
+                        <p className="text-sm font-medium text-gray-900">
+                          Join Freelancer Plus
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Premium benefits
+                        </p>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               )}
