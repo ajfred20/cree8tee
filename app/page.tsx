@@ -279,16 +279,14 @@ export default function Page() {
             <button className="w-12 h-12 md:w-16 md:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
+                fill="currentColor"
                 className="size-6"
               >
                 <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+                  fillRule="evenodd"
+                  d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z"
+                  clipRule="evenodd"
                 />
               </svg>
             </button>
@@ -1616,23 +1614,24 @@ export default function Page() {
                     <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-2 sm:mr-4 text-sm">
                       01
                     </span>
-                    <h3 className="text-lg sm:text-xl font-medium tracking-tighter">
+                    <h3 className="text-base sm:text-lg font-medium tracking-tighter">
                       How does Hustle verify freelancer skills?
                     </h3>
                   </div>
                   <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
                     className={`w-6 h-6 transform ${
                       openFaq === 1 ? "rotate-180" : ""
                     }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
+                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                     />
                   </svg>
                 </button>
@@ -1660,23 +1659,24 @@ export default function Page() {
                     <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-2 sm:mr-4 text-sm">
                       02
                     </span>
-                    <h3 className="text-lg sm:text-xl font-medium tracking-tighter">
+                    <h3 className="text-base sm:text-lg font-medium tracking-tighter">
                       Can I pay freelancers with cryptocurrency?
                     </h3>
                   </div>
                   <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
                     className={`w-6 h-6 transform ${
                       openFaq === 2 ? "rotate-180" : ""
                     }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
+                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                     />
                   </svg>
                 </button>
@@ -1704,23 +1704,24 @@ export default function Page() {
                     <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-2 sm:mr-4 text-sm">
                       03
                     </span>
-                    <h3 className="text-lg sm:text-xl font-medium tracking-tighter">
+                    <h3 className="text-base sm:text-lg font-medium tracking-tighter">
                       What if I'm new to Web3 development?
                     </h3>
                   </div>
                   <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
                     className={`w-6 h-6 transform ${
                       openFaq === 3 ? "rotate-180" : ""
                     }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
+                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                     />
                   </svg>
                 </button>
@@ -1748,23 +1749,24 @@ export default function Page() {
                     <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-2 sm:mr-4 text-sm">
                       04
                     </span>
-                    <h3 className="text-lg sm:text-xl font-medium tracking-tighter">
+                    <h3 className="text-base sm:text-lg font-medium tracking-tighter">
                       How are platform fees structured?
                     </h3>
                   </div>
                   <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
                     className={`w-6 h-6 transform ${
                       openFaq === 4 ? "rotate-180" : ""
                     }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
+                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                     />
                   </svg>
                 </button>
@@ -1792,23 +1794,24 @@ export default function Page() {
                     <span className="flex items-center justify-center bg-purple-400/20 text-purple-600 rounded-lg w-8 h-8 mr-2 sm:mr-4 text-sm">
                       05
                     </span>
-                    <h3 className="text-lg sm:text-xl font-medium tracking-tighter">
-                      Do you offer protection for both clients and freelancers?
+                    <h3 className="text-base sm:text-lg font-medium tracking-tighter">
+                      Is there protection for both clients and freelancers?
                     </h3>
                   </div>
                   <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
                     className={`w-6 h-6 transform ${
                       openFaq === 5 ? "rotate-180" : ""
                     }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
+                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                     />
                   </svg>
                 </button>

@@ -37,38 +37,74 @@ export default function HowToHire() {
       </div>
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-purple-700 to-purple-900 text-white py-16 md:py-24">
+      <div className="bg-white py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl">
-            <motion.h1
-              className="text-4xl md:text-5xl font-bold mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              How to Hire Top Web3 Talent on Hustle
-            </motion.h1>
-            <motion.p
-              className="text-xl text-purple-100 mb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              Your guide to finding, hiring, and collaborating with the best
-              blockchain professionals for your projects.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <Link
-                href="#get-started"
-                className="bg-white text-purple-700 px-6 py-3 rounded-full hover:bg-purple-50 font-medium inline-flex items-center"
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Left column - Content */}
+            <div>
+              <motion.h1
+                className="text-2xl md:text-4xl lg:text-5xl font-semibold tracking-tighter mb-6 text-purple-800"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
-                Get Started <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </motion.div>
+                Choose your way to get work done
+              </motion.h1>
+              <motion.p
+                className="text-sm md:text-base text-gray-600 font-normal tracking-tight mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                Find specialized Web3 freelancers and run blockchain projects
+                your way at the world's first decentralized talent marketplace.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <Link
+                  href="#get-started"
+                  className="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 font-medium inline-flex items-center"
+                >
+                  Find talent <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
+              </motion.div>
+              <motion.div
+                className="mt-8 text-sm text-gray-600"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                Looking to get hired?{" "}
+                <Link
+                  href="/signup"
+                  className="text-purple-600 hover:text-purple-700 font-medium"
+                >
+                  Sign up here
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Right column - Image */}
+            <div className="relative">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+                className="rounded-lg overflow-hidden"
+              >
+                <Image
+                  src="/assets/3-2.jpg"
+                  alt="Web3 professional working"
+                  width={1000}
+                  height={500}
+                  className="w-full h-auto object-cover rounded-lg"
+                  priority
+                />
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>
