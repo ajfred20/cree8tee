@@ -360,7 +360,7 @@ export default function Page() {
               onMouseLeave={() => setActiveDropdown(null)}
             >
               <button className="flex items-center text-gray-800 hover:text-purple-600 font-medium text-sm gap-1 py-2">
-                Why Upwork
+                Why Hustle
                 <svg
                   className="w-4 h-4 transition-transform"
                   fill="none"
@@ -415,7 +415,7 @@ export default function Page() {
                           Platform benefits
                         </p>
                         <p className="text-xs text-gray-500">
-                          Learn why Upwork works
+                          Learn why Hustle works
                         </p>
                       </Link>
                     </div>
