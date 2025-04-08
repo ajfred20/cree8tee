@@ -1257,7 +1257,7 @@ export default function Page() {
                 </div>
 
                 <Link
-                  href="#"
+                  href="/enterprise"
                   className="inline-block bg-white text-purple-900 px-6 py-3 rounded-full hover:bg-purple-50 font-medium text-center"
                 >
                   Learn more
