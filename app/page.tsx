@@ -1421,6 +1421,130 @@ export default function Page() {
         </div>
       </div>
 
+      <div className="py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="bg-fuchsia-800 rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 items-center">
+              {/* Left side - Image */}
+              <div className="relative h-[300px] md:h-full">
+                <Image
+                  src="/assets/2-5.jpg"
+                  alt="Web3 enterprise solutions"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              {/* Right side - Content */}
+              <div className="p-8 md:p-12 lg:p-16">
+                <div className="mb-6">
+                  <span className="text-fuchsia-300 font-medium">
+                    For Talent
+                  </span>
+                </div>
+
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tighter text-white mb-6">
+                  This is where
+                  <div className="text-fuchsia-300">
+                    Web3 talent builds
+                    <br />
+                    their future.
+                  </div>
+                </h2>
+
+                <p className="text-white/80 text-base md:text-lg mb-8">
+                  Join a thriving community of Web3 professionals and access
+                  high-value blockchain projects. Showcase your expertise, set
+                  your terms, and get paid in crypto or fiat.
+                </p>
+
+                <div className="space-y-4 mb-10">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1 text-fuchsia-300">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-white text-sm md:text-base">
+                        Connect with leading Web3 companies and innovative
+                        blockchain projects
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1 text-fuchsia-300">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-white text-sm md:text-base">
+                        Choose flexible work arrangements and set your own rates
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1 text-fuchsia-300">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-white text-sm md:text-base">
+                        Get paid securely through smart contracts with crypto or
+                        fiat options
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <Link
+                  href="#"
+                  className="inline-block bg-white text-fuchsia-700 px-6 py-3 rounded-full hover:bg-purple-50 font-medium text-center"
+                >
+                  Start earning
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Testimonials Section - Responsive with Slider */}
       <div className="py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
