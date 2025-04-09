@@ -1285,7 +1285,7 @@ export default function Page() {
             {/* Background image */}
             <div className="absolute inset-0">
               <Image
-                src="/assets/2-6.jpg"
+                src="/assets/1-7.jpg"
                 alt="Freelancer working"
                 fill
                 className="object-cover"
