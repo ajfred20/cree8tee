@@ -308,7 +308,7 @@ export default function PostJob() {
       {/* Trusted By Section */}
       <div className="border-t border-gray-200 py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <p className="text-xs font-medium text-gray-500 mb-8 text-left">
+          <p className="text-sm font-medium text-gray-500 mb-8 text-left">
             TRUSTED BY
           </p>
 
