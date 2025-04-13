@@ -2,19 +2,19 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Cre8tee - Creative Design Agency",
+  title: "Hustle - Web3 Talent at your fingertips",
   description:
-    "Transform your brand with our creative design services. We offer website design, mobile app design, branding, and more with a subscription-based model.",
+    "Hustle is a platform that connects you with the best web3 talent at your fingertips.",
   openGraph: {
-    title: "Cre8tee - Creative Design Agency",
+    title: "Hustle - Web3 Talent at your fingertips",
     description:
-      "Transform your brand with our creative design services. We offer website design, mobile app design, branding, and more with a subscription-based model.",
+      "Hustle is a platform that connects you with the best web3 talent at your fingertips.",
     images: [
       {
-        url: "/assets/logo.png",
+        url: "/assets/logo.svg",
         width: 800,
         height: 600,
-        alt: "Cre8tee Logo",
+        alt: "Hustle Logo",
       },
     ],
     type: "website",
