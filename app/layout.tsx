@@ -11,7 +11,7 @@ export const metadata: Metadata = {
       "Hustle is a platform that connects you with the best web3 talent at your fingertips.",
     images: [
       {
-        url: "/assets/logo.svg",
+        url: "/assets/logo.jpg",
         width: 800,
         height: 600,
         alt: "Hustle Logo",
