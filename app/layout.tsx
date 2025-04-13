@@ -9,6 +9,8 @@ export const metadata: Metadata = {
     title: "Hustle - Web3 Talent at your fingertips",
     description:
       "Hustle is a platform that connects you with the best web3 talent at your fingertips.",
+    siteName: "Hustle",
+    url: "https://hustle-aj.vercel.app",
     images: [
       {
         url: "/assets/logo.png",
