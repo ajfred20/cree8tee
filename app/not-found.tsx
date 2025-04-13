@@ -64,7 +64,7 @@ export default function NotFound() {
         >
           <Link
             href="/"
-            className="inline-block px-6 py-3 border-2 border-purple-600 text-purple-600 font-medium tracking-tight rounded-full hover:bg-purple-600 hover:text-white transition-colors duration-300"
+            className="inline-block px-6 py-3 border-2 border-purple-600 text-purple-600 font-medium tracking-tight rounded-lg hover:bg-purple-600 hover:text-white transition-colors duration-300"
           >
             Go to Home
           </Link>
