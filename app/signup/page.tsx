@@ -325,7 +325,7 @@ export default function SignupPage() {
                 className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
               >
                 <Image
-                  src="/assets/google.svg"
+                  src="/assets/google.png"
                   alt="Google"
                   width={20}
                   height={20}
