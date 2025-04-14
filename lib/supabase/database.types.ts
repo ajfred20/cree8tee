@@ -16,6 +16,8 @@ export interface Database {
           name: string | null;
           user_type: string | null;
           email_verified: boolean;
+          verification_token: string | null;
+          verification_token_expires_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -25,6 +27,8 @@ export interface Database {
           name?: string | null;
           user_type?: string | null;
           email_verified?: boolean;
+          verification_token?: string | null;
+          verification_token_expires_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -34,6 +38,8 @@ export interface Database {
           name?: string | null;
           user_type?: string | null;
           email_verified?: boolean;
+          verification_token?: string | null;
+          verification_token_expires_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };

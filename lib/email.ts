@@ -11,6 +11,42 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+export async function sendVerificationEmail(
+  to: string,
+  name: string,
+  token: string
+) {
+  const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email?token=${token}`;
+
+  const mailOptions = {
+    from: `"Hustle Team" <${process.env.EMAIL_FROM}>`,
+    to,
+    subject: "Verify Your Email for Hustle",
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="background-color: #7c3aed; padding: 20px; text-align: center;">
+          <h1 style="color: white; margin: 0;">Verify Your Email</h1>
+        </div>
+        <div style="padding: 20px; background-color: #f9fafb; border-radius: 0 0 5px 5px;">
+          <p>Hello ${name},</p>
+          <p>Thanks for signing up for Hustle! Please verify your email address by clicking the button below:</p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${verificationUrl}" style="background-color: #7c3aed; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">Verify Email</a>
+          </div>
+          <p>This link will expire in 24 hours.</p>
+          <p>If you didn't create an account, you can safely ignore this email.</p>
+          <p>Best regards,<br>The Hustle Team</p>
+        </div>
+        <div style="text-align: center; padding: 10px; color: #6b7280; font-size: 12px;">
+          <p>© 2023 Hustle. All rights reserved.</p>
+        </div>
+      </div>
+    `,
+  };
+
+  await transporter.sendMail(mailOptions);
+}
+
 export async function sendWelcomeEmail(to: string, name: string) {
   const mailOptions = {
     from: `"Hustle Team" <${process.env.EMAIL_FROM}>`,
@@ -32,40 +68,6 @@ export async function sendWelcomeEmail(to: string, name: string) {
             <li>Check out our <a href="https://hustle.io/blog" style="color: #7c3aed;">blog</a> for insights into the Web3 ecosystem</li>
           </ul>
           <p>Thank you for joining us on this journey!</p>
-          <p>Best regards,<br>The Hustle Team</p>
-        </div>
-        <div style="text-align: center; padding: 10px; color: #6b7280; font-size: 12px;">
-          <p>© 2025 Hustle. All rights reserved.</p>
-        </div>
-      </div>
-    `,
-  };
-
-  await transporter.sendMail(mailOptions);
-}
-
-export async function sendVerificationEmail(
-  to: string,
-  name: string,
-  otp: string
-) {
-  const mailOptions = {
-    from: `"Hustle Team" <${process.env.EMAIL_FROM}>`,
-    to,
-    subject: "Verify Your Email for Hustle",
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <div style="background-color: #7c3aed; padding: 20px; text-align: center;">
-          <h1 style="color: white; margin: 0;">Verify Your Email</h1>
-        </div>
-        <div style="padding: 20px; background-color: #f9fafb; border-radius: 0 0 5px 5px;">
-          <p>Hello ${name},</p>
-          <p>Please use the following code to verify your email address:</p>
-          <div style="background-color: #e5e7eb; padding: 15px; text-align: center; font-size: 24px; letter-spacing: 5px; font-weight: bold; margin: 20px 0;">
-            ${otp}
-          </div>
-          <p>This code will expire in 15 minutes.</p>
-          <p>If you didn't request this code, you can safely ignore this email.</p>
           <p>Best regards,<br>The Hustle Team</p>
         </div>
         <div style="text-align: center; padding: 10px; color: #6b7280; font-size: 12px;">

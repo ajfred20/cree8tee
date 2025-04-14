@@ -19,6 +19,8 @@ interface AuthContextType {
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   updateProfile: (data: { name?: string; user_type?: string }) => Promise<void>;
+  verifyEmail: (token: string) => Promise<boolean>;
+  resendVerification: (email: string) => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -70,7 +72,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   ) => {
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({
+      // Step 1: Sign up the user with Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -78,11 +81,51 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             name: fullName,
             user_type: userType,
           },
-          emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
         },
       });
 
-      if (error) throw error;
+      if (authError) throw authError;
+
+      // Step 2: Generate a verification token
+      const verificationToken = crypto.randomBytes(32).toString("hex");
+      const tokenExpiry = new Date();
+      tokenExpiry.setHours(tokenExpiry.getHours() + 24); // 24 hour expiry
+
+      // Step 3: Update the user's profile with the verification token
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .update({
+          verification_token: verificationToken,
+          verification_token_expires_at: tokenExpiry.toISOString(),
+          // Note: email_verified should be false by default in your table
+        })
+        .eq("id", authData.user!.id);
+
+      if (profileError) throw profileError;
+
+      // Step 4: Send a verification email
+      try {
+        // Make API call to custom endpoint that will send the email
+        const response = await fetch("/api/auth/send-verification", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            name: fullName,
+            token: verificationToken,
+          }),
+        });
+
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.message || "Failed to send verification email");
+        }
+      } catch (emailError: any) {
+        console.error("Error sending verification email:", emailError);
+        // Continue despite email error - user can request a new verification email
+      }
+
+      // Redirect to verification page
       router.push("/verify-email?email=" + encodeURIComponent(email));
     } catch (error: any) {
       console.error("Error signing up:", error.message);
@@ -95,12 +138,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      // Sign in the user with Supabase Auth
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) throw error;
+
+      // Check if user email is verified
+      const { data: profileData, error: profileError } = await supabase
+        .from("profiles")
+        .select("email_verified")
+        .eq("id", data.user.id)
+        .single();
+
+      if (profileError) throw profileError;
+
+      // If email is not verified, redirect to verification page
+      if (!profileData.email_verified) {
+        router.push("/verify-email?email=" + encodeURIComponent(email));
+        return;
+      }
+
+      // Email is verified, redirect to waitlist page
       router.push("/waitlist");
     } catch (error: any) {
       console.error("Error logging in:", error.message);
@@ -156,6 +217,117 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const verifyEmail = async (token: string) => {
+    setLoading(true);
+    try {
+      // Step 1: Find the user with this verification token
+      const { data: profileData, error: profileError } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("verification_token", token)
+        .single();
+
+      if (profileError || !profileData) {
+        throw new Error("Invalid or expired verification token");
+      }
+
+      // Step 2: Check if token is expired
+      const tokenExpiry = new Date(profileData.verification_token_expires_at);
+      if (tokenExpiry < new Date()) {
+        throw new Error("Verification token has expired");
+      }
+
+      // Step 3: Mark the email as verified and clear the token
+      const { error: updateError } = await supabase
+        .from("profiles")
+        .update({
+          email_verified: true,
+          verification_token: null,
+          verification_token_expires_at: null,
+        })
+        .eq("id", profileData.id);
+
+      if (updateError) throw updateError;
+
+      // Step 4: Send welcome email
+      try {
+        await fetch("/api/auth/send-welcome", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: profileData.email,
+            name: profileData.name,
+          }),
+        });
+      } catch (emailError) {
+        console.error("Error sending welcome email:", emailError);
+        // Continue despite email error
+      }
+
+      // If user is already logged in, update their session info
+      if (user) {
+        const { data: userMeta } = await supabase.auth.getUser();
+        setUser(userMeta.user);
+      }
+
+      return true;
+    } catch (error: any) {
+      console.error("Error verifying email:", error.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const resendVerification = async (email: string) => {
+    try {
+      // Step 1: Find the user by email
+      const { data: userData, error: userError } =
+        await supabase.auth.admin.getUserByEmail(email);
+
+      if (userError || !userData?.user) {
+        throw new Error("User not found");
+      }
+
+      // Step 2: Generate a new verification token
+      const verificationToken = crypto.randomBytes(32).toString("hex");
+      const tokenExpiry = new Date();
+      tokenExpiry.setHours(tokenExpiry.getHours() + 24); // 24 hour expiry
+
+      // Step 3: Update the user's profile with the new verification token
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .update({
+          verification_token: verificationToken,
+          verification_token_expires_at: tokenExpiry.toISOString(),
+        })
+        .eq("id", userData.user.id);
+
+      if (profileError) throw profileError;
+
+      // Step 4: Send a new verification email
+      const response = await fetch("/api/auth/send-verification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          name: userData.user.user_metadata.name,
+          token: verificationToken,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || "Failed to send verification email");
+      }
+
+      return true;
+    } catch (error: any) {
+      console.error("Error resending verification:", error.message);
+      throw error;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -167,6 +339,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         logout,
         resetPassword,
         updateProfile,
+        verifyEmail,
+        resendVerification,
       }}
     >
       {children}
