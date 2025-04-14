@@ -1,63 +1,75 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { PrismaClient } from "@prisma/client";
+import { query, transaction } from "@/lib/db";
+import crypto from "crypto";
 import { sendWelcomeEmail, sendVerificationEmail } from "@/lib/email";
 import { generateOTP } from "@/lib/auth/otp";
-
-const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   try {
     const { name, email, password, userType } = await request.json();
 
-    // Check if user already exists
-    const existingUser = await prisma.user.findUnique({ where: { email } });
-    if (existingUser) {
+    if (!email || !password || !name) {
       return NextResponse.json(
-        { message: "User with this email already exists" },
+        { error: "Missing required fields" },
         { status: 400 }
       );
     }
 
-    // Hash password
-    const passwordHash = await bcrypt.hash(password, 10);
-
-    // Generate OTP
-    const otpCode = generateOTP();
+    // Generate verification OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const otpExpiry = new Date();
-    otpExpiry.setMinutes(otpExpiry.getMinutes() + 15); // OTP valid for 15 minutes
+    otpExpiry.setHours(otpExpiry.getHours() + 24);
 
-    // Create new user
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        passwordHash,
-        userType,
-        otpCode,
-        otpExpiry,
-      },
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Use a transaction to create the user
+    const result = await transaction(async (client) => {
+      // Check if user already exists
+      const userCheck = await client.query(
+        "SELECT * FROM users WHERE email = $1",
+        [email.toLowerCase()]
+      );
+
+      if (userCheck.rows.length > 0) {
+        throw new Error("User with this email already exists");
+      }
+
+      // Create the user
+      const userResult = await client.query(
+        `INSERT INTO users (email, password, name, user_type, created_at) 
+         VALUES ($1, $2, $3, $4, NOW()) 
+         RETURNING id`,
+        [email.toLowerCase(), hashedPassword, name, userType]
+      );
+
+      const userId = userResult.rows[0].id;
+
+      // Create the user's verification data
+      await client.query(
+        `INSERT INTO user_verification (user_id, verification_code, expires_at) 
+         VALUES ($1, $2, $3)`,
+        [userId, otp, otpExpiry]
+      );
+
+      return { userId, email, name };
     });
 
-    // Send welcome and verification emails
-    await sendWelcomeEmail(email, name);
-    await sendVerificationEmail(email, name, otpCode);
+    // Send verification email
+    await sendVerificationEmail(result.email, result.name, otp);
 
-    // Return user (excluding sensitive information)
     return NextResponse.json({
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        userType: user.userType,
-        emailVerified: user.emailVerified,
-      },
+      success: true,
+      userId: result.userId,
+      email: result.email,
+      verificationSent: true,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Signup error:", error);
     return NextResponse.json(
-      { message: "Failed to create user" },
-      { status: 500 }
+      { error: error.message || "Signup failed" },
+      { status: error.message.includes("already exists") ? 409 : 500 }
     );
   }
 }
