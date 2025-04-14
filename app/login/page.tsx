@@ -4,14 +4,31 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
+import { useAuth } from "@/lib/auth/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { login, loading } = useAuth();
+  const router = useRouter();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      await login(email, password);
+      // The auth context will handle redirection
+    } catch (error: any) {
+      setError(error.message || "Failed to log in");
+    }
   };
 
   return (
@@ -69,7 +86,13 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <form className="space-y-5">
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-md text-sm">
+              {error}
+            </div>
+          )}
+
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="email"
@@ -133,9 +156,10 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="w-full bg-purple-600 text-white px-4 py-3 rounded-md hover:bg-purple-700 font-medium transition-colors"
+              disabled={loading}
+              className="w-full bg-purple-600 text-white px-4 py-3 rounded-md hover:bg-purple-700 font-medium transition-colors disabled:bg-purple-400 disabled:cursor-not-allowed"
             >
-              Log In
+              {loading ? "Logging in..." : "Log In"}
             </button>
 
             <div className="relative flex items-center my-4">
