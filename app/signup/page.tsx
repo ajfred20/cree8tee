@@ -53,8 +53,7 @@ export default function SignupPage() {
     }
 
     try {
-      await signup(fullName, email, password, userType);
-      // The auth context will handle redirection
+      await signup(email, password, fullName, userType);
     } catch (error: any) {
       setError(error.message || "Failed to create account");
     }

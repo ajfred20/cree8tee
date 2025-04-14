@@ -38,7 +38,10 @@ export async function POST(request: NextRequest) {
       .sign(new TextEncoder().encode(process.env.JWT_SECRET));
 
     // Set cookie
-    cookies().set({
+    (
+      await // Set cookie
+      cookies()
+    ).set({
       name: "auth-token",
       value: token,
       httpOnly: true,

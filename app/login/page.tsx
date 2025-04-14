@@ -25,7 +25,6 @@ export default function LoginPage() {
 
     try {
       await login(email, password);
-      // The auth context will handle redirection
     } catch (error: any) {
       setError(error.message || "Failed to log in");
     }
