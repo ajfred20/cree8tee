@@ -35,7 +35,7 @@ export async function sendWelcomeEmail(to: string, name: string) {
           <p>Best regards,<br>The Hustle Team</p>
         </div>
         <div style="text-align: center; padding: 10px; color: #6b7280; font-size: 12px;">
-          <p>© 2023 Hustle. All rights reserved.</p>
+          <p>© 2025 Hustle. All rights reserved.</p>
         </div>
       </div>
     `,
@@ -69,7 +69,43 @@ export async function sendVerificationEmail(
           <p>Best regards,<br>The Hustle Team</p>
         </div>
         <div style="text-align: center; padding: 10px; color: #6b7280; font-size: 12px;">
-          <p>© 2023 Hustle. All rights reserved.</p>
+          <p>© 2025 Hustle. All rights reserved.</p>
+        </div>
+      </div>
+    `,
+  };
+
+  await transporter.sendMail(mailOptions);
+}
+
+export async function sendPasswordResetEmail(
+  to: string,
+  name: string,
+  token: string
+) {
+  const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`;
+
+  const mailOptions = {
+    from: `"Hustle Team" <${process.env.EMAIL_FROM}>`,
+    to,
+    subject: "Reset Your Hustle Password",
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="background-color: #7c3aed; padding: 20px; text-align: center;">
+          <h1 style="color: white; margin: 0;">Reset Your Password</h1>
+        </div>
+        <div style="padding: 20px; background-color: #f9fafb; border-radius: 0 0 5px 5px;">
+          <p>Hello ${name},</p>
+          <p>We received a request to reset your password for your Hustle account. Click the button below to reset it:</p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${resetUrl}" style="background-color: #7c3aed; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">Reset Password</a>
+          </div>
+          <p>This link will expire in 1 hour.</p>
+          <p>If you didn't request a password reset, you can safely ignore this email.</p>
+          <p>Best regards,<br>The Hustle Team</p>
+        </div>
+        <div style="text-align: center; padding: 10px; color: #6b7280; font-size: 12px;">
+          <p>© 2025 Hustle. All rights reserved.</p>
         </div>
       </div>
     `,

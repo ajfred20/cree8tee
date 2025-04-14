@@ -18,4 +18,6 @@ model User {
   updatedAt     DateTime  @updatedAt
   otpCode       String?
   otpExpiry     DateTime?
+  resetToken    String?
+  resetTokenExpiry DateTime?
 }
