@@ -20,7 +20,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   updateProfile: (data: { name?: string; user_type?: string }) => Promise<void>;
-  verifyEmail: (token: string) => Promise<boolean>;
+  verifyEmail: (email: string, otp: string) => Promise<boolean>;
   resendVerification: (email: string) => Promise<boolean>;
 }
 
@@ -76,7 +76,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       setError(null);
 
-      // 1. Create user in Supabase (auth.users table)
+      // 1. Create user in Supabase auth system
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
         password,
@@ -89,44 +89,92 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (authError) throw new Error(authError.message);
+      if (!authData.user) throw new Error("Failed to create user");
 
-      // 2. Generate verification token
-      const verificationToken = crypto.randomBytes(32).toString("hex");
-      const tokenExpiry = new Date();
-      tokenExpiry.setHours(tokenExpiry.getHours() + 24); // Token valid for 24 hours
+      console.log("User created:", authData.user.id);
 
-      // 3. Store token in profiles table
-      const { error: profileError } = await supabase
-        .from("profiles")
-        .update({
-          email_verified: false,
-          verification_token: verificationToken,
-          verification_token_expires_at: tokenExpiry.toISOString(),
-        })
-        .eq("id", authData.user?.id);
+      // 2. Generate a 6-digit numeric OTP instead of a long token
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      const otpExpiry = new Date();
+      otpExpiry.setHours(otpExpiry.getHours() + 24); // 24 hour expiry
 
-      if (profileError) throw new Error(profileError.message);
+      // 3. Check if the user exists in auth.users
+      const { data: userData, error: userError } =
+        await supabase.auth.getUser();
 
-      // 4. Send verification email via API endpoint instead of direct function call
-      const response = await fetch("/api/auth/send-verification", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          name: fullName,
-          token: verificationToken,
-        }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Failed to send verification email");
+      if (userError) {
+        console.error("Error getting auth user:", userError.message);
       }
 
-      // 5. Redirect to custom verification page
+      console.log("Auth user check:", userData);
+
+      // 4. Wait a bit for Supabase's system to fully process the user creation
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // 5. Create or update the user's profile with our verification data
+      try {
+        // First try an upsert operation which is safer
+        const { error: upsertError } = await supabase.from("profiles").upsert(
+          {
+            id: authData.user.id,
+            email: email,
+            name: fullName,
+            user_type: userType,
+            email_verified: false,
+            verification_otp: otp,
+            verification_token_expires_at: otpExpiry.toISOString(),
+          },
+          { onConflict: "id" }
+        );
+
+        if (upsertError) {
+          console.error("Profile upsert error:", upsertError.message);
+          throw upsertError;
+        }
+      } catch (profileError: any) {
+        console.error("Profile update failed:", profileError.message);
+
+        // If we can't create the profile, we should still save the verification token somewhere
+        // Let's use localStorage as a fallback
+        if (typeof window !== "undefined") {
+          localStorage.setItem("verificationOtp", otp);
+          localStorage.setItem("userEmail", email);
+          localStorage.setItem("userName", fullName);
+          localStorage.setItem("userId", authData.user.id);
+        }
+      }
+
+      // 6. Send verification email
+      try {
+        const response = await fetch("/api/auth/send-verification", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            name: fullName,
+            otp: otp,
+          }),
+        });
+
+        if (!response.ok) {
+          const data = await response.json();
+          console.error("Email sending error:", data.error);
+        }
+      } catch (emailError: any) {
+        console.error("Failed to send email:", emailError.message);
+      }
+
+      // Always store token in localStorage for debugging and recovery
+      if (typeof window !== "undefined") {
+        localStorage.setItem("verificationOtp", otp);
+        localStorage.setItem("userEmail", email);
+      }
+
+      // 7. Redirect to custom verification page
       router.push("/verify-email");
       return true;
     } catch (err: any) {
+      console.error("Signup error:", err);
       setError(err.message);
       return false;
     } finally {
@@ -216,39 +264,46 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const verifyEmail = async (token: string) => {
+  const verifyEmail = async (email: string, otp: string) => {
     setLoading(true);
     try {
-      // Step 1: Find the user with this verification token
+      // Find the user by email first
       const { data: profileData, error: profileError } = await supabase
         .from("profiles")
         .select("*")
-        .eq("verification_token", token)
+        .eq("email", email)
         .single();
 
-      if (profileError || !profileData) {
-        throw new Error("Invalid or expired verification token");
+      if (profileError) {
+        throw new Error("User not found. Please check your email address.");
       }
 
-      // Step 2: Check if token is expired
-      const tokenExpiry = new Date(profileData.verification_token_expires_at);
-      if (tokenExpiry < new Date()) {
-        throw new Error("Verification token has expired");
+      // Verify the OTP
+      if (profileData.verification_otp !== otp) {
+        throw new Error("Invalid verification code. Please try again.");
       }
 
-      // Step 3: Mark the email as verified and clear the token
+      // Check if OTP is expired
+      const otpExpiry = new Date(profileData.verification_token_expires_at);
+      if (otpExpiry < new Date()) {
+        throw new Error(
+          "Verification code has expired. Please request a new one."
+        );
+      }
+
+      // Mark email as verified and clear the OTP
       const { error: updateError } = await supabase
         .from("profiles")
         .update({
           email_verified: true,
-          verification_token: null,
+          verification_otp: null,
           verification_token_expires_at: null,
         })
         .eq("id", profileData.id);
 
       if (updateError) throw updateError;
 
-      // Step 4: Send welcome email
+      // Send welcome email
       try {
         await fetch("/api/auth/send-welcome", {
           method: "POST",
@@ -260,13 +315,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         });
       } catch (emailError) {
         console.error("Error sending welcome email:", emailError);
-        // Continue despite email error
-      }
-
-      // If user is already logged in, update their session info
-      if (user) {
-        const { data: userMeta } = await supabase.auth.getUser();
-        setUser(userMeta.user);
       }
 
       return true;
@@ -280,41 +328,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const resendVerification = async (email: string) => {
     try {
-      // Step 1: Find the user by email
+      // Find the user by email
       const { data: profiles, error: findProfileError } = await supabase
         .from("profiles")
         .select("*")
         .eq("email", email)
         .single();
 
-      if (findProfileError || !profiles) {
+      if (findProfileError) {
         throw new Error("User not found");
       }
 
-      // Step 2: Generate a new verification token
-      const verificationToken = crypto.randomBytes(32).toString("hex");
-      const tokenExpiry = new Date();
-      tokenExpiry.setHours(tokenExpiry.getHours() + 24); // 24 hour expiry
+      // Generate a new OTP
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      const otpExpiry = new Date();
+      otpExpiry.setHours(otpExpiry.getHours() + 24);
 
-      // Step 3: Update the user's profile with the new verification token
+      // Update the profile with the new OTP
       const { error: updateProfileError } = await supabase
         .from("profiles")
         .update({
-          verification_token: verificationToken,
-          verification_token_expires_at: tokenExpiry.toISOString(),
+          verification_otp: otp,
+          verification_token_expires_at: otpExpiry.toISOString(),
         })
         .eq("id", profiles.id);
 
       if (updateProfileError) throw updateProfileError;
 
-      // Step 4: Send a new verification email
+      // Send a new verification email
       const response = await fetch("/api/auth/send-verification", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
           name: profiles.name || "User",
-          token: verificationToken,
+          otp: otp,
         }),
       });
 

@@ -16,10 +16,8 @@ const transporter = nodemailer.createTransport({
 export async function sendVerificationEmail(
   to: string,
   name: string,
-  token: string
+  otp: string
 ) {
-  const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email?token=${token}`;
-
   const mailOptions = {
     from: `"Aj From Hustle"`,
     to,
@@ -34,13 +32,13 @@ export async function sendVerificationEmail(
         <div style="padding: 32px 24px; background-color: #f9fafb; border-radius: 0 0 8px 8px; border: 1px solid #e5e7eb; border-top: none;">
           <p style="font-weight: 400; color: #374151; margin-bottom: 24px; font-size: 16px;">Hey ${name} 👋,</p>
           
-          <p style="font-weight: 400; color: #374151; margin-bottom: 24px; font-size: 16px;">Thanks for signing up for Hustle! Please verify your email address by clicking the button below:</p>
+          <p style="font-weight: 400; color: #374151; margin-bottom: 24px; font-size: 16px;">Thanks for signing up for Hustle! Please verify your email address using the verification code below:</p>
           
-          <div style="text-align: center; margin: 32px 0;">
-            <a href="${verificationUrl}" style="background-color: #7c3aed; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 16px; display: inline-block;">Verify Email</a>
+          <div style="text-align: center; margin: 32px 0; padding: 16px; background-color: #f3f4f6; border-radius: 8px; letter-spacing: 8px; font-size: 32px; font-weight: 500;">
+            ${otp}
           </div>
           
-          <p style="font-weight: 400; color: #6b7280; margin-bottom: 12px; font-size: 14px;">This link will expire in 24 hours ⏰</p>
+          <p style="font-weight: 400; color: #6b7280; margin-bottom: 12px; font-size: 14px;">This code will expire in 24 hours ⏰</p>
           
           <p style="font-weight: 400; color: #6b7280; margin-bottom: 24px; font-size: 14px;">If you didn't create an account, you can safely ignore this email.</p>
           
