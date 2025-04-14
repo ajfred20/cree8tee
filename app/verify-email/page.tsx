@@ -37,31 +37,17 @@ export default function VerifyEmail() {
       setVerifying(true);
       setError(null);
 
-      // Call our server API to verify the email
-      const response = await fetch("/api/auth/verify-email", {
+      // Send verification to the API
+      const response = await fetch("/api/auth/verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp }),
+        body: JSON.stringify({ email, code: otp }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.error || "Verification failed");
-      }
-
-      // Send welcome email
-      try {
-        await fetch("/api/auth/send-welcome", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: email,
-            name: localStorage.getItem("userName") || "User",
-          }),
-        });
-      } catch (emailError) {
-        console.error("Error sending welcome email:", emailError);
       }
 
       setVerified(true);
@@ -82,59 +68,18 @@ export default function VerifyEmail() {
       setVerifying(true);
       setError(null);
 
-      // Generate a new OTP
-      const newOtp = Math.floor(100000 + Math.random() * 900000).toString();
-
-      // Update the profile with new OTP
-      const { data: profiles, error: findProfileError } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("email", email)
-        .single();
-
-      if (findProfileError) {
-        throw new Error("User not found with this email");
-      }
-
-      const otpExpiry = new Date();
-      otpExpiry.setHours(otpExpiry.getHours() + 24);
-
-      // Update via server API
-      const updateResponse = await fetch("/api/auth/update-otp", {
+      // Call the API to resend verification
+      const response = await fetch("/api/auth/resend-verification", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId: profiles.id,
-          otp: newOtp,
-          otpExpiry: otpExpiry.toISOString(),
-        }),
+        body: JSON.stringify({ email }),
       });
 
-      if (!updateResponse.ok) {
-        const errorData = await updateResponse.json();
-        throw new Error(
-          errorData.error || "Failed to update verification code"
-        );
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to resend verification code");
       }
-
-      // Send new verification email
-      const emailResponse = await fetch("/api/auth/send-verification", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          name: profiles.name || "User",
-          otp: newOtp,
-        }),
-      });
-
-      if (!emailResponse.ok) {
-        const errorData = await emailResponse.json();
-        throw new Error(errorData.error || "Failed to send verification email");
-      }
-
-      // Update localStorage
-      localStorage.setItem("verificationOtp", newOtp);
 
       setError("A new verification code has been sent to your email.");
     } catch (err: any) {

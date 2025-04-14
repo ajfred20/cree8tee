@@ -98,7 +98,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       otpExpiry.setHours(otpExpiry.getHours() + 24);
 
       // 3. Call our API to create profile
-      const profileResponse = await fetch("/api/auth/create-profile", {
+      const response = await fetch("/api/auth/create-profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -111,9 +111,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }),
       });
 
-      if (!profileResponse.ok) {
-        const errorData = await profileResponse.json();
-        throw new Error(errorData.error || "Failed to create profile");
+      const data = await response.json();
+
+      // Check for fallback flag
+      if (data.fallback) {
+        console.log("Using localStorage fallback for development");
+        localStorage.setItem("verificationOtp", otp);
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userName", fullName);
+        localStorage.setItem("userId", authData.user.id);
+      }
+
+      if (!response.ok && !data.fallback) {
+        throw new Error(data.error || "Failed to create profile");
       }
 
       // 4. Send verification email
