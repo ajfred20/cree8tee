@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Check, Eye, EyeOff } from "lucide-react";
+import { useAuth } from "@/lib/auth/AuthContext";
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,6 +13,10 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [userType, setUserType] = useState<string | null>(null);
   const [step, setStep] = useState(1);
+  const [error, setError] = useState("");
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+
+  const { signup, loading } = useAuth();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -30,6 +35,28 @@ export default function SignupPage() {
   const handlePrevStep = () => {
     if (step === 2) {
       setStep(1);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    if (!agreedToTerms) {
+      setError("You must agree to the Terms and Privacy Policy");
+      return;
+    }
+
+    if (!userType) {
+      setError("Please select your user type");
+      return;
+    }
+
+    try {
+      await signup(fullName, email, password, userType);
+      // The auth context will handle redirection
+    } catch (error: any) {
+      setError(error.message || "Failed to create account");
     }
   };
 
@@ -84,6 +111,12 @@ export default function SignupPage() {
                 : "Complete your details to start connecting"}
             </p>
           </div>
+
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-md text-sm">
+              {error}
+            </div>
+          )}
 
           {step === 1 ? (
             <div className="space-y-6">
@@ -191,7 +224,7 @@ export default function SignupPage() {
               </div>
             </div>
           ) : (
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="fullName"
@@ -273,6 +306,8 @@ export default function SignupPage() {
                   id="terms"
                   name="terms"
                   type="checkbox"
+                  checked={agreedToTerms}
+                  onChange={(e) => setAgreedToTerms(e.target.checked)}
                   className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
                 />
                 <label
@@ -306,9 +341,10 @@ export default function SignupPage() {
                 </button>
                 <button
                   type="submit"
-                  className="bg-purple-600 text-white px-4 py-3 rounded-md hover:bg-purple-700 font-medium transition-colors sm:w-2/3"
+                  disabled={loading}
+                  className="bg-purple-600 text-white px-4 py-3 rounded-md hover:bg-purple-700 font-medium transition-colors sm:w-2/3 disabled:bg-purple-400 disabled:cursor-not-allowed"
                 >
-                  Create Account
+                  {loading ? "Creating Account..." : "Create Account"}
                 </button>
               </div>
 
