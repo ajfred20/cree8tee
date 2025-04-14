@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
@@ -10,24 +9,16 @@ export default function VerifyEmail() {
   const [verified, setVerified] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [otp, setOtp] = useState("");
-  const searchParams = useSearchParams();
-  const emailFromURL = searchParams?.get("email");
+  const [email, setEmail] = useState<string | null>(null);
   const supabase = createClientComponentClient();
 
-  // We'll store email in state but not show it to the user
-  const [email, setEmail] = useState<string | null>(null);
-
   useEffect(() => {
-    // Get email from URL or localStorage
-    if (emailFromURL) {
-      setEmail(emailFromURL);
-    } else {
-      const storedEmail = localStorage.getItem("userEmail");
-      if (storedEmail) {
-        setEmail(storedEmail);
-      }
+    // Get email from localStorage
+    const storedEmail = localStorage.getItem("userEmail");
+    if (storedEmail) {
+      setEmail(storedEmail);
     }
-  }, [emailFromURL]);
+  }, []);
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,9 +37,7 @@ export default function VerifyEmail() {
       setVerifying(true);
       setError(null);
 
-      console.log(`Attempting to verify email ${email} with OTP ${otp}`);
-
-      // Call our server-side API for verification
+      // Call our server API to verify the email
       const response = await fetch("/api/auth/verify-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -96,52 +85,56 @@ export default function VerifyEmail() {
       // Generate a new OTP
       const newOtp = Math.floor(100000 + Math.random() * 900000).toString();
 
-      // Try to find user in database first
+      // Update the profile with new OTP
       const { data: profiles, error: findProfileError } = await supabase
         .from("profiles")
         .select("*")
         .eq("email", email)
         .single();
 
-      // Update database if profile exists
-      if (!findProfileError && profiles) {
-        const otpExpiry = new Date();
-        otpExpiry.setHours(otpExpiry.getHours() + 24);
-
-        const { error: updateProfileError } = await supabase
-          .from("profiles")
-          .update({
-            verification_otp: newOtp,
-            verification_token_expires_at: otpExpiry.toISOString(),
-          })
-          .eq("id", profiles.id);
-
-        if (updateProfileError) {
-          console.error(
-            "Failed to update profile with new OTP:",
-            updateProfileError
-          );
-        }
+      if (findProfileError) {
+        throw new Error("User not found with this email");
       }
 
-      // Always update localStorage as fallback
-      localStorage.setItem("verificationOtp", newOtp);
+      const otpExpiry = new Date();
+      otpExpiry.setHours(otpExpiry.getHours() + 24);
 
-      // Send a new verification email
-      const response = await fetch("/api/auth/send-verification", {
+      // Update via server API
+      const updateResponse = await fetch("/api/auth/update-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: profiles.id,
+          otp: newOtp,
+          otpExpiry: otpExpiry.toISOString(),
+        }),
+      });
+
+      if (!updateResponse.ok) {
+        const errorData = await updateResponse.json();
+        throw new Error(
+          errorData.error || "Failed to update verification code"
+        );
+      }
+
+      // Send new verification email
+      const emailResponse = await fetch("/api/auth/send-verification", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
-          name: profiles?.name || localStorage.getItem("userName") || "User",
+          name: profiles.name || "User",
           otp: newOtp,
         }),
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || "Failed to send verification email");
+      if (!emailResponse.ok) {
+        const errorData = await emailResponse.json();
+        throw new Error(errorData.error || "Failed to send verification email");
       }
+
+      // Update localStorage
+      localStorage.setItem("verificationOtp", newOtp);
 
       setError("A new verification code has been sent to your email.");
     } catch (err: any) {
@@ -276,38 +269,14 @@ export default function VerifyEmail() {
                 </div>
                 <div className="text-sm">
                   <Link
-                    href="/login"
+                    href="/signup"
                     className="font-medium text-purple-600 hover:text-purple-500"
                   >
-                    Back to login
+                    Back to Sign Up
                   </Link>
                 </div>
               </div>
             </form>
-          )}
-
-          {/* Debug Panel - Only show in development */}
-          {process.env.NODE_ENV === "development" && !verified && (
-            <div className="mt-8 p-4 border border-yellow-300 bg-yellow-50 rounded-md">
-              <h3 className="text-sm font-medium text-yellow-800">
-                Debug Information
-              </h3>
-              <p className="mt-1 text-xs text-yellow-700">
-                Email: {email || "None"}
-              </p>
-              <p className="mt-1 text-xs text-yellow-700">
-                Stored OTP:{" "}
-                {typeof window !== "undefined"
-                  ? localStorage.getItem("verificationOtp") || "None"
-                  : "None"}
-              </p>
-              <p className="mt-1 text-xs text-yellow-700">
-                User ID:{" "}
-                {typeof window !== "undefined"
-                  ? localStorage.getItem("userId") || "None"
-                  : "None"}
-              </p>
-            </div>
           )}
         </div>
       </div>

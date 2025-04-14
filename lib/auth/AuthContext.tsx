@@ -77,9 +77,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       setError(null);
 
-      console.log("Starting signup process for:", email);
-
-      // 1. Create user in Supabase auth system
+      // 1. Create user in Supabase auth
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
         password,
@@ -94,78 +92,54 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (authError) throw new Error(authError.message);
       if (!authData.user) throw new Error("Failed to create user");
 
-      console.log("User created successfully:", authData.user.id);
-
       // 2. Generate OTP
       const otp = Math.floor(100000 + Math.random() * 900000).toString();
       const otpExpiry = new Date();
       otpExpiry.setHours(otpExpiry.getHours() + 24);
 
-      // 3. Use a server-side API to create/update the profile
-      // This avoids RLS policy issues
-      try {
-        const response = await fetch("/api/auth/create-profile", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userId: authData.user.id,
-            email,
-            name: fullName,
-            userType,
-            otp,
-            otpExpiry: otpExpiry.toISOString(),
-          }),
-        });
+      // 3. Call our API to create profile
+      const profileResponse = await fetch("/api/auth/create-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: authData.user.id,
+          email,
+          name: fullName,
+          userType,
+          otp,
+          otpExpiry: otpExpiry.toISOString(),
+        }),
+      });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || "Failed to create profile");
-        }
-
-        console.log("Profile created via API");
-      } catch (profileError: any) {
-        console.error("Profile creation API error:", profileError.message);
-        // We'll continue even if this fails, using localStorage as fallback
+      if (!profileResponse.ok) {
+        const errorData = await profileResponse.json();
+        throw new Error(errorData.error || "Failed to create profile");
       }
 
-      // 4. Always store in localStorage as a fallback
-      if (typeof window !== "undefined") {
-        localStorage.setItem("verificationOtp", otp);
-        localStorage.setItem("userEmail", email);
-        localStorage.setItem("userName", fullName);
-        localStorage.setItem("userId", authData.user.id);
-        console.log("Stored verification data in localStorage");
+      // 4. Send verification email
+      const emailResponse = await fetch("/api/auth/send-verification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          name: fullName,
+          otp,
+        }),
+      });
+
+      if (!emailResponse.ok) {
+        const errorData = await emailResponse.json();
+        console.error("Error sending verification email:", errorData.error);
       }
 
-      // 5. Send verification email
-      try {
-        console.log("Sending verification email...");
-        const response = await fetch("/api/auth/send-verification", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            name: fullName,
-            otp: otp,
-          }),
-        });
-
-        if (!response.ok) {
-          const data = await response.json();
-          console.error("Email sending error:", data.error);
-        } else {
-          console.log("Verification email sent successfully");
-        }
-      } catch (emailError: any) {
-        console.error("Failed to send email:", emailError.message);
-      }
+      // 5. Store in localStorage as well
+      localStorage.setItem("verificationOtp", otp);
+      localStorage.setItem("userEmail", email);
 
       // 6. Redirect to verification page
-      console.log("Redirecting to verification page...");
       router.push("/verify-email");
       return true;
     } catch (err: any) {
-      console.error("Signup error:", err);
       setError(err.message);
       return false;
     } finally {
