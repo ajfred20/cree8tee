@@ -2,44 +2,47 @@ import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export async function middleware(request: NextRequest) {
-  // Public paths that don't require authentication
-  const publicPaths = [
-    "/",
-    "/login",
-    "/signup",
-    "/terms",
-    "/privacy",
-    "/faqs",
-    "/auth/callback",
-  ];
-
-  const path = request.nextUrl.pathname;
-
-  // Check if the path is public
-  if (
-    publicPaths.includes(path) ||
-    path.startsWith("/reset-password") ||
-    path.startsWith("/verify-email")
-  ) {
-    return NextResponse.next();
-  }
-
-  // Create a Supabase client for the middleware
+export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
-  const supabase = createMiddlewareClient({ req: request, res });
+  const supabase = createMiddlewareClient({ req, res });
 
-  // Check if the user is authenticated
+  // Check if user is authenticated
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  // If there's no session, redirect to login
-  if (!session) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  // Public paths that don't require authentication
+  const publicPaths = [
+    "/login",
+    "/signup",
+    "/verify-email",
+    "/forgot-password",
+    "/reset-password",
+    "/",
+  ];
+  const isPublicPath = publicPaths.some((path) =>
+    req.nextUrl.pathname.startsWith(path)
+  );
+
+  if (!session && !isPublicPath) {
+    // Redirect unauthenticated users to login page
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // Continue for authenticated users
+  if (session && !isPublicPath) {
+    // For authenticated users, check if email is verified
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("email_verified")
+      .eq("id", session.user.id)
+      .single();
+
+    if (!profile?.email_verified) {
+      // Redirect users with unverified emails to verification reminder page
+      return NextResponse.redirect(new URL("/verify-email", req.url));
+    }
+  }
+
   return res;
 }
 
@@ -53,6 +56,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * - public files (public folder)
      */
-    "/((?!_next/static|_next/image|favicon.ico|assets).*)",
+    "/((?!_next/static|_next/image|favicon.ico|assets/|api/).*)",
   ],
 };
