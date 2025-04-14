@@ -16,12 +16,13 @@ interface AuthContextType {
     fullName: string,
     userType: string
   ) => Promise<boolean>;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<boolean>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   updateProfile: (data: { name?: string; user_type?: string }) => Promise<void>;
   verifyEmail: (email: string, otp: string) => Promise<boolean>;
   resendVerification: (email: string) => Promise<boolean>;
+  requestPasswordReset: (email: string) => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -76,6 +77,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       setError(null);
 
+      console.log("Starting signup process for:", email);
+
       // 1. Create user in Supabase auth system
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
@@ -91,61 +94,52 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (authError) throw new Error(authError.message);
       if (!authData.user) throw new Error("Failed to create user");
 
-      console.log("User created:", authData.user.id);
+      console.log("User created successfully:", authData.user.id);
 
-      // 2. Generate a 6-digit numeric OTP instead of a long token
+      // 2. Generate OTP
       const otp = Math.floor(100000 + Math.random() * 900000).toString();
       const otpExpiry = new Date();
-      otpExpiry.setHours(otpExpiry.getHours() + 24); // 24 hour expiry
+      otpExpiry.setHours(otpExpiry.getHours() + 24);
 
-      // 3. Check if the user exists in auth.users
-      const { data: userData, error: userError } =
-        await supabase.auth.getUser();
-
-      if (userError) {
-        console.error("Error getting auth user:", userError.message);
-      }
-
-      console.log("Auth user check:", userData);
-
-      // 4. Wait a bit for Supabase's system to fully process the user creation
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // 5. Create or update the user's profile with our verification data
+      // 3. Use a server-side API to create/update the profile
+      // This avoids RLS policy issues
       try {
-        // First try an upsert operation which is safer
-        const { error: upsertError } = await supabase.from("profiles").upsert(
-          {
-            id: authData.user.id,
-            email: email,
+        const response = await fetch("/api/auth/create-profile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId: authData.user.id,
+            email,
             name: fullName,
-            user_type: userType,
-            email_verified: false,
-            verification_otp: otp,
-            verification_token_expires_at: otpExpiry.toISOString(),
-          },
-          { onConflict: "id" }
-        );
+            userType,
+            otp,
+            otpExpiry: otpExpiry.toISOString(),
+          }),
+        });
 
-        if (upsertError) {
-          console.error("Profile upsert error:", upsertError.message);
-          throw upsertError;
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to create profile");
         }
+
+        console.log("Profile created via API");
       } catch (profileError: any) {
-        console.error("Profile update failed:", profileError.message);
-
-        // If we can't create the profile, we should still save the verification token somewhere
-        // Let's use localStorage as a fallback
-        if (typeof window !== "undefined") {
-          localStorage.setItem("verificationOtp", otp);
-          localStorage.setItem("userEmail", email);
-          localStorage.setItem("userName", fullName);
-          localStorage.setItem("userId", authData.user.id);
-        }
+        console.error("Profile creation API error:", profileError.message);
+        // We'll continue even if this fails, using localStorage as fallback
       }
 
-      // 6. Send verification email
+      // 4. Always store in localStorage as a fallback
+      if (typeof window !== "undefined") {
+        localStorage.setItem("verificationOtp", otp);
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userName", fullName);
+        localStorage.setItem("userId", authData.user.id);
+        console.log("Stored verification data in localStorage");
+      }
+
+      // 5. Send verification email
       try {
+        console.log("Sending verification email...");
         const response = await fetch("/api/auth/send-verification", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -159,18 +153,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (!response.ok) {
           const data = await response.json();
           console.error("Email sending error:", data.error);
+        } else {
+          console.log("Verification email sent successfully");
         }
       } catch (emailError: any) {
         console.error("Failed to send email:", emailError.message);
       }
 
-      // Always store token in localStorage for debugging and recovery
-      if (typeof window !== "undefined") {
-        localStorage.setItem("verificationOtp", otp);
-        localStorage.setItem("userEmail", email);
-      }
-
-      // 7. Redirect to custom verification page
+      // 6. Redirect to verification page
+      console.log("Redirecting to verification page...");
       router.push("/verify-email");
       return true;
     } catch (err: any) {
@@ -183,36 +174,78 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const login = async (email: string, password: string) => {
-    setLoading(true);
     try {
-      // Sign in the user with Supabase Auth
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      setLoading(true);
+      setError(null);
 
-      if (error) throw error;
+      // Attempt to sign in
+      const { data, error: signInError } =
+        await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
 
-      // Check if user email is verified
+      if (signInError) {
+        // Check if we need to show a special message for unverified emails
+        // First check if user exists
+        const { data: userData, error: userError } = await supabase.auth.signUp(
+          {
+            email,
+            password,
+            options: {
+              emailRedirectTo: `${window.location.origin}/auth/callback`,
+            },
+          }
+        );
+
+        if (userError && userError.message.includes("already exists")) {
+          // User exists but can't login, likely email not verified
+          const { data: profileData } = await supabase
+            .from("profiles")
+            .select("email_verified")
+            .eq("email", email)
+            .single();
+
+          if (profileData && profileData.email_verified === false) {
+            throw new Error(
+              "Email not verified. Please check your email for the verification code."
+            );
+          }
+        }
+
+        // Default error for invalid login
+        throw new Error(signInError.message || "Invalid login credentials");
+      }
+
+      if (!data?.user) {
+        throw new Error("Login failed - user not found");
+      }
+
+      // Check if email has been verified in profiles table
       const { data: profileData, error: profileError } = await supabase
         .from("profiles")
         .select("email_verified")
         .eq("id", data.user.id)
         .single();
 
-      if (profileError) throw profileError;
-
-      // If email is not verified, redirect to verification page
-      if (!profileData.email_verified) {
-        router.push("/verify-email?email=" + encodeURIComponent(email));
-        return;
+      if (profileError) {
+        console.error("Error checking profile:", profileError);
+      } else if (profileData && profileData.email_verified === false) {
+        // Log the user out if email isn't verified
+        await supabase.auth.signOut();
+        throw new Error(
+          "Email not verified. Please check your email for the verification code."
+        );
       }
 
-      // Email is verified, redirect to waitlist page
-      router.push("/waitlist");
-    } catch (error: any) {
-      console.error("Error logging in:", error.message);
-      throw error;
+      // Successful login with verified email
+      setUser(data.user);
+      router.push("/dashboard");
+      return true;
+    } catch (err: any) {
+      console.error("Login error:", err);
+      setError(err.message);
+      return false;
     } finally {
       setLoading(false);
     }
@@ -378,6 +411,63 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const requestPasswordReset = async (email: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      // Check if user exists
+      const { data: profiles, error: findProfileError } = await supabase
+        .from("profiles")
+        .select("id, name")
+        .eq("email", email)
+        .single();
+
+      if (findProfileError) {
+        throw new Error("No account found with this email address");
+      }
+
+      // Generate a reset token
+      const resetToken = crypto.randomBytes(32).toString("hex");
+      const tokenExpiry = new Date();
+      tokenExpiry.setHours(tokenExpiry.getHours() + 1); // 1 hour expiry
+
+      // Update the profile with the reset token
+      const { error: updateError } = await supabase
+        .from("profiles")
+        .update({
+          reset_token: resetToken,
+          reset_token_expires_at: tokenExpiry.toISOString(),
+        })
+        .eq("id", profiles.id);
+
+      if (updateError) throw updateError;
+
+      // Send password reset email
+      const response = await fetch("/api/auth/send-password-reset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          name: profiles.name || "User",
+          token: resetToken,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to send password reset email");
+      }
+
+      return true;
+    } catch (err: any) {
+      setError(err.message);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -391,6 +481,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         updateProfile,
         verifyEmail,
         resendVerification,
+        requestPasswordReset,
       }}
     >
       {children}
