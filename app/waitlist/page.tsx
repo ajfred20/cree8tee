@@ -29,7 +29,7 @@ export default function WaitlistPage() {
     }
 
     // If user is not verified, redirect to verification page
-    if (user && !user.emailVerified) {
+    if (user && !user.email_verified) {
       router.push("/verify-email");
     }
   }, [user, loading, router]);
