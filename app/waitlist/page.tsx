@@ -16,10 +16,26 @@ export default function WaitlistPage() {
     }
   }, [user]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    localStorage.setItem("betaRegistered", "true");
+    try {
+      // Send beta confirmation email
+      await fetch("/api/auth/send-beta-confirmation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          name: user?.name || "there",
+        }),
+      });
+
+      setSubmitted(true);
+      localStorage.setItem("betaRegistered", "true");
+    } catch (error) {
+      console.error("Error sending confirmation:", error);
+    }
   };
 
   return (
@@ -31,33 +47,17 @@ export default function WaitlistPage() {
             <img
               src="/assets/logo.svg"
               alt="Hustle Logo"
-              className="h-6 w-auto"
+              className="h-10 w-auto"
             />
           </a>
-          <div className="ml-6 flex space-x-4">
-            <a
-              href="/demo"
-              className="text-gray-600 hover:text-purple-600 text-sm font-medium"
-            >
-              Demo
-            </a>
-            <a
-              href="/careers"
-              className="text-gray-600 hover:text-purple-600 text-sm font-medium"
-            >
-              Careers
-            </a>
-          </div>
+
           <div className="ml-auto">
-            <button
-              onClick={() => {
-                document.documentElement.classList.toggle("dark");
-              }}
-              className="flex items-center space-x-2 px-4 py-1 rounded-full border text-sm"
+            <a
+              href="/"
+              className="text-gray-600 hover:text-purple-600 text-sm font-medium tracking-tight"
             >
-              <span>Light</span>
-              <span>Dark</span>
-            </button>
+              Back to Home
+            </a>
           </div>
         </div>
       </nav>
