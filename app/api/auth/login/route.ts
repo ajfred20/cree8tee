@@ -1,67 +1,72 @@
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
-import { PrismaClient } from "@prisma/client";
-import { SignJWT } from "jose";
-import { cookies } from "next/headers";
-
-const prisma = new PrismaClient();
+import { compare } from "bcryptjs";
+import { query } from "@/lib/db";
+import { sign } from "jsonwebtoken";
 
 export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json();
 
-    // Find user by email
-    const user = await prisma.user.findUnique({ where: { email } });
-
-    if (!user) {
+    if (!email || !password) {
       return NextResponse.json(
-        { message: "Invalid email or password" },
+        { error: "Email and password are required" },
+        { status: 400 }
+      );
+    }
+
+    // Get user with password_hash
+    const { rows } = await query(
+      "SELECT id, email, name, user_type, email_verified, password_hash FROM users WHERE email = $1",
+      [email.toLowerCase()]
+    );
+
+    if (rows.length === 0) {
+      return NextResponse.json(
+        { error: "Invalid credentials" },
         { status: 401 }
+      );
+    }
+
+    const user = rows[0];
+
+    // Check if password_hash exists
+    if (!user.password_hash) {
+      return NextResponse.json(
+        { error: "Account not properly set up" },
+        { status: 400 }
       );
     }
 
     // Compare passwords
-    const passwordMatch = await bcrypt.compare(password, user.passwordHash);
+    const passwordValid = await compare(password, user.password_hash);
 
-    if (!passwordMatch) {
+    if (!passwordValid) {
       return NextResponse.json(
-        { message: "Invalid email or password" },
+        { error: "Invalid credentials" },
         { status: 401 }
       );
     }
 
-    // Create session token
-    const token = await new SignJWT({ userId: user.id })
-      .setProtectedHeader({ alg: "HS256" })
-      .setIssuedAt()
-      .setExpirationTime("7d")
-      .sign(new TextEncoder().encode(process.env.JWT_SECRET));
+    // Create JWT token
+    const token = sign(
+      { userId: user.id, email: user.email },
+      process.env.JWT_SECRET || "your-fallback-secret",
+      { expiresIn: "7d" }
+    );
 
-    // Set cookie
-    (
-      await // Set cookie
-      cookies()
-    ).set({
-      name: "auth-token",
-      value: token,
-      httpOnly: true,
-      path: "/",
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-    });
+    // Remove password_hash from response
+    delete user.password_hash;
 
-    // Return user (excluding sensitive information)
     return NextResponse.json({
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        userType: user.userType,
-        emailVerified: user.emailVerified,
-      },
+      user,
+      token,
+      success: true,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Login error:", error);
-    return NextResponse.json({ message: "Login failed" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Authentication failed" },
+      { status: 500 }
+    );
   }
 }

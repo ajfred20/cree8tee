@@ -2,15 +2,15 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
 
 export default function VerifyEmail() {
   const [verifying, setVerifying] = useState(false);
-  const [verified, setVerified] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [email, setEmail] = useState<string | null>(null);
-  const supabase = createClientComponentClient();
+  const router = useRouter();
 
   useEffect(() => {
     // Get email from localStorage
@@ -22,26 +22,16 @@ export default function VerifyEmail() {
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!email) {
-      setError("Email not found. Please go back to signup.");
-      return;
-    }
-
-    if (!otp || otp.length !== 6) {
-      setError("Please enter a valid 6-digit verification code");
-      return;
-    }
+    setVerifying(true);
+    setError(null);
 
     try {
-      setVerifying(true);
-      setError(null);
-
-      // Send verification to the API
-      const response = await fetch("/api/auth/verify", {
+      const response = await fetch("/api/auth/verify-email", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, code: otp }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, otp }),
       });
 
       const data = await response.json();
@@ -50,7 +40,22 @@ export default function VerifyEmail() {
         throw new Error(data.error || "Verification failed");
       }
 
-      setVerified(true);
+      setSuccess(true);
+      localStorage.removeItem("userEmail"); // Clean up stored email
+
+      // Send welcome email
+      await fetch("/api/auth/send-welcome", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      // Redirect to login after successful verification
+      setTimeout(() => {
+        router.push("/login");
+      }, 2000);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -59,16 +64,10 @@ export default function VerifyEmail() {
   };
 
   const handleResendCode = async () => {
-    if (!email) {
-      setError("Email not found. Please go back to signup.");
-      return;
-    }
+    setVerifying(true);
+    setError(null);
 
     try {
-      setVerifying(true);
-      setError(null);
-
-      // Call the API to resend verification
       const response = await fetch("/api/auth/resend-verification", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -103,7 +102,7 @@ export default function VerifyEmail() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          {verified ? (
+          {success ? (
             <div className="text-center">
               <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
                 <svg
@@ -189,38 +188,29 @@ export default function VerifyEmail() {
                 </div>
               </div>
 
-              <div>
+              <div className="flex items-center justify-between">
                 <button
-                  type="submit"
-                  disabled={verifying}
-                  className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 ${
-                    verifying ? "opacity-70 cursor-not-allowed" : ""
-                  }`}
+                  type="button"
+                  onClick={handleResendCode}
+                  className="text-sm font-medium text-purple-600 hover:text-purple-500"
                 >
-                  {verifying ? "Verifying..." : "Verify Email"}
+                  Resend verification code
                 </button>
+                <Link
+                  href="/login"
+                  className="text-sm font-medium text-purple-600 hover:text-purple-500"
+                >
+                  Back to login
+                </Link>
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="text-sm">
-                  <button
-                    type="button"
-                    onClick={handleResendCode}
-                    disabled={verifying}
-                    className="font-medium text-purple-600 hover:text-purple-500"
-                  >
-                    Didn't receive the code? Resend
-                  </button>
-                </div>
-                <div className="text-sm">
-                  <Link
-                    href="/signup"
-                    className="font-medium text-purple-600 hover:text-purple-500"
-                  >
-                    Back to Sign Up
-                  </Link>
-                </div>
-              </div>
+              <button
+                type="submit"
+                disabled={verifying}
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50"
+              >
+                {verifying ? "Verifying..." : "Verify Email"}
+              </button>
             </form>
           )}
         </div>

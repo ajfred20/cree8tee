@@ -2,9 +2,21 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Session, User } from "@supabase/supabase-js";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import crypto from "crypto";
+
+// Define types to replace Supabase types
+interface User {
+  id: string;
+  email: string;
+  name?: string;
+  user_type?: string;
+  email_verified: boolean;
+}
+
+interface Session {
+  user: User;
+  token: string;
+}
 
 interface AuthContextType {
   user: User | null;
@@ -30,42 +42,24 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const supabase = createClientComponentClient();
   const router = useRouter();
 
   useEffect(() => {
-    const getSession = async () => {
-      setLoading(true);
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
-      if (error) {
-        console.error("Error getting session:", error.message);
-      } else {
-        setSession(session);
-        setUser(session?.user ?? null);
+    // Check for existing session in localStorage
+    const checkSession = () => {
+      const storedSession = localStorage.getItem("session");
+      if (storedSession) {
+        const parsedSession = JSON.parse(storedSession);
+        setSession(parsedSession);
+        setUser(parsedSession.user);
       }
       setLoading(false);
     };
 
-    getSession();
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(
-      (_event: string, newSession: Session | null) => {
-        setSession(newSession);
-        setUser(newSession?.user ?? null);
-      }
-    );
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [supabase.auth]);
+    checkSession();
+  }, []);
 
   const signup = async (
     email: string,
@@ -77,32 +71,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       setError(null);
 
-      // 1. Create user in Supabase auth
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            name: fullName,
-            user_type: userType,
-          },
-        },
-      });
-
-      if (authError) throw new Error(authError.message);
-      if (!authData.user) throw new Error("Failed to create user");
-
-      // 2. Generate OTP
+      // Generate OTP
       const otp = Math.floor(100000 + Math.random() * 900000).toString();
       const otpExpiry = new Date();
       otpExpiry.setHours(otpExpiry.getHours() + 24);
 
-      // 3. Call our API to create profile
+      // Create user profile
       const response = await fetch("/api/auth/create-profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userId: authData.user.id,
           email,
           name: fullName,
           userType,
@@ -113,21 +91,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       const data = await response.json();
 
-      // Check for fallback flag
-      if (data.fallback) {
-        console.log("Using localStorage fallback for development");
-        localStorage.setItem("verificationOtp", otp);
-        localStorage.setItem("userEmail", email);
-        localStorage.setItem("userName", fullName);
-        localStorage.setItem("userId", authData.user.id);
-      }
-
-      if (!response.ok && !data.fallback) {
+      if (!response.ok) {
         throw new Error(data.error || "Failed to create profile");
       }
 
-      // 4. Send verification email
-      const emailResponse = await fetch("/api/auth/send-verification", {
+      // Send verification email
+      await fetch("/api/auth/send-verification", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -137,16 +106,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }),
       });
 
-      if (!emailResponse.ok) {
-        const errorData = await emailResponse.json();
-        console.error("Error sending verification email:", errorData.error);
-      }
-
-      // 5. Store in localStorage as well
+      // Store verification data in localStorage
       localStorage.setItem("verificationOtp", otp);
       localStorage.setItem("userEmail", email);
 
-      // 6. Redirect to verification page
       router.push("/verify-email");
       return true;
     } catch (err: any) {
@@ -162,68 +125,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       setError(null);
 
-      // Attempt to sign in
-      const { data, error: signInError } =
-        await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-      if (signInError) {
-        // Check if we need to show a special message for unverified emails
-        // First check if user exists
-        const { data: userData, error: userError } = await supabase.auth.signUp(
-          {
-            email,
-            password,
-            options: {
-              emailRedirectTo: `${window.location.origin}/auth/callback`,
-            },
-          }
-        );
+      const data = await response.json();
 
-        if (userError && userError.message.includes("already exists")) {
-          // User exists but can't login, likely email not verified
-          const { data: profileData } = await supabase
-            .from("profiles")
-            .select("email_verified")
-            .eq("email", email)
-            .single();
-
-          if (profileData && profileData.email_verified === false) {
-            throw new Error(
-              "Email not verified. Please check your email for the verification code."
-            );
-          }
-        }
-
-        // Default error for invalid login
-        throw new Error(signInError.message || "Invalid login credentials");
+      if (!response.ok) {
+        throw new Error(data.error || "Login failed");
       }
 
-      if (!data?.user) {
-        throw new Error("Login failed - user not found");
-      }
+      // Set user and session in state and localStorage
+      const sessionData = {
+        user: data.user,
+        token: data.token,
+      };
 
-      // Check if email has been verified in profiles table
-      const { data: profileData, error: profileError } = await supabase
-        .from("profiles")
-        .select("email_verified")
-        .eq("id", data.user.id)
-        .single();
-
-      if (profileError) {
-        console.error("Error checking profile:", profileError);
-      } else if (profileData && profileData.email_verified === false) {
-        // Log the user out if email isn't verified
-        await supabase.auth.signOut();
-        throw new Error(
-          "Email not verified. Please check your email for the verification code."
-        );
-      }
-
-      // Successful login with verified email
       setUser(data.user);
+      setSession(sessionData);
+      localStorage.setItem("session", JSON.stringify(sessionData));
+
       router.push("/dashboard");
       return true;
     } catch (err: any) {
@@ -237,8 +160,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
+      await fetch("/api/auth/logout", { method: "POST" });
+      setUser(null);
+      setSession(null);
+      localStorage.removeItem("session");
       router.push("/login");
     } catch (error: any) {
       console.error("Error logging out:", error.message);
@@ -247,10 +172,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const resetPassword = async (email: string) => {
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/reset-password`,
+      const response = await fetch("/api/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
       });
-      if (error) throw error;
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error);
+      }
     } catch (error: any) {
       console.error("Error resetting password:", error.message);
       throw error;
@@ -261,20 +192,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       if (!user) throw new Error("No user logged in");
 
-      // Update auth metadata
-      const { error: updateError } = await supabase.auth.updateUser({
-        data,
+      const response = await fetch("/api/auth/update-profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, userId: user.id }),
       });
 
-      if (updateError) throw updateError;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error);
+      }
 
-      // Update profile table
-      const { error: profileError } = await supabase
-        .from("profiles")
-        .update(data)
-        .eq("id", user.id);
-
-      if (profileError) throw profileError;
+      // Update local user state with new data
+      setUser({ ...user, ...data });
     } catch (error: any) {
       console.error("Error updating profile:", error.message);
       throw error;
@@ -284,54 +214,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const verifyEmail = async (email: string, otp: string) => {
     setLoading(true);
     try {
-      // Find the user by email first
-      const { data: profileData, error: profileError } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("email", email)
-        .single();
+      const response = await fetch("/api/auth/verify-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp }),
+      });
 
-      if (profileError) {
-        throw new Error("User not found. Please check your email address.");
-      }
-
-      // Verify the OTP
-      if (profileData.verification_otp !== otp) {
-        throw new Error("Invalid verification code. Please try again.");
-      }
-
-      // Check if OTP is expired
-      const otpExpiry = new Date(profileData.verification_token_expires_at);
-      if (otpExpiry < new Date()) {
-        throw new Error(
-          "Verification code has expired. Please request a new one."
-        );
-      }
-
-      // Mark email as verified and clear the OTP
-      const { error: updateError } = await supabase
-        .from("profiles")
-        .update({
-          email_verified: true,
-          verification_otp: null,
-          verification_token_expires_at: null,
-        })
-        .eq("id", profileData.id);
-
-      if (updateError) throw updateError;
-
-      // Send welcome email
-      try {
-        await fetch("/api/auth/send-welcome", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: profileData.email,
-            name: profileData.name,
-          }),
-        });
-      } catch (emailError) {
-        console.error("Error sending welcome email:", emailError);
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error);
       }
 
       return true;
@@ -345,47 +236,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const resendVerification = async (email: string) => {
     try {
-      // Find the user by email
-      const { data: profiles, error: findProfileError } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("email", email)
-        .single();
-
-      if (findProfileError) {
-        throw new Error("User not found");
-      }
-
-      // Generate a new OTP
-      const otp = Math.floor(100000 + Math.random() * 900000).toString();
-      const otpExpiry = new Date();
-      otpExpiry.setHours(otpExpiry.getHours() + 24);
-
-      // Update the profile with the new OTP
-      const { error: updateProfileError } = await supabase
-        .from("profiles")
-        .update({
-          verification_otp: otp,
-          verification_token_expires_at: otpExpiry.toISOString(),
-        })
-        .eq("id", profiles.id);
-
-      if (updateProfileError) throw updateProfileError;
-
-      // Send a new verification email
-      const response = await fetch("/api/auth/send-verification", {
+      const response = await fetch("/api/auth/resend-verification", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          name: profiles.name || "User",
-          otp: otp,
-        }),
+        body: JSON.stringify({ email }),
       });
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.message || "Failed to send verification email");
+        throw new Error(data.error);
       }
 
       return true;
@@ -400,47 +259,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       setError(null);
 
-      // Check if user exists
-      const { data: profiles, error: findProfileError } = await supabase
-        .from("profiles")
-        .select("id, name")
-        .eq("email", email)
-        .single();
-
-      if (findProfileError) {
-        throw new Error("No account found with this email address");
-      }
-
-      // Generate a reset token
-      const resetToken = crypto.randomBytes(32).toString("hex");
-      const tokenExpiry = new Date();
-      tokenExpiry.setHours(tokenExpiry.getHours() + 1); // 1 hour expiry
-
-      // Update the profile with the reset token
-      const { error: updateError } = await supabase
-        .from("profiles")
-        .update({
-          reset_token: resetToken,
-          reset_token_expires_at: tokenExpiry.toISOString(),
-        })
-        .eq("id", profiles.id);
-
-      if (updateError) throw updateError;
-
-      // Send password reset email
-      const response = await fetch("/api/auth/send-password-reset", {
+      const response = await fetch("/api/auth/request-password-reset", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          name: profiles.name || "User",
-          token: resetToken,
-        }),
+        body: JSON.stringify({ email }),
       });
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.error || "Failed to send password reset email");
+        throw new Error(data.error);
       }
 
       return true;
