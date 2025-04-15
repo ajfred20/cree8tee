@@ -38,7 +38,7 @@ export async function sendVerificationEmail(
             ${otp}
           </div>
           
-          <p style="font-weight: 400; color: #6b7280; margin-bottom: 12px; font-size: 14px;">This code will expire in 24 hours ⏰</p>
+          <p style="font-weight: 400; color: #6b7280; margin-bottom: 12px; font-size: 14px;">This code will expire in 30 minutes ⏰</p>
           
           <p style="font-weight: 400; color: #6b7280; margin-bottom: 24px; font-size: 14px;">If you didn't create an account, you can safely ignore this email.</p>
           
@@ -49,7 +49,7 @@ export async function sendVerificationEmail(
         </div>
         
         <div style="text-align: center; padding: 16px; color: #6b7280; font-size: 12px; font-weight: 400;">
-          <p>© 2023 Hustle. All rights reserved.</p>
+          <p>© 2025 Hustle. All rights reserved.</p>
         </div>
       </div>
     `,
@@ -94,7 +94,7 @@ export async function sendWelcomeEmail(to: string, name: string) {
         </div>
         
         <div style="text-align: center; padding: 16px; color: #6b7280; font-size: 12px; font-weight: 400;">
-          <p>© 2023 Hustle. All rights reserved.</p>
+          <p>© 2025 Hustle. All rights reserved.</p>
         </div>
       </div>
     `,
@@ -141,7 +141,7 @@ export async function sendPasswordResetEmail(
         </div>
         
         <div style="text-align: center; padding: 16px; color: #6b7280; font-size: 12px; font-weight: 400;">
-          <p>© 2023 Hustle. All rights reserved.</p>
+          <p>© 2025 Hustle. All rights reserved.</p>
         </div>
       </div>
     `,

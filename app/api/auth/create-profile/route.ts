@@ -4,10 +4,21 @@ import { query, transaction } from "@/lib/db";
 
 export async function POST(request: Request) {
   try {
-    const { email, name, userType, password, otp } = await request.json();
+    const { email, name, userType, otp, otpExpiry } = await request.json();
 
-    // Hash the password
-    const hashedPassword = await hash(password, 10);
+    // Generate a temporary password for now (we'll implement password setup later)
+    const temporaryPassword = Math.random().toString(36).slice(-8);
+    const hashedPassword = await hash(temporaryPassword, 10);
+
+    if (!email || !name || !userType) {
+      return NextResponse.json(
+        {
+          error:
+            "Missing required fields: email, name, and userType are required",
+        },
+        { status: 400 }
+      );
+    }
 
     const result = await transaction(async (client) => {
       // Check if user exists
@@ -32,7 +43,7 @@ export async function POST(request: Request) {
           verification_otp, 
           verification_token_expires_at
         )
-        VALUES ($1, $2, $3, $4, $5, NOW() + INTERVAL '24 hours')
+        VALUES ($1, $2, $3, $4, $5, NOW() + INTERVAL '30 minutes')
         RETURNING id`,
         [email.toLowerCase(), name, userType, hashedPassword, otp]
       );
@@ -44,9 +55,17 @@ export async function POST(request: Request) {
       success: true,
       userId: result.userId,
       existing: result.existing,
+      message:
+        "Profile created successfully. Please verify your email to set up your password.",
     });
   } catch (error: any) {
     console.error("Error creating user:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: "Failed to create profile",
+        details: error.message,
+      },
+      { status: 500 }
+    );
   }
 }

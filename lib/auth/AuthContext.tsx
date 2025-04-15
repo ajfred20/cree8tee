@@ -147,7 +147,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setSession(sessionData);
       localStorage.setItem("session", JSON.stringify(sessionData));
 
-      router.push("/dashboard");
+      router.push("/waitlist");
       return true;
     } catch (err: any) {
       console.error("Login error:", err);
