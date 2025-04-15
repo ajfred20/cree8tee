@@ -126,10 +126,10 @@ export default function ResetPasswordPage() {
         {!isSubmitted ? (
           <>
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl sm:text-3xl font-semibold tracking-tighter text-gray-900">
                 Reset your password
               </h1>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-gray-600 text-sm tracking-tight">
                 Enter a new password for your account
               </p>
             </div>
@@ -144,7 +144,7 @@ export default function ResetPasswordPage() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium tracking-tight text-gray-700 mb-1"
                 >
                   New Password
                 </label>
@@ -179,7 +179,7 @@ export default function ResetPasswordPage() {
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium tracking-tight text-gray-700 mb-1"
                 >
                   Confirm Password
                 </label>
@@ -211,7 +211,7 @@ export default function ResetPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-purple-600 text-white px-4 py-3 rounded-md hover:bg-purple-700 font-medium transition-colors disabled:bg-purple-400 disabled:cursor-not-allowed"
+                className="w-full bg-purple-600 text-white px-4 py-3 rounded-md hover:bg-purple-700 font-medium tracking-tight transition-colors disabled:bg-purple-400 disabled:cursor-not-allowed"
               >
                 {loading ? "Updating..." : "Reset Password"}
               </button>

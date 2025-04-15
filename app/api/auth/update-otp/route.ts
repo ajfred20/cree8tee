@@ -1,43 +1,39 @@
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { query } from "@/lib/db";
 
 export async function POST(request: Request) {
   try {
-    const { userId, otp, otpExpiry } = await request.json();
+    const { email } = await request.json();
 
-    if (!userId || !otp) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
+    if (!email) {
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    // Use server-side supabase client
-    const supabase = createRouteHandlerClient({ cookies });
+    // Generate new OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Update verification OTP
-    const { error } = await supabase
-      .from("profiles")
-      .update({
-        verification_otp: otp,
-        verification_token_expires_at: otpExpiry,
-      })
-      .eq("id", userId);
+    // Update user's OTP
+    const { rows } = await query(
+      `UPDATE users 
+       SET verification_otp = $1,
+           verification_token_expires_at = NOW() + INTERVAL '30 minutes'
+       WHERE email = $2
+       RETURNING id`,
+      [otp, email.toLowerCase()]
+    );
 
-    if (error) {
-      console.error("Error updating OTP:", error);
-      return NextResponse.json(
-        { error: "Failed to update verification code" },
-        { status: 500 }
-      );
+    if (rows.length === 0) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      otp,
+    });
   } catch (error: any) {
     console.error("Error updating OTP:", error);
     return NextResponse.json(
-      { error: error.message || "Failed to update verification code" },
+      { error: "Failed to update OTP" },
       { status: 500 }
     );
   }

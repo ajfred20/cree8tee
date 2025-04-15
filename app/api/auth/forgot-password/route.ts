@@ -1,56 +1,50 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-import crypto from "crypto";
+import { query } from "@/lib/db";
 import { sendPasswordResetEmail } from "@/lib/email";
-
-const prisma = new PrismaClient();
+import crypto from "crypto";
 
 export async function POST(request: NextRequest) {
   try {
     const { email } = await request.json();
 
-    // Find user by email
-    const user = await prisma.user.findUnique({ where: { email } });
-
-    // Even if the user is not found, we send a success response for security reasons
-    if (!user) {
-      return NextResponse.json({
-        message:
-          "If an account with that email exists, we have sent a password reset link",
-      });
+    if (!email) {
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
     // Generate reset token
     const resetToken = crypto.randomBytes(32).toString("hex");
-    const tokenHash = crypto
-      .createHash("sha256")
-      .update(resetToken)
-      .digest("hex");
+    const resetTokenExpiry = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
 
-    // Set token expiry (1 hour)
-    const resetTokenExpiry = new Date();
-    resetTokenExpiry.setHours(resetTokenExpiry.getHours() + 1);
+    // Find user and update with reset token
+    const { rows } = await query(
+      `UPDATE users 
+       SET reset_token = $1,
+           reset_token_expires_at = $2
+       WHERE email = $3
+       RETURNING id, name`,
+      [resetToken, resetTokenExpiry, email.toLowerCase()]
+    );
 
-    // Update user with reset token
-    await prisma.user.update({
-      where: { email },
-      data: {
-        resetToken: tokenHash,
-        resetTokenExpiry,
-      },
-    });
+    if (rows.length === 0) {
+      // Don't reveal if user exists or not
+      return NextResponse.json({
+        success: true,
+        message:
+          "If an account exists with this email, a password reset link will be sent.",
+      });
+    }
 
     // Send password reset email
-    await sendPasswordResetEmail(email, user.name, resetToken);
+    await sendPasswordResetEmail(email, rows[0].name, resetToken);
 
     return NextResponse.json({
-      message:
-        "If an account with that email exists, we have sent a password reset link",
+      success: true,
+      message: "Password reset instructions sent to your email",
     });
-  } catch (error) {
-    console.error("Forgot password error:", error);
+  } catch (error: any) {
+    console.error("Password reset error:", error);
     return NextResponse.json(
-      { message: "Something went wrong" },
+      { error: "Failed to process password reset request" },
       { status: 500 }
     );
   }
