@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
 
     // Set cookie with the token
     const cookieStore = cookies();
-    cookieStore.set("auth-token", token, {
+    (await cookieStore).set("auth-token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
