@@ -63,7 +63,7 @@ export default function WaitlistPage() {
       </nav>
 
       {/* Main content */}
-      <div className="flex-1 grid md:grid-cols-2 gap-10 max-w-7xl mx-auto px-4 py-16">
+      <div className="flex-1 grid md:grid-cols-2 gap-10 max-w-7xl mx-auto px-4 py-12">
         {/* Left column */}
         <div className="flex flex-col justify-center">
           <h1 className="text-2xl sm:text-5xl font-semibold tracking-tighter leading-tight text-gray-900 mb-4">
@@ -72,7 +72,7 @@ export default function WaitlistPage() {
             freelancing platform.
           </h1>
 
-          <div className="space-y-8 mt-8">
+          <div className="space-y-8 mt-4">
             <div className="flex items-start">
               <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-purple-100 mt-1">
                 <svg
@@ -91,13 +91,13 @@ export default function WaitlistPage() {
                 </svg>
               </div>
               <div className="ml-4">
-                <h3 className="text-lg font-medium tracking-tight text-gray-900">
-                  Find the perfect crypto job instantly.
+                <h3 className="text-xl font-medium tracking-tight text-gray-900">
+                  Find the perfect blockchain job instantly.
                 </h3>
-                <p className="mt-2 text-base text-gray-600">
+                <p className="mt-2 text-base tracking-normal leading-snug text-gray-600">
                   Powerful AI matching connects you with web3 projects that
                   align with your skills, rate, and availability. Get matched
-                  with only the most relevant opportunities.
+                  with the most relevant opportunities.
                 </p>
               </div>
             </div>
@@ -120,11 +120,11 @@ export default function WaitlistPage() {
                 </svg>
               </div>
               <div className="ml-4">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Secure crypto payments and escrow.
+                <h3 className="text-xl font-medium tracking-tight text-gray-900">
+                  Secure crypto/fiat payments and escrow.
                 </h3>
-                <p className="mt-2 text-base text-gray-600">
-                  Get paid in your preferred cryptocurrency with built-in escrow
+                <p className="mt-2 tracking-tight leading-snug text-base text-gray-600">
+                  Get paid in either crypto or fiat with built-in escrow
                   protection, milestone payments, and transparent fee structure.
                   No more payment disputes or delays.
                 </p>
@@ -134,27 +134,56 @@ export default function WaitlistPage() {
             <div className="flex items-start">
               <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-purple-100 mt-1">
                 <svg
-                  className="h-6 w-6 text-purple-600"
+                  xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
+                  strokeWidth={1.5}
                   stroke="currentColor"
+                  className="size-6 text-purple-600"
                 >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
                   />
                 </svg>
               </div>
               <div className="ml-4">
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-xl font-medium tracking-tight text-gray-900">
                   Safe and secure environment.
                 </h3>
-                <p className="mt-2 text-base text-gray-600">
+                <p className="mt-2 text-base tracking-tight leading-snug text-gray-600">
                   Our platform provides verified profiles, secure messaging, and
                   transparent reviews. Work with confidence in a community built
                   for web3 professionals.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-purple-100 mt-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6 text-purple-600"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"
+                  />
+                </svg>
+              </div>
+              <div className="ml-4">
+                <h3 className="text-xl font-medium tracking-tight text-gray-900">
+                  Join a global community of web3 talent & opportunities.
+                </h3>
+                <p className="mt-2 tracking-tight leading-snug text-base text-gray-600">
+                  Gain access to the biggest talent pool for web3 as you get
+                  opportunities to work with great minds in the web3 space and
+                  also get some amazing web3 talent to join your team.
                 </p>
               </div>
             </div>
@@ -164,27 +193,39 @@ export default function WaitlistPage() {
         {/* Right column */}
         <div className="flex flex-col justify-center">
           <div className="mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-2xl sm:text-5xl text-center font-semibold tracking-tighter text-gray-900">
               Join our journey and get early access
             </h2>
-            <p className="mt-4 text-gray-600">
+            <p className="mt-4 text-gray-600 text-base tracking-tight text-center">
               Join our exclusive waitlist today to spark connection and get
               notified when we launch 🚀
             </p>
           </div>
 
           {/* Avatar grid */}
-          <div className="flex flex-wrap mb-8">
-            {["purple", "blue", "green", "yellow", "orange", "red", "pink"].map(
-              (color, i) => (
-                <div
-                  key={i}
-                  className={`w-10 h-10 rounded-full bg-${color}-500 border-2 border-white -ml-2 first:ml-0 flex items-center justify-center text-white font-bold`}
-                >
-                  {i === 3 ? "R" : ""}
+          <div className="flex flex-col items-center mb-8">
+            <div className="flex flex-wrap mb-3">
+              {[
+                "/assets/muniz.svg",
+                "/assets/sarah.svg",
+                "/assets/henry.svg",
+                "/assets/web3-logo.jpg",
+                "/assets/web3-preview.jpg",
+                "/assets/ruth.svg",
+                "/assets/caleb.jpg",
+              ].map((avatar, i) => (
+                <div key={i} className="w-10 h-10 -ml-2 first:ml-0 relative">
+                  <img
+                    src={avatar}
+                    alt={`User avatar ${i + 1}`}
+                    className="w-full h-full rounded-full object-cover border-2 border-white"
+                  />
                 </div>
-              )
-            )}
+              ))}
+            </div>
+            <p className="text-sm text-gray-600 font-normal tracking-tight">
+              Join 50+ beta testers already on the waitlist
+            </p>
           </div>
 
           {submitted ? (
@@ -261,24 +302,6 @@ export default function WaitlistPage() {
             </form>
           )}
         </div>
-      </div>
-
-      {/* Decorative element */}
-      <div className="fixed bottom-10 right-10 h-12 w-12 opacity-50">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M50 0 L100 50 L50 100 L0 50 Z"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
-          <path
-            d="M50 15 L85 50 L50 85 L15 50 Z"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
-        </svg>
       </div>
     </div>
   );
