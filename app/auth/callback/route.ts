@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
     );
 
     // Set cookie with the session token
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     cookieStore.set("auth-token", sessionToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
