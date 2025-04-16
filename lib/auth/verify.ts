@@ -1,22 +1,33 @@
-import { NextRequest } from "next/server";
-import { jwtVerify } from "jose";
+import { query } from "@/lib/db";
 
-export async function verifyAuth(request: NextRequest): Promise<string | null> {
-  const token = request.cookies.get("auth-token")?.value;
+export async function verifyToken(token: string) {
+  return await query(
+    `SELECT id, email, name, user_type 
+     FROM users 
+     WHERE session_token = $1 
+     AND session_expires_at > NOW()`,
+    [token]
+  );
+}
 
-  if (!token) {
-    return null;
-  }
+export async function verifyAuth(request: Request) {
+  const cookieHeader = request.headers.get("cookie");
+  if (!cookieHeader) return null;
+
+  const cookies = Object.fromEntries(
+    cookieHeader.split(";").map((cookie) => {
+      const [name, value] = cookie.trim().split("=");
+      return [name, value];
+    })
+  );
+
+  const token = cookies["auth-token"];
+  if (!token) return null;
 
   try {
-    const verified = await jwtVerify(
-      token,
-      new TextEncoder().encode(process.env.JWT_SECRET)
-    );
-
-    return verified.payload.userId as string;
+    const { rows } = await verifyToken(token);
+    return rows.length > 0 ? rows[0].id : null;
   } catch (error) {
-    console.error("Token verification failed:", error);
     return null;
   }
 }
