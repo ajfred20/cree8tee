@@ -1,53 +1,59 @@
-import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { NextResponse } from "next/server";
+import { query } from "@/lib/db";
 
-const prisma = new PrismaClient();
-
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     const { email, otp } = await request.json();
 
-    // Find user by email
-    const user = await prisma.user.findUnique({ where: { email } });
-
-    if (!user) {
-      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    if (!email || !otp) {
+      return NextResponse.json(
+        { error: "Email and OTP are required" },
+        { status: 400 }
+      );
     }
 
-    // Check if OTP is valid
-    if (user.otpCode !== otp) {
-      return NextResponse.json({ message: "Invalid OTP" }, { status: 400 });
+    // Verify OTP
+    const { rows } = await query(
+      `SELECT id, verification_otp, verification_token_expires_at
+       FROM users
+       WHERE email = $1`,
+      [email.toLowerCase()]
+    );
+
+    if (rows.length === 0) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
+
+    const user = rows[0];
 
     // Check if OTP is expired
-    if (user.otpExpiry && new Date() > user.otpExpiry) {
-      return NextResponse.json({ message: "OTP expired" }, { status: 400 });
+    if (new Date() > new Date(user.verification_token_expires_at)) {
+      return NextResponse.json({ error: "OTP has expired" }, { status: 400 });
     }
 
-    // Update user as verified
-    const updatedUser = await prisma.user.update({
-      where: { email },
-      data: {
-        emailVerified: true,
-        otpCode: null,
-        otpExpiry: null,
-      },
-    });
+    // Check if OTP matches
+    if (user.verification_otp !== otp) {
+      return NextResponse.json({ error: "Invalid OTP" }, { status: 400 });
+    }
 
-    // Return user (excluding sensitive information)
+    // Mark email as verified
+    await query(
+      `UPDATE users
+       SET email_verified = true,
+           verification_otp = NULL,
+           verification_token_expires_at = NULL
+       WHERE id = $1`,
+      [user.id]
+    );
+
     return NextResponse.json({
-      user: {
-        id: updatedUser.id,
-        email: updatedUser.email,
-        name: updatedUser.name,
-        userType: updatedUser.userType,
-        emailVerified: updatedUser.emailVerified,
-      },
+      success: true,
+      message: "Email verified successfully",
     });
-  } catch (error) {
-    console.error("OTP verification error:", error);
+  } catch (error: any) {
+    console.error("Error verifying OTP:", error);
     return NextResponse.json(
-      { message: "Failed to verify OTP" },
+      { error: "Failed to verify OTP" },
       { status: 500 }
     );
   }
