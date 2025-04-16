@@ -4,13 +4,20 @@ import nodemailer from "nodemailer";
 
 // Create a transporter
 const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
+  host: process.env.EMAIL_HOST || "smtp.gmail.com",
   port: parseInt(process.env.EMAIL_PORT || "587"),
   secure: process.env.EMAIL_SECURE === "true",
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD,
   },
+  tls: {
+    rejectUnauthorized: false,
+    ciphers: "SSLv3",
+  },
+  connectionTimeout: 30000,
+  greetingTimeout: 30000,
+  socketTimeout: 60000,
 });
 
 export async function sendVerificationEmail(
@@ -151,8 +158,14 @@ export async function sendPasswordResetEmail(
 }
 
 export async function sendBetaConfirmationEmail(to: string, name: string) {
+  // Skip sending in development to avoid connection issues
+  if (process.env.NODE_ENV !== "production") {
+    console.log(`[DEV MODE] Would send beta confirmation to: ${to}`);
+    return;
+  }
+
   const mailOptions = {
-    from: `"Hustle Team" <${process.env.EMAIL_FROM}>`,
+    from: `"Hustle Team" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`,
     to,
     subject: "Welcome to Hustle Beta Waitlist! 🚀",
     html: `
@@ -226,5 +239,12 @@ export async function sendBetaConfirmationEmail(to: string, name: string) {
     `,
   };
 
-  await transporter.sendMail(mailOptions);
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log(`Beta confirmation email sent to ${to}`);
+  } catch (error) {
+    console.error("Failed to send beta confirmation email:", error);
+    // Re-throw to handle at the API level
+    throw error;
+  }
 }
