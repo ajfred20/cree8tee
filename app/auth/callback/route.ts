@@ -1,12 +1,19 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { query } from "@/lib/db";
-import { sign } from "jsonwebtoken";
+
+// Using a simpler token generation method that's Edge compatible
+function generateToken(length = 32) {
+  const array = new Uint8Array(length);
+  crypto.getRandomValues(array);
+  return Array.from(array, (byte) => byte.toString(16).padStart(2, "0")).join(
+    ""
+  );
+}
 
 export async function GET(request: NextRequest) {
   try {
     const requestUrl = new URL(request.url);
-    const code = requestUrl.searchParams.get("code");
     const email = requestUrl.searchParams.get("email");
 
     if (!email) {
@@ -30,22 +37,20 @@ export async function GET(request: NextRequest) {
     }
 
     const user = rows[0];
+    const sessionToken = generateToken();
 
-    // Create session token
-    const token = sign(
-      {
-        userId: user.id,
-        email: user.email,
-        name: user.name,
-        userType: user.user_type,
-      },
-      process.env.JWT_SECRET || "your-fallback-secret",
-      { expiresIn: "7d" }
+    // Store the session token in the database
+    await query(
+      `UPDATE users 
+       SET session_token = $1, 
+           session_expires_at = NOW() + INTERVAL '7 days' 
+       WHERE id = $2`,
+      [sessionToken, user.id]
     );
 
-    // Set cookie with the token
+    // Set cookie with the session token
     const cookieStore = cookies();
-    (await cookieStore).set("auth-token", token, {
+    cookieStore.set("auth-token", sessionToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",

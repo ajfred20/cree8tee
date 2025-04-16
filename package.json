@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^6.6.0",
     "@radix-ui/react-accordion": "^1.2.2",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/nodemailer": "^6.4.17",
@@ -22,7 +21,6 @@
     "next": "15.1.6",
     "nodemailer": "^6.10.1",
     "pg": "^8.14.1",
-    "prisma": "^6.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^2.6.0",
