@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-
+import useMobile from "@/hooks/useMobile";
 export default function Page() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -28,7 +28,7 @@ export default function Page() {
   const [showAnnouncement, setShowAnnouncement] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-
+  const isMobile = useMobile();
   // Navigation items with dropdowns
   const navItems = {
     find: {
