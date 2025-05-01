@@ -109,189 +109,164 @@ const JobsPage = () => {
         </div>
       </section>
 
-      {/* Team Member Section (Similar to the reference image) */}
-      <section className="py-16 px-4 md:px-8 bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Freelancer Roles Section */}
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-              <h3 className="text-xl font-medium mb-6 flex items-center tracking-tight">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                Featured Freelancers
-              </h3>
-              
-              {/* Individual team members */}
-              <div className="space-y-4">
-                <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-purple-200 overflow-hidden mr-3">
-                      <div className="w-full h-full bg-purple-300 flex items-center justify-center text-purple-700">
-                        LP
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Liam P.</h4>
-                      <p className="text-sm text-gray-500">Smart Contract Developer</p>
-                    </div>
-                  </div>
-                  <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded text-sm">
-                    Admin
-                  </div>
+      <section
+  className="py-16 px-4 md:px-8 bg-cover bg-center relative overflow-hidden"
+  style={{
+    backgroundImage: "url('/assets/web3-preview.jpg')",
+  }}
+>
+  <div className="max-w-7xl mx-auto relative z-10">
+    <div className="grid md:grid-cols-2 gap-12">
+      {/* Freelancer Roles Section */}
+      <div className="bg-white bg-opacity-80 rounded-xl shadow-sm p-6 border border-gray-100">
+        <h3 className="text-xl font-medium mb-6 flex items-center tracking-tight">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 mr-2 text-purple-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            />
+          </svg>
+          Featured Freelancers
+        </h3>
+
+        {/* Individual team members */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between py-3 border-b border-gray-100">
+            <div className="flex items-center">
+              <div className="w-10 h-10 rounded-full bg-purple-200 overflow-hidden mr-3">
+                <div className="w-full h-full bg-purple-300 flex items-center justify-center text-purple-700">
+                  LP
                 </div>
-                
-                <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-purple-200 overflow-hidden mr-3">
-                      <div className="w-full h-full bg-purple-300 flex items-center justify-center text-purple-700">
-                        AG
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Ava G.</h4>
-                      <p className="text-sm text-gray-500">Blockchain Designer</p>
-                    </div>
-                  </div>
-                  <div className="bg-gray-100 text-gray-800 px-3 py-1 rounded text-sm">
-                    View
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-purple-200 overflow-hidden mr-3">
-                      <div className="w-full h-full bg-purple-300 flex items-center justify-center text-purple-700">
-                        MB
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Max B.</h4>
-                      <p className="text-sm text-gray-500">DeFi Specialist</p>
-                    </div>
-                  </div>
-                  <div className="bg-gray-100 text-gray-800 px-3 py-1 rounded text-sm">
-                    Writer
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-between py-3">
-                  <div className="flex items-center">
-                    <div className="flex -space-x-2 mr-3">
-                      <div className="w-8 h-8 rounded-full bg-purple-300 border-2 border-white"></div>
-                      <div className="w-8 h-8 rounded-full bg-purple-400 border-2 border-white"></div>
-                      <div className="w-8 h-8 rounded-full bg-purple-500 border-2 border-white"></div>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Top Freelancers</h4>
-                      <p className="text-sm text-gray-500">+17 People</p>
-                    </div>
-                  </div>
-                  <div className="bg-gray-100 text-gray-800 px-3 py-1 rounded text-sm">
-                    Restricted
-                  </div>
-                </div>
+              </div>
+              <div>
+                <h4 className="font-medium">Liam P.</h4>
+                <p className="text-sm text-gray-500">Smart Contract Developer</p>
               </div>
             </div>
-            
-            {/* Project Platform Section */}
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-              <h3 className="text-xl font-medium tracking-tight mb-6 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                Live Projects
-              </h3>
-              
-              <div className="mb-8">
-                <div className="flex justify-between items-center mb-2">
-                  <h4 className="text-sm text-gray-500">Project Board (8)</h4>
-                  <div className="flex">
-                    <button className="h-6 w-6 flex items-center justify-center text-gray-500 hover:text-purple-600">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                      </svg>
-                    </button>
-                    <button className="h-6 w-6 flex items-center justify-center text-gray-500 hover:text-purple-600">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="rounded-lg bg-gray-50 p-4 text-center">
-                    <div className="w-12 h-12 rounded-full bg-purple-200 mx-auto mb-2 flex items-center justify-center">
-                      <div className="w-full h-full bg-purple-300 rounded-full flex items-center justify-center text-purple-700">
-                        LP
-                      </div>
-                    </div>
-                    <h4 className="font-medium">Liam P.</h4>
-                    <p className="text-xs text-gray-500">Smart Contract Dev</p>
-                    <div className="mt-2 text-xs text-center">
-                      <a href="#" className="text-purple-600 hover:underline">Profile</a>
-                    </div>
-                  </div>
-                  
-                  <div className="rounded-lg bg-gray-50 p-4 text-center">
-                    <div className="w-12 h-12 rounded-full bg-purple-200 mx-auto mb-2 flex items-center justify-center">
-                      <div className="w-full h-full bg-purple-300 rounded-full flex items-center justify-center text-purple-700">
-                        AG
-                      </div>
-                    </div>
-                    <h4 className="font-medium">Ava G.</h4>
-                    <p className="text-xs text-gray-500">Blockchain Designer</p>
-                    <div className="mt-2 text-xs text-center">
-                      <a href="#" className="text-purple-600 hover:underline">Profile</a>
-                    </div>
-                  </div>
-                  
-                  <div className="rounded-lg bg-gray-50 p-4 text-center">
-                    <div className="w-12 h-12 rounded-full bg-purple-200 mx-auto mb-2 flex items-center justify-center">
-                      <div className="w-full h-full bg-purple-300 rounded-full flex items-center justify-center text-purple-700">
-                        MB
-                      </div>
-                    </div>
-                    <h4 className="font-medium">Max B.</h4>
-                    <p className="text-xs text-gray-500">DeFi Specialist</p>
-                    <div className="mt-2 text-xs text-center">
-                      <a href="#" className="text-purple-600 hover:underline">Profile</a>
-                    </div>
-                  </div>
+            <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded text-sm">
+              Admin
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between py-3 border-b border-gray-100">
+            <div className="flex items-center">
+              <div className="w-10 h-10 rounded-full bg-purple-200 overflow-hidden mr-3">
+                <div className="w-full h-full bg-purple-300 flex items-center justify-center text-purple-700">
+                  AG
                 </div>
               </div>
-              
               <div>
-                <div className="flex justify-between items-center mb-2">
-                  <h4 className="text-sm text-gray-500">Available Tasks (5)</h4>
-                  <div className="flex">
-                    <button className="h-6 w-6 flex items-center justify-center text-gray-500 hover:text-purple-600">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                      </svg>
-                    </button>
-                    <button className="h-6 w-6 flex items-center justify-center text-gray-500 hover:text-purple-600">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <div className="flex items-center">
-                    <div className="bg-yellow-500 h-3 w-3 rounded-full mr-2"></div>
-                    <h4 className="text-gray-800">Web3 Frontend Integration</h4>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
+                <h4 className="font-medium">Ava G.</h4>
+                <p className="text-sm text-gray-500">Blockchain Designer</p>
+              </div>
+            </div>
+            <div className="bg-gray-100 text-gray-800 px-3 py-1 rounded text-sm">
+              View
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between py-3 border-b border-gray-100">
+            <div className="flex items-center">
+              <div className="w-10 h-10 rounded-full bg-purple-200 overflow-hidden mr-3">
+                <div className="w-full h-full bg-purple-300 flex items-center justify-center text-purple-700">
+                  MB
                 </div>
               </div>
+              <div>
+                <h4 className="font-medium">Max B.</h4>
+                <p className="text-sm text-gray-500">DeFi Specialist</p>
+              </div>
+            </div>
+            <div className="bg-gray-100 text-gray-800 px-3 py-1 rounded text-sm">
+              Writer
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between py-3">
+            <div className="flex items-center">
+              <div className="flex -space-x-2 mr-3">
+                <div className="w-8 h-8 rounded-full bg-purple-300 border-2 border-white"></div>
+                <div className="w-8 h-8 rounded-full bg-purple-400 border-2 border-white"></div>
+                <div className="w-8 h-8 rounded-full bg-purple-500 border-2 border-white"></div>
+              </div>
+              <div>
+                <h4 className="font-medium">Top Freelancers</h4>
+                <p className="text-sm text-gray-500">+17 People</p>
+              </div>
+            </div>
+            <div className="bg-gray-100 text-gray-800 px-3 py-1 rounded text-sm">
+              Restricted
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Project Platform Section */}
+      <div className="bg-white bg-opacity-80 rounded-xl shadow-sm p-6 border border-gray-100">
+        <h3 className="text-xl font-medium tracking-tight mb-6 flex items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 mr-2 text-purple-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M[..."
+            />
+          </svg>
+          Live Projects
+        </h3>
+
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-2">
+            <h4 className="text-sm text-gray-500">Project Board (8)</h4>
+            <div className="flex">
+              <button className="h-6 w-6 flex items-center justify-center text-gray-500 hover:text-purple-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+              <button className="h-6 w-6 flex items-center justify-center text-gray-500 hover:text-purple-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
         
         {/* Background decoration */}
                 <Image
