@@ -17,10 +17,10 @@ const JobsPage = () => {
           <div className="flex flex-col md:flex-row gap-8 md:gap-16">
             {/* Left Column - Hero Text */}
             <div className="flex-1">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900">
+              <h1 className="text-5xl md:text-6xl font-semibold mb-6 text-gray-900 tracking-tighter">
                 Web3 Talent Marketplace
               </h1>
-              <p className="text-xl text-gray-600 mb-8">
+              <p className="text-xl text-gray-600 mb-8 tracking-tight">
                 Finding quality blockchain projects and talented freelancers has never been easier. Connect, collaborate, and get paid in crypto.
               </p>
             </div>
@@ -35,9 +35,9 @@ const JobsPage = () => {
                       <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900">Smart Contract Employment</h3>
+                  <h3 className="text-xl font-medium text-gray-900">Smart Contract Employment</h3>
                 </div>
-                <p className="text-gray-600">
+                <p className="text-gray-600 tracking-tight">
                   All jobs are secured with smart contracts for trustless payments and transparent milestone tracking.
                 </p>
               </div>
@@ -51,9 +51,9 @@ const JobsPage = () => {
                       <path d="M12 6v6l4 2"></path>
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900">Global Talent Network</h3>
+                  <h3 className="text-xl font-medium text-gray-900">Global Talent Network</h3>
                 </div>
-                <p className="text-gray-600">
+                <p className="text-gray-600 tracking-tight">
                   Connect with specialized Web3 developers, designers, and marketers from around the world.
                 </p>
               </div>
@@ -68,10 +68,10 @@ const JobsPage = () => {
           <div className="grid md:grid-cols-2 gap-16">
             {/* Left Content */}
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-6 tracking-tighter">
                 Find Your Next Web3 Opportunity
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-600 tracking-tight">
                 Web3 freelancing thrives on decentralized collaboration and specialized skills. Find projects that match your expertise.
               </p>
             </div>
@@ -86,7 +86,7 @@ const JobsPage = () => {
                   </svg>
                   <h3 className="text-xl font-medium text-gray-900">Verified Clients</h3>
                 </div>
-                <p className="text-gray-600">
+                <p className="text-gray-600 tracking-tight">
                   Every client is verified through our Web3 identity system, ensuring legitimate projects and secure payments.
                 </p>
               </div>
@@ -99,7 +99,7 @@ const JobsPage = () => {
                   </svg>
                   <h3 className="text-xl font-medium text-gray-900">Crypto Payments</h3>
                 </div>
-                <p className="text-gray-600">
+                <p className="text-gray-600 tracking-tight">
                   Get paid in your preferred cryptocurrency with low fees and near-instant global transfers.
                 </p>
               </div>
@@ -114,7 +114,7 @@ const JobsPage = () => {
           <div className="grid md:grid-cols-2 gap-12">
             {/* Freelancer Roles Section */}
             <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-              <h3 className="text-xl font-semibold mb-6 flex items-center">
+              <h3 className="text-xl font-medium mb-6 flex items-center tracking-tight">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
