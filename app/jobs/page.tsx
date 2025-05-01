@@ -1,4 +1,4 @@
-I'm import React from "react";
+import React from "react";
 import { LucideUser, MoveUpRight } from "lucide-react";
 
 const JobsPage = () => {
