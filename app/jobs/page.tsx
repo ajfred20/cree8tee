@@ -1,4 +1,5 @@
 import React from "react";
+import Image from 'next/image';
 import { LucideUser, MoveUpRight } from "lucide-react";
 
 const JobsPage = () => {
