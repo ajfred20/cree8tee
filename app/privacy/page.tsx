@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export default function PrivacyPolicy() {
   // Last updated date
-  const lastUpdated = "April 6, 2023";
+  const lastUpdated = "April 6, 2025";
 
   // State for active section (for mobile scrolling)
   const [activeSection, setActiveSection] = useState("01");

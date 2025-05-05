@@ -1,6 +1,7 @@
 import { AuthProvider } from "@/lib/auth/AuthContext";
 import "@/app/globals.css";
 import type { Metadata } from "next";
+import { JobsProvider } from "@/contexts/JobsContext";
 
 export const metadata: Metadata = {
   title: "Hustle - Web3 Talent at your fingertips",
@@ -40,7 +41,9 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <JobsProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </JobsProvider>
       </body>
     </html>
   );

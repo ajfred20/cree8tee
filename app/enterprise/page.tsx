@@ -51,7 +51,7 @@ export default function EnterprisePage() {
 
           <div className="flex items-center justify-center gap-2 text-white/70 mb-6">
             <Clock className="w-5 h-5" />
-            <p className="text-sm">Expected launch: Q3 2023</p>
+            <p className="text-sm">Expected launch: Q3 2025</p>
           </div>
 
           <div className="mt-8 flex flex-col md:flex-row gap-4 justify-center">
