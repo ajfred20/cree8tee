@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Check, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/lib/auth/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,8 +16,12 @@ export default function SignupPage() {
   const [step, setStep] = useState(1);
   const [error, setError] = useState("");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [civicLoaded, setCivicLoaded] = useState(false);
+  const [civicInitialized, setCivicInitialized] = useState(false);
+  const [civicButton, setCivicButton] = useState<any>(null);
 
   const { signup, loading } = useAuth();
+  const router = useRouter();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -57,6 +62,139 @@ export default function SignupPage() {
     } catch (error: any) {
       setError(error.message || "Failed to create account");
     }
+  };
+
+  useEffect(() => {
+    const loadCivicScript = async () => {
+      if (typeof window !== "undefined" && !window.civic) {
+        const script = document.createElement("script");
+        script.src = "https://hosted-sip.civic.com/js/civic.sip.min.js";
+        script.async = true;
+        script.onload = () => setCivicLoaded(true);
+        document.body.appendChild(script);
+      } else {
+        setCivicLoaded(true);
+      }
+    };
+
+    loadCivicScript();
+  }, []);
+
+  useEffect(() => {
+    // Load Civic Auth SDK
+    const initCivic = async () => {
+      if (typeof window !== "undefined" && !civicInitialized && userType) {
+        try {
+          const CivicAuth = (await import("@civic/auth")).default;
+
+          // Initialize Civic Auth
+          const civicAuth = new CivicAuth({
+            clientId: process.env.NEXT_PUBLIC_CIVIC_CLIENT_ID as string,
+            redirectUrl: window.location.origin + "/auth/callback",
+            chainConfig: {
+              solana: {
+                network: "mainnet",
+              },
+            },
+          });
+
+          // Create Civic button instance
+          const button = civicAuth.mountButton({
+            selector: "#civic-button-container",
+            buttonConfig: {
+              variant: "default",
+              size: "lg",
+              text: "Continue with Civic",
+            },
+          });
+
+          // Handle authentication
+          button.on("auth", async (authEvent) => {
+            try {
+              const { token } = authEvent;
+
+              // Send token to your API for verification
+              const response = await fetch("/api/auth/civic-verify", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ token, userType }),
+              });
+
+              const data = await response.json();
+              if (data.success) {
+                // Redirect to dashboard or appropriate page
+                router.push("/dashboard");
+              } else {
+                setError(data.message || "Failed to authenticate with Civic");
+              }
+            } catch (error) {
+              setError("Error authenticating with Civic");
+            }
+          });
+
+          setCivicButton(button);
+          setCivicInitialized(true);
+        } catch (error) {
+          console.error("Failed to load Civic Auth:", error);
+        }
+      }
+    };
+
+    if (userType) {
+      initCivic();
+    }
+
+    return () => {
+      // Cleanup
+      if (civicButton) {
+        civicButton.unmount();
+      }
+    };
+  }, [civicInitialized, userType, router]);
+
+  const handleCivicAuth = () => {
+    if (!civicLoaded) return;
+
+    const civic = new window.civic.sip({
+      applicationId: process.env.NEXT_PUBLIC_CIVIC_APP_ID,
+    });
+
+    civic.on("auth-code-received", async (event) => {
+      try {
+        const response = await fetch("/api/auth/civic-verify", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token: event.response,
+            userType: userType,
+          }),
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          // Handle successful signup
+          // This will depend on your auth implementation
+        } else {
+          setError(data.message || "Failed to authenticate with Civic");
+        }
+      } catch (error) {
+        setError("Error authenticating with Civic");
+      }
+    });
+
+    civic.on("user-cancelled", () => {
+      setError("Civic authentication was cancelled");
+    });
+
+    civic.on("civic-sip-error", (error) => {
+      setError(`Civic error: ${error.message}`);
+    });
+
+    civic.signup({ style: "popup", redirectUrl: window.location.href });
   };
 
   return (
@@ -357,7 +495,7 @@ export default function SignupPage() {
 
               <button
                 type="button"
-                className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors mb-3"
               >
                 <Image
                   src="/assets/google.png"
@@ -368,6 +506,42 @@ export default function SignupPage() {
                 />
                 <span>Continue with Google</span>
               </button>
+
+              {/* Civic Auth Button Container */}
+              <div id="civic-button-container" className="w-full"></div>
+
+              {/* Fallback button in case Civic doesn't load */}
+              {!civicInitialized && (
+                <button
+                  type="button"
+                  className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                >
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40Z"
+                      fill="#3AB03E"
+                    />
+                    <path
+                      d="M28.0893 15.5547H25.7656V24.668H28.0893V15.5547Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M15.1113 16.7773C13.3336 16.7773 11.9082 18.2441 11.9082 20.1113C11.9082 21.9785 13.3336 23.4453 15.1113 23.4453C16.889 23.4453 18.3144 21.9785 18.3144 20.1113C18.3144 18.2441 16.889 16.7773 15.1113 16.7773ZM15.1113 26H11.9082V30.2227H15.1113V26Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M21.5566 12H18.3535V30.2227H21.5566V12Z"
+                      fill="white"
+                    />
+                  </svg>
+                  <span>Continue with Civic</span>
+                </button>
+              )}
             </form>
           )}
 

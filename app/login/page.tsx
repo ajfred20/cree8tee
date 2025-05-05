@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
@@ -14,6 +14,80 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const { login, loading } = useAuth();
   const router = useRouter();
+  const [civicInitialized, setCivicInitialized] = useState(false);
+  const [civicButton, setCivicButton] = useState<any>(null);
+
+  useEffect(() => {
+    // Load Civic Auth SDK
+    const initCivic = async () => {
+      if (typeof window !== "undefined" && !civicInitialized) {
+        try {
+          const CivicAuth = (await import("@civic/auth")).default;
+
+          // Initialize Civic Auth
+          const civicAuth = new CivicAuth({
+            clientId: process.env.NEXT_PUBLIC_CIVIC_CLIENT_ID as string,
+            redirectUrl: window.location.origin + "/auth/callback", // You'll need a callback route
+            chainConfig: {
+              solana: {
+                network: "mainnet",
+              },
+            },
+          });
+
+          // Create Civic button instance
+          const button = civicAuth.mountButton({
+            selector: "#civic-button-container",
+            buttonConfig: {
+              variant: "default",
+              size: "lg",
+              text: "Continue with Civic",
+            },
+          });
+
+          // Handle authentication
+          button.on("auth", async (authEvent) => {
+            try {
+              const { token } = authEvent;
+
+              // Send token to your API for verification
+              const response = await fetch("/api/auth/civic-verify", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ token }),
+              });
+
+              const data = await response.json();
+              if (data.success) {
+                // Redirect to dashboard or appropriate page
+                router.push("/dashboard");
+              } else {
+                setError(data.message || "Failed to authenticate with Civic");
+              }
+            } catch (error) {
+              setError("Error authenticating with Civic");
+            }
+          });
+
+          setCivicButton(button);
+          setCivicInitialized(true);
+        } catch (error) {
+          console.error("Failed to load Civic Auth:", error);
+        }
+      }
+    };
+
+    initCivic();
+
+    return () => {
+      // Cleanup
+      if (civicButton) {
+        civicButton.unmount();
+      }
+    };
+  }, [civicInitialized, router]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -171,7 +245,7 @@ export default function LoginPage() {
 
             <button
               type="button"
-              className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+              className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors mb-3"
             >
               <Image
                 src="/assets/google.png"
@@ -182,6 +256,42 @@ export default function LoginPage() {
               />
               <span>Continue with Google</span>
             </button>
+
+            {/* Civic Auth Button Container */}
+            <div id="civic-button-container" className="w-full"></div>
+
+            {/* Fallback button in case Civic doesn't load */}
+            {!civicInitialized && (
+              <button
+                type="button"
+                className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+              >
+                <svg
+                  className="w-5 h-5 mr-2"
+                  viewBox="0 0 40 40"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40Z"
+                    fill="#3AB03E"
+                  />
+                  <path
+                    d="M28.0893 15.5547H25.7656V24.668H28.0893V15.5547Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M15.1113 16.7773C13.3336 16.7773 11.9082 18.2441 11.9082 20.1113C11.9082 21.9785 13.3336 23.4453 15.1113 23.4453C16.889 23.4453 18.3144 21.9785 18.3144 20.1113C18.3144 18.2441 16.889 16.7773 15.1113 16.7773ZM15.1113 26H11.9082V30.2227H15.1113V26Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M21.5566 12H18.3535V30.2227H21.5566V12Z"
+                    fill="white"
+                  />
+                </svg>
+                <span>Continue with Civic</span>
+              </button>
+            )}
           </form>
 
           <div className="mt-8 text-center text-xs text-gray-500">
