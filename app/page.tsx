@@ -179,7 +179,7 @@ export default function Page() {
               className="ml-2 underline text-white/90 hover:text-white items-center font-normal tracking-tight hidden sm:flex"
             >
               Sign up <ArrowUpRight className="w-3 h-3 ml-1" />
-        </Link>
+            </Link>
           </div>
           <button
             onClick={() => setShowAnnouncement(false)}
@@ -201,7 +201,7 @@ export default function Page() {
               height={40}
               className="h-10 w-auto"
             />
-            </Link>
+          </Link>
 
           {/* Mobile menu button */}
           <button
@@ -255,7 +255,7 @@ export default function Page() {
                         <p className="text-xs text-gray-500">
                           Find the perfect match
                         </p>
-            </Link>
+                      </Link>
                       <Link
                         href="/browse-talent"
                         className="block px-4 py-2 hover:bg-gray-50 rounded"
@@ -266,7 +266,7 @@ export default function Page() {
                         <p className="text-xs text-gray-500">
                           Review portfolios
                         </p>
-            </Link>
+                      </Link>
                       <Link
                         href="/project-catalog"
                         className="block px-4 py-2 hover:bg-gray-50 rounded"
@@ -277,8 +277,8 @@ export default function Page() {
                         <p className="text-xs text-gray-500">
                           Fixed-price projects
                         </p>
-            </Link>
-          </div>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               )}
@@ -315,7 +315,7 @@ export default function Page() {
                       </h3>
                     </div>
                     <div className="p-2">
-          <Link
+                      <Link
                         href="/jobs"
                         className="block px-4 py-2 hover:bg-gray-50 rounded"
                       >
@@ -325,7 +325,7 @@ export default function Page() {
                         <p className="text-xs text-gray-500">
                           Browse opportunities
                         </p>
-          </Link>
+                      </Link>
                       <Link
                         href="/saved-jobs"
                         className="block px-4 py-2 hover:bg-gray-50 rounded"
@@ -336,7 +336,7 @@ export default function Page() {
                         <p className="text-xs text-gray-500">
                           View your bookmarks
                         </p>
-            </Link>
+                      </Link>
                       <Link
                         href="/proposals"
                         className="block px-4 py-2 hover:bg-gray-50 rounded"
@@ -347,7 +347,7 @@ export default function Page() {
                         <p className="text-xs text-gray-500">
                           Track your applications
                         </p>
-            </Link>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -395,7 +395,7 @@ export default function Page() {
                         <p className="text-xs text-gray-500">
                           Client testimonials
                         </p>
-            </Link>
+                      </Link>
                       <Link
                         href="/reviews"
                         className="block px-4 py-2 hover:bg-gray-50 rounded"
@@ -406,7 +406,7 @@ export default function Page() {
                         <p className="text-xs text-gray-500">
                           What clients say
                         </p>
-            </Link>
+                      </Link>
                       <Link
                         href="/platform-benefits"
                         className="block px-4 py-2 hover:bg-gray-50 rounded"
@@ -417,12 +417,12 @@ export default function Page() {
                         <p className="text-xs text-gray-500">
                           Learn why Hustle works
                         </p>
-            </Link>
-          </div>
-        </div>
-            </div>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               )}
-          </div>
+            </div>
 
             <div
               className="relative group"
@@ -494,12 +494,12 @@ export default function Page() {
               )}
             </div>
 
-          <Link
+            <Link
               href="/enterprise"
               className="text-gray-800 hover:text-purple-600 font-medium text-sm py-2"
-          >
+            >
               Enterprise
-          </Link>
+            </Link>
 
             <Link
               href="/pricing"
@@ -522,8 +522,8 @@ export default function Page() {
               >
                 Get Started
               </Link>
-                </div>
-              </div>
+            </div>
+          </div>
 
           {/* Mobile Navigation Overlay */}
           {mobileMenuOpen && (
@@ -557,7 +557,7 @@ export default function Page() {
                       />
                     </svg>
                   </button>
-              </div>
+                </div>
 
                 {/* Mobile Navigation Items - Matching the image style */}
                 <div className="space-y-6">
@@ -578,7 +578,7 @@ export default function Page() {
                         />
                       </svg>
                     </button>
-                </div>
+                  </div>
                   <div className="border-b pb-2">
                     <button className="flex items-center justify-between w-full py-2">
                       <span className="text-base font-medium">Find work</span>
@@ -596,7 +596,7 @@ export default function Page() {
                         />
                       </svg>
                     </button>
-              </div>
+                  </div>
                   <div className="border-b pb-2">
                     <button className="flex items-center justify-between w-full py-2">
                       <span className="text-base font-medium">Why Hustle</span>
@@ -614,7 +614,7 @@ export default function Page() {
                         />
                       </svg>
                     </button>
-            </div>
+                  </div>
                   <div className="border-b pb-2">
                     <button className="flex items-center justify-between w-full py-2">
                       <span className="text-base font-medium">What's new</span>
@@ -632,7 +632,7 @@ export default function Page() {
                         />
                       </svg>
                     </button>
-          </div>
+                  </div>
                   <div className="border-b pb-2">
                     <Link
                       href="/enterprise"
@@ -640,7 +640,7 @@ export default function Page() {
                     >
                       Enterprise
                     </Link>
-        </div>
+                  </div>
                   <div className="border-b pb-2">
                     <Link
                       href="/pricing"
@@ -648,8 +648,8 @@ export default function Page() {
                     >
                       Pricing
                     </Link>
-            </div>
-          </div>
+                  </div>
+                </div>
 
                 {/* Mobile Action Buttons */}
                 <div className="mt-8 space-y-4">
@@ -667,7 +667,7 @@ export default function Page() {
                   >
                     Get Started
                   </Link>
-        </div>
+                </div>
               </div>
             </div>
           )}
@@ -685,16 +685,17 @@ export default function Page() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-black max-w-4xl leading-tight mb-4 md:mb-6">
-            Discover the Future <br className="hidden sm:block" />
-            of Freelancing: Web3
+            The first freelance platform where you own your reputation,{" "}
             <br className="hidden sm:block" />
-            Talent at your fingertips.
+            get paid in crypto, and keep
+            <br className="hidden sm:block" />
+            almost all your earnings.
           </h1>
 
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mb-6 md:mb-8 font-normal tracking-tight px-4 sm:px-0">
-            Experience the power of blockchain-based freelancing and discover a
-            new world of opportunities. Get instant access to a network of
-            talented freelancers who will help you stay ahead of the curve.
+            No middlemen. No banks. Just AI-matched gigs, on-chain reputation,
+            and instant crypto payouts. Get instant access to a new world of
+            opportunities that will help you stay ahead of the curve.
           </p>
 
           <Link
@@ -703,7 +704,7 @@ export default function Page() {
           >
             GET STARTED
           </Link>
-          </div>
+        </div>
 
         {/* Hero Image - Responsive */}
         <div className="relative w-full h-[300px] sm:h-[400] md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden">
@@ -803,45 +804,45 @@ export default function Page() {
             {/* Projects completed */}
             <div className="text-center">
               <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.1em] text-black mb-2">
-                50+
+                200+
               </h3>
               <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
-                Projects completed
-            </p>
-          </div>
+                Smart Contracts Audited
+              </p>
+            </div>
 
             {/* Return on investment */}
             <div className="text-center">
               <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.1em] text-black mb-2">
-                85%
+                2K+
               </h3>
               <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
-                Client satisfaction
+                On-chain Reputation Profiles
               </p>
-        </div>
+            </div>
 
             {/* Global freelancers */}
             <div className="text-center">
               <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.1em] text-black mb-2">
-                100+
+                98%
               </h3>
               <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
-                Beta testers
-            </p>
-          </div>
+                Retention Fee
+              </p>
+            </div>
 
             {/* 5-star reviews */}
             <div className="text-center">
               <h3 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.1em] text-black mb-2">
-                30+
+                20+
               </h3>
               <p className="text-sm md:text-base font-medium tracking-tight text-gray-600">
-                Web3 skills
-            </p>
+                DAOs actively hiring
+              </p>
+            </div>
           </div>
         </div>
-        </div>
-          </div>
+      </div>
 
       {/* How It Works Section - After Metrics */}
       <div className="py-16 md:py-24 bg-gray-50">
@@ -858,7 +859,7 @@ export default function Page() {
                 }}
                 transition={{ duration: 0.5 }}
               >
-              <Image
+                <Image
                   src="/assets/freelancer-illustration.svg"
                   alt="Web3 freelancer working"
                   fill
@@ -962,12 +963,12 @@ export default function Page() {
                         className="size-6"
                       >
                         <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"
-                      />
-                    </svg>
-                  </div>
+                        />
+                      </svg>
+                    </div>
                     <div className="ml-4">
                       <h3 className="text-xl font-medium text-black mb-1">
                         Showcase your Web3 skills
@@ -977,8 +978,8 @@ export default function Page() {
                         and stand out to potential clients looking for
                         specialized talent.
                       </p>
-              </div>
-            </div>
+                    </div>
+                  </div>
 
                   <div className="flex items-start">
                     <div className="flex-shrink-0 mt-1 text-purple-600">
@@ -990,13 +991,13 @@ export default function Page() {
                         stroke="currentColor"
                         className="size-6"
                       >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"
-                      />
-                    </svg>
-                  </div>
+                        />
+                      </svg>
+                    </div>
                     <div className="ml-4">
                       <h3 className="text-xl font-medium text-black mb-1">
                         Get paid in crypto
@@ -1006,8 +1007,8 @@ export default function Page() {
                         our secure escrow system that protects both you and your
                         clients.
                       </p>
-              </div>
-            </div>
+                    </div>
+                  </div>
 
                   <div className="flex items-start">
                     <div className="flex-shrink-0 text-purple-600 mt-1">
@@ -1019,13 +1020,13 @@ export default function Page() {
                         stroke="currentColor"
                         className="size-6"
                       >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
-                      />
-                    </svg>
-                  </div>
+                        />
+                      </svg>
+                    </div>
                     <div className="ml-4">
                       <h3 className="text-xl font-medium text-black mb-1">
                         Join a community of experts
@@ -1035,8 +1036,8 @@ export default function Page() {
                         knowledge, and collaborate on cutting-edge Web3
                         projects.
                       </p>
-              </div>
-            </div>
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -1051,14 +1052,14 @@ export default function Page() {
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           strokeWidth="2"
                           d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                         ></path>
-                    </svg>
-                  </div>
+                      </svg>
+                    </div>
                     <div className="ml-4">
                       <h3 className="text-xl font-medium text-black mb-1">
                         Find pre-vetted Web3 talent
@@ -1068,8 +1069,8 @@ export default function Page() {
                         contract auditors, and Web3 designers who have been
                         verified for quality.
                       </p>
-              </div>
-            </div>
+                    </div>
+                  </div>
 
                   <div className="flex items-start">
                     <div className="flex-shrink-0 mt-1">
@@ -1080,14 +1081,14 @@ export default function Page() {
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           strokeWidth="2"
                           d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                         ></path>
-                    </svg>
-                  </div>
+                      </svg>
+                    </div>
                     <div className="ml-4">
                       <h3 className="text-xl font-medium text-black mb-1">
                         Post projects with ease
@@ -1097,8 +1098,8 @@ export default function Page() {
                         perfect freelancers who have the exact skills you're
                         looking for.
                       </p>
-            </div>
-          </div>
+                    </div>
+                  </div>
 
                   <div className="flex items-start">
                     <div className="flex-shrink-0 mt-1">
@@ -1116,7 +1117,7 @@ export default function Page() {
                           d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                         ></path>
                       </svg>
-        </div>
+                    </div>
                     <div className="ml-4">
                       <h3 className="text-xl font-medium text-black mb-1">
                         Secure milestone payments
@@ -1125,8 +1126,8 @@ export default function Page() {
                         Release payments only when you're satisfied with the
                         work, using our secure escrow system that protects your
                         investment.
-            </p>
-          </div>
+                      </p>
+                    </div>
                   </div>
                 </div>
               )}
@@ -1146,8 +1147,8 @@ export default function Page() {
                     ? "Browse projects"
                     : "Learn how to hire"}
                 </Link>
-          </div>
-        </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1163,16 +1164,16 @@ export default function Page() {
                   <span className="text-purple-300 font-medium">
                     Enterprise Suite
                   </span>
-        </div>
+                </div>
 
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tighter text-white mb-6">
                   This is how
                   <div className="text-purple-300">
                     innovative projects
-            <br />
+                    <br />
                     find innovative talent.
                   </div>
-          </h2>
+                </h2>
 
                 <p className="text-white/80 text-base md:text-lg mb-8">
                   Access the top 1% of Web3 talent on our platform, and a full
@@ -1190,46 +1191,21 @@ export default function Page() {
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        ></path>
-            </svg>
-        </div>
-                    <div className="ml-3">
-                      <p className="text-white text-sm md:text-base">
-                        Access specialized Web3 talent to fill your blockchain
-                        skill gaps
-                      </p>
-                    </div>
-          </div>
-
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 mt-1 text-purple-300">
-                      <svg
-                        className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth="2"
                           d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                         ></path>
-                    </svg>
-                  </div>
+                      </svg>
+                    </div>
                     <div className="ml-3">
                       <p className="text-white text-sm md:text-base">
-                        Streamline your workflow: hire, manage and pay with
-                        crypto or fiat
+                        Access specialized Web3 talent to fill your blockchain
+                        skill gaps
                       </p>
                     </div>
-                </div>
+                  </div>
 
                   <div className="flex items-start">
                     <div className="flex-shrink-0 mt-1 text-purple-300">
@@ -1247,14 +1223,39 @@ export default function Page() {
                           d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                         ></path>
                       </svg>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-white text-sm md:text-base">
+                        Streamline your workflow: hire, manage and pay with
+                        crypto or fiat
+                      </p>
+                    </div>
                   </div>
+
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1 text-purple-300">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
                     <div className="ml-3">
                       <p className="text-white text-sm md:text-base">
                         Partner with Hustle for end-to-end decentralized support
                       </p>
+                    </div>
                   </div>
-                  </div>
-                  </div>
+                </div>
 
                 <Link
                   href="/enterprise"
@@ -1262,7 +1263,7 @@ export default function Page() {
                 >
                   Learn more
                 </Link>
-                  </div>
+              </div>
 
               {/* Right side - Image */}
               <div className="relative h-[300px] md:h-full">
@@ -1272,11 +1273,11 @@ export default function Page() {
                   fill
                   className="object-cover"
                 />
-                  </div>
-                  </div>
+              </div>
+            </div>
           </div>
-                  </div>
-                </div>
+        </div>
+      </div>
 
       {/* Find Talent/Work Your Way Section - After Enterprise Section */}
       <div className="py-16 md:py-24 bg-white">
@@ -1297,8 +1298,8 @@ export default function Page() {
               <div className="mb-4">
                 <span className="text-white/80 font-medium">
                   For freelancers
-                    </span>
-                  </div>
+                </span>
+              </div>
 
               <h2 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tighter text-white mb-6 leading-tight">
                 Find work
@@ -1323,8 +1324,8 @@ export default function Page() {
                     <div className="flex items-center mt-4 text-white/80 group-hover:text-purple-600">
                       <span className="text-sm">Job Board™</span>
                       <ArrowRight className="w-4 h-4 ml-2" />
+                    </div>
                   </div>
-                </div>
                 </Link>
 
                 <Link href="#" className="block">
@@ -1366,7 +1367,7 @@ export default function Page() {
           <div className="flex flex-col md:flex-row">
             {/* Left side - Navigation */}
             <div className="md:w-1/4 mb-8 md:mb-0">
-                  <div className="space-y-4">
+              <div className="space-y-4">
                 <button
                   onClick={() => setActiveSkillTab("top")}
                   className={`text-2xl font-medium tracking-tight ${
@@ -1376,7 +1377,7 @@ export default function Page() {
                   } text-left w-full`}
                 >
                   Top skills
-                    </button>
+                </button>
                 <button
                   onClick={() => setActiveSkillTab("trending")}
                   className={`text-2xl font-medium tracking-tight ${
@@ -1396,9 +1397,9 @@ export default function Page() {
                   } text-left w-full`}
                 >
                   Top skills in Nigeria
-                    </button>
-                  </div>
-                </div>
+                </button>
+              </div>
+            </div>
 
             {/* Right side - Skills lists */}
             {activeSkillTab === "trending" && (
@@ -1464,7 +1465,7 @@ export default function Page() {
                   >
                     Regenerative Finance
                   </Link>
-              </div>
+                </div>
 
                 <div className="space-y-4">
                   <Link
@@ -1527,7 +1528,7 @@ export default function Page() {
                   >
                     Sovereign Rollups
                   </Link>
-            </div>
+                </div>
               </div>
             )}
 
@@ -1903,7 +1904,7 @@ export default function Page() {
                         className="w-5 h-5"
                         fill="none"
                         stroke="currentColor"
-                      viewBox="0 0 24 24"
+                        viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
@@ -1926,15 +1927,15 @@ export default function Page() {
                     <div className="flex-shrink-0 mt-1 text-fuchsia-300">
                       <svg
                         className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
+                        fill="none"
+                        stroke="currentColor"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                      strokeWidth="2"
+                          strokeWidth="2"
                           d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                         ></path>
                       </svg>
@@ -1961,8 +1962,8 @@ export default function Page() {
                           strokeWidth="2"
                           d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                         ></path>
-                    </svg>
-                  </div>
+                      </svg>
+                    </div>
                     <div className="ml-3">
                       <p className="text-white text-sm md:text-base">
                         Get paid securely through smart contracts with crypto or
@@ -2065,7 +2066,7 @@ export default function Page() {
                     </div>
                   </motion.div>
                 ))}
-                </div>
+              </div>
 
               <div className="flex mt-6 md:mt-8">
                 <button
@@ -2104,7 +2105,7 @@ export default function Page() {
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </button>
-                  </div>
+              </div>
 
               {/* Testimonial indicators */}
               <div className="flex justify-center mt-6 space-x-2">
@@ -2119,8 +2120,8 @@ export default function Page() {
                     onClick={() => setCurrentTestimonial(index)}
                   />
                 ))}
-                  </div>
-                  </div>
+              </div>
+            </div>
 
             {/* Testimonial Image - Changes with testimonial */}
             <div className="relative h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] rounded-xl overflow-hidden order-1 md:order-2 mb-6 md:mb-0">
@@ -2142,10 +2143,10 @@ export default function Page() {
                   />
                 </motion.div>
               ))}
-                  </div>
-                  </div>
-                  </div>
-                </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* FAQ Section */}
       <div className="py-16 md:py-24 bg-gray-50">
@@ -2210,7 +2211,7 @@ export default function Page() {
                     </p>
                   </div>
                 )}
-                </div>
+              </div>
 
               {/* FAQ Item 2 */}
               <div className="border-b border-gray-200 pb-6">
@@ -2225,7 +2226,7 @@ export default function Page() {
                     <h3 className="text-base sm:text-lg font-medium tracking-tighter">
                       Can I pay freelancers with cryptocurrency?
                     </h3>
-                    </div>
+                  </div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -2255,7 +2256,7 @@ export default function Page() {
                     </p>
                   </div>
                 )}
-                  </div>
+              </div>
 
               {/* FAQ Item 3 */}
               <div className="border-b border-gray-200 pb-6">
@@ -2287,7 +2288,7 @@ export default function Page() {
                       d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                     />
                   </svg>
-                  </button>
+                </button>
 
                 {openFaq === 3 && (
                   <div className="mt-4 pl-4 sm:pl-12 text-gray-600">
@@ -2298,7 +2299,7 @@ export default function Page() {
                       Web2 to Web3. You can start with smaller projects and
                       build your portfolio as you gain experience.
                     </p>
-                </div>
+                  </div>
                 )}
               </div>
 
@@ -2315,7 +2316,7 @@ export default function Page() {
                     <h3 className="text-base sm:text-lg font-medium tracking-tighter">
                       How are platform fees structured?
                     </h3>
-            </div>
+                  </div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -2343,9 +2344,9 @@ export default function Page() {
                       ongoing hiring needs, which can reduce fees further. There
                       are no hidden charges or withdrawal fees.
                     </p>
-          </div>
+                  </div>
                 )}
-        </div>
+              </div>
 
               {/* FAQ Item 5 */}
               <div className="border-b border-gray-200 pb-6">
@@ -2395,7 +2396,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-          </div>
+      </div>
 
       {/* Footer */}
       <footer className="bg-purple-800 text-white py-16 max-w-7xl mx-auto px-4 sm:px-6 rounded-lg mb-12">
@@ -2408,12 +2409,12 @@ export default function Page() {
               </h3>
               <ul className="space-y-4">
                 <li>
-            <Link
-              href="#"
+                  <Link
+                    href="#"
                     className="text-gray-100 hover:text-white tracking-tight transition-colors"
-            >
+                  >
                     How to hire
-            </Link>
+                  </Link>
                 </li>
                 <li>
                   <Link
@@ -2440,7 +2441,7 @@ export default function Page() {
                   </Link>
                 </li>
               </ul>
-          </div>
+            </div>
 
             {/* For Talent */}
             <div>
@@ -2463,12 +2464,12 @@ export default function Page() {
                   </Link>
                 </li>
                 <li>
-            <Link
-              href="#"
+                  <Link
+                    href="#"
                     className="text-gray-100 hover:text-white tracking-tight transition-colors"
-            >
+                  >
                     Earn with crypto
-            </Link>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -2541,21 +2542,21 @@ export default function Page() {
                   </Link>
                 </li>
               </ul>
+            </div>
           </div>
-        </div>
 
           <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-gray-800">
             <div className="flex items-center mb-4 md:mb-0">
               <p className="text-gray-100 text-sm">Follow us</p>
               <div className="flex space-x-4 ml-4">
-              <Link
-                href="#"
+                <Link
+                  href="#"
                   className="text-gray-100 hover:text-purple-400 transition-colors"
-              >
-                <Facebook className="w-5 h-5" />
-              </Link>
-              <Link
-                href="#"
+                >
+                  <Facebook className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="#"
                   className="text-gray-100 hover:text-purple-400 transition-colors"
                 >
                   <Linkedin className="w-5 h-5" />
@@ -2563,11 +2564,11 @@ export default function Page() {
                 <Link
                   href="#"
                   className="text-gray-100 hover:text-purple-400 transition-colors"
-              >
-                <Twitter className="w-5 h-5" />
-              </Link>
-              <Link
-                href="#"
+                >
+                  <Twitter className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="#"
                   className="text-gray-100 hover:text-purple-400 transition-colors"
                 >
                   <Youtube className="w-5 h-5" />
@@ -2575,12 +2576,12 @@ export default function Page() {
                 <Link
                   href="#"
                   className="text-gray-100 hover:text-purple-400 transition-colors"
-              >
-                <Instagram className="w-5 h-5" />
-              </Link>
+                >
+                  <Instagram className="w-5 h-5" />
+                </Link>
               </div>
             </div>
-            </div>
+          </div>
 
           <div className="flex flex-col md:flex-row items-center justify-between pt-8 text-sm text-gray-100">
             <p>© {new Date().getFullYear()} Hustle Inc.</p>
